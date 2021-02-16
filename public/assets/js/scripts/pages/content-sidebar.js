@@ -1,0 +1,3 @@
+$(document).ready(function(){var sm_options={start:[30,70],behaviour:'drag',connect:true,range:{'min':20,'max':80}};var smallSlider=document.getElementById('small-slider');noUiSlider.create(smallSlider,sm_options);$.fn.raty.defaults.path='../../../app-assets/images/raty/';$('#score-rating').raty({score:3});if($(".sidebar-sticky").length){var headerNavbarHeight,footerNavbarHeight;if($("body").hasClass('content-right-sidebar')||$("body").hasClass('content-left-sidebar')){headerNavbarHeight=$('.header-navbar').height();footerNavbarHeight=$('footer.footer').height();}
+else{headerNavbarHeight=$('.header-navbar').height()+24;footerNavbarHeight=$('footer.footer').height()+10;}
+$(".sidebar-sticky").sticky({topSpacing:headerNavbarHeight,bottomSpacing:footerNavbarHeight});}});

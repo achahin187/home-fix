@@ -1,0 +1,66 @@
+.dt-buttons {
+    float: left
+}
+
+.width-100-per {
+    width: 100% !important
+}
+
+.height-100-per {
+    height: 100% !important
+}
+
+.ui-tooltip {
+    font-weight: 700;
+    padding: .5% 1%;
+    color: #fff;
+    border-radius: 10%;
+    background: #2c303b;
+    -webkit-box-shadow: 0 14px 24px #3e396b33;
+    box-shadow: 0 14px 24px #3e396b33;
+    z-index: 999
+}
+
+input[type=radio]:checked+img.img-thumbnail {
+    border: .2em solid #666ee8
+}
+
+#finder-content {
+    height: 25vw;
+    overflow-y: scroll
+}
+
+th.dt-center,
+td.dt-center {
+    text-align: center
+}
+
+[name=name_en] {
+    direction: ltr
+}
+
+[name=name_ar] {
+    direction: rtl
+}
+
+[name=description_en] {
+    direction: ltr
+}
+
+[name=description_ar] {
+    direction: rtl
+}
+
+.data_to_fit {
+    display: inline-block;
+    white-space: nowrap
+}
+
+html body .content .content-wrapper {
+    padding: 1.25rem 2.2rem
+}
+
+.card-header .heading-elements a,
+.card-header .heading-elements-toggle a {
+    padding: 1rem 0
+}

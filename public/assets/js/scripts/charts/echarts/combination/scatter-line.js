@@ -1,0 +1,7 @@
+$(window).on("load",function(){require.config({paths:{echarts:'../../../app-assets/vendors/js/charts/echarts'}});require(['echarts','echarts/chart/bar','echarts/chart/line','echarts/chart/scatter','echarts/chart/pie'],function(ec){var myChart=ec.init(document.getElementById('scatter-line'));chartOptions={grid:{x:40,x2:40,y:45,y2:25},tooltip:{trigger:'axis'},calculable:true,dataRange:{min:0,max:100,orient:'horizontal',y:'top',color:['#00A5A8','#FF7D4D'],splitNumber:5},xAxis:[{type:'category',boundaryGap:false,data:function(){var list=[];for(var i=1;i<=30;i++){list.push('2013-03-'+i);}
+return list;}()},{type:'value',scale:true,splitNumber:29,axisLabel:{show:false},splitLine:{show:false}}],yAxis:[{type:'value'},{type:'value'}],animation:false,series:[{name:'Scatter',type:'scatter',tooltip:{trigger:'item',formatter:function(params){return '2013-03-'+params.value[0]+'<br/>'
++params.seriesName+' : '
++params.value[1]+', '
++params.value[2];}},yAxisIndex:1,xAxisIndex:1,symbol:'circle',symbolSize:function(value){return Math.round(value[2]/10);},data:(function(){var d=[];var len=200;var value;while(len--){d.push([Math.round(Math.random()*29)+1,(Math.random()*30).toFixed(2)-0,(Math.random()*100).toFixed(2)-0]);}
+return d;})()},{name:'Line',type:'line',data:function(){var list=[];for(var i=1;i<=30;i++){list.push(Math.round(Math.random()*30));}
+return list;}()}]};myChart.setOption(chartOptions);$(function(){$(window).on('resize',resize);$(".menu-toggle").on('click',resize);function resize(){setTimeout(function(){myChart.resize();},200);}});});});

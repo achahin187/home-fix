@@ -1,0 +1,1 @@
+$(window).on("load",function(){var gridLines=c3.generate({bindto:'#grid-lines',size:{height:400},color:{pattern:['#673AB7','#E91E63']},data:{columns:[['sample',30,200,100,400,150,250,120,200]]},grid:{x:{show:true},y:{show:true}}});$(".menu-toggle").on('click',function(){gridLines.resize();});});

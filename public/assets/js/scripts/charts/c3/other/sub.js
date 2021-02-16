@@ -1,0 +1,1 @@
+$(window).on("load",function(){var subChart=c3.generate({bindto:'#sub-chart',size:{height:400},color:{pattern:['#673AB7']},data:{columns:[['sample',30,200,100,400,150,250]]},subchart:{show:true},grid:{y:{show:true}}});$(".menu-toggle").on('click',function(){subChart.resize();});});
