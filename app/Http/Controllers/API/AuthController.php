@@ -49,6 +49,7 @@ class AuthController extends Controller
         if ($role !== 'client' && $role !== 'worker') {
             return __error(trans('api.not_found'), 200);
         }
+        
 
         $validator = Validator::make($request->all(), [
             'name'     => 'required|string',

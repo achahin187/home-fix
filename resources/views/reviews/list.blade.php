@@ -68,6 +68,7 @@
                                                 </th>
                                                 <th class="text-center">
                                                     <div id="review-stars_{{$review->id}}"
+                                                        
                                                          title="@lang('admin.the_review')">
                                                     </div>
                                                     @section('before_end')
@@ -101,8 +102,9 @@
                                                         {{ $review->user->name }}
                                                     </a>
                                                 </th>
+
                                                 <th class="text-center">
-                                                    <a @if ($review->order->offer_id === null)
+                                                    <a @if( $review->order->offer_id == null)
                                                        href="{{ route('orders.show', $review->order->id) }}"
                                                        @else
                                                        href="{{ route('offer.order', $review->order->id) }}"
