@@ -23,7 +23,7 @@ return [
     'CANCELED'         => 'CANCELED',
     'BOUGHT'           => 'BOUGHT',
    'CLIENT_ACCEPT' => 'CLIENT ACCEPT',
-       'CLIENT_APPROVE' => 'CLIENT APPROVE ',
+ 'CLIENT_APPROVE' => 'CLIENT APPROVE ',
 
 
 ];

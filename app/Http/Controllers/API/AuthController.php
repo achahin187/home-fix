@@ -98,7 +98,10 @@ class AuthController extends Controller
         $user_address->save();
 
         if ($role === 'worker') {
-            $user->category()->attach($request->category);
+
+            $categories = explode(',', $request->category);
+
+            $user->category()->attach($categories);
             $user->save();
             
             

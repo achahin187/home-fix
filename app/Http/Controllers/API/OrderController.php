@@ -662,7 +662,7 @@ class OrderController extends Controller
         if ($order->worker_id !== null) {
             $type = ((int)$state === 1)
                 ? 'accept_order_note'
-                : 'decline_order_note';
+                : 'decline_order_note'; 
      $language = Auth::user()->language;
                 if ($language == 'arabic') {
                     $message = NotificationType::where('type', $type)
