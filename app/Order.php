@@ -158,7 +158,8 @@ class Order extends Model
             trans('app.PENDING'), trans('app.ACCEPTED'),
             trans('app.ARRIVED'), trans('app.PRICE_VALIDATION'),
             trans('app.STARTED'), trans('app.CHECKING'),
-            trans('app.COMPLETED'), trans('app.CANCELED'),trans('app.CLIENT_ACCEPT') , trans('app.CLIENT_APPROVE')
+            trans('app.COMPLETED'), trans('app.CANCELED'),
+            trans('app.CLIENT_ACCEPT') , trans('app.CLIENT_APPROVE')
         ];
 
         return $status[(int)$this->status] ?: $status[0];

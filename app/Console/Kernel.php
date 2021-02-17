@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {    $schedule->command('notifications:cleanup')->hourly();
-        $schedule->command('offers:cleanup')->everyMinute();
+        $schedule->command('offers:cleanup')->hourly();
         $schedule->command('worker:late')->hourly();
     }
 

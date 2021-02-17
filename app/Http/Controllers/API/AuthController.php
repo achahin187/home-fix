@@ -49,6 +49,7 @@ class AuthController extends Controller
         if ($role !== 'client' && $role !== 'worker') {
             return __error(trans('api.not_found'), 200);
         }
+        
 
         $validator = Validator::make($request->all(), [
             'name'     => 'required|string',
@@ -98,7 +99,10 @@ class AuthController extends Controller
         $user_address->save();
 
         if ($role === 'worker') {
-            $user->category()->attach($request->category);
+
+            $categories = explode(',', $request->category);
+
+            $user->category()->attach($categories);
             $user->save();
             
             
