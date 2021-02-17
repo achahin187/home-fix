@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Country;
 use App\Category;
-
+use App\Mail\ResetPassword;
+use App\Mail\ActivationCode;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use App\Rules\DisposableEmail;
 use App\Rules\Password;
@@ -133,7 +135,11 @@ class AuthController extends Controller
 
         #TODO: SMS Verification Code
         $this->sendSMS($user->phone , $user->activation_key);
-
+        #send mail       
+        Mail::to($user->email)
+            ->send(new ActivationCode($user));
+       
+       
         $this->createPlaceHolderAvatar($user->id, $user->name);
 
         return __success([
@@ -341,6 +347,10 @@ class AuthController extends Controller
 
         #TODO: SMS Password Reset
         $this->sendSMS($user->phone ,'' , 'password' , $new_password);
+        #send mail
+       
+        Mail::to($user->email)
+            ->send(new ResetPassword($new_password));
         return __success(trans('api.password_reset_success'), 200);
     }
 
