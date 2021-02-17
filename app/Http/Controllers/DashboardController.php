@@ -8,7 +8,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Notification;
-
 class DashboardController extends Controller
 {
     /**
@@ -29,6 +28,7 @@ class DashboardController extends Controller
      */
     public function admin()
     {
+       //test
         $workers = User::where([
             ['role', 'worker'],
             ['ban', false],
