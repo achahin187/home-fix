@@ -413,8 +413,17 @@ class OrderController extends Controller
 
             $order->save();
 
-            $state_arr = [
+            // $state_arr = [
+            //     self::ACCEPTED,
+            //     self::COMPLETED,
+            //     self::CANCELED,
+            // ];
+             $state_arr = [
                 self::ACCEPTED,
+                self::ARRIVED,
+                self::PRICE_VALIDATION,
+                self::STARTED,
+                self::CHECKING,
                 self::COMPLETED,
                 self::CANCELED,
             ];
