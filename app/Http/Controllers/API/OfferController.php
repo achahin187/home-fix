@@ -147,7 +147,9 @@ class OfferController extends Controller
                     $order->id
                 );
 
-            $language = Auth::user()->language;
+            //$language = Auth::user()->language;
+            $lang = User::where('id',$order->worker_id)->first();
+            $language = $lang->language;
             if ($language == 'arabic') {
                 $msg = NotificationType::where('type', 'new_order')
                     ->first()->message_ar;
