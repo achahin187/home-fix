@@ -8,6 +8,7 @@ use App\Message;
 use App\NotificationType;
 use App\Offer;
 use App\Order;
+use App\User;
 use App\Service;
 use Avatar;
 use Exception;
@@ -84,8 +85,9 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request)
     {
+        
         $conversation_id = $request->conversation_id;
-
+        //return $conversation_id;
         if ($request->file('message')) {
             $validator = Validator::make(
                 $request->all(),
@@ -137,7 +139,9 @@ class ChatController extends Controller
             ? $order->worker_id
             : $order->client_id;
         if ($order !== null) {
-            $language = Auth::user()->language ; 
+            //$language = Auth::user()->language ; 
+            $lang = User::where('id',$user)->first();
+            $language = $lang->language;
             if ($language == 'arabic'){
                 $msg = NotificationType::where('type', 'new_message')
                 ->first()->message_ar;
@@ -356,7 +360,9 @@ class ChatController extends Controller
             ? $order->worker_id
             : $order->client_id;
         if ($order !== null) {
-            $language = Auth::user()->language ; 
+            //$language = Auth::user()->language ; 
+            $lang = User::where('id',$user)->first();
+            $language = $lang->language;
             if ($language == 'arabic'){
                 $msg = NotificationType::where('type', 'new_message')
                 ->first()->message_ar;
