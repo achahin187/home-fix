@@ -163,6 +163,8 @@ class OrderController extends Controller
                         if ($category->parent_id > 0) {
                             $workers = $category->parent()->first()
                                 ->workers()->get();
+
+                            
                         } else {
                             $workers = $category->workers()->get();
                         }
@@ -171,10 +173,13 @@ class OrderController extends Controller
                     if (count($workers) > 0) {
                         $distances = [];
                         foreach ($workers as $k => $v) {
-                            $x                 = (float)$v->latitude - (float)$request->latitude;
-                            $y                 = (float)$v->longitude - (float)$request->longitude;
-                            $distance          = sqrt(($x ** 2) + ($y ** 2));
-                            $distances[$v->id] = $distance;
+                            if ($v->country_id == Auth::user()->country_id) {
+                                $x                 = (float)$v->latitude - (float)$request->latitude;
+                                $y                 = (float)$v->longitude - (float)$request->longitude;
+                                $distance          = sqrt(($x ** 2) + ($y ** 2));
+                                $distances[$v->id] = $distance;
+                            }
+                           
                         }
                         asort($distances);
     
