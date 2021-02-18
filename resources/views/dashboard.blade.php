@@ -14,7 +14,7 @@
                     <div class="media d-flex">
                         <div class="media-body text-left">
                             <h3 class="info">{{ $total_orders }}</h3>
-                            <h6>{{ trans_choice('admin.order', $total_orders) }}</h6>
+                            <h6>{{ trans_choice('admin.order', $total_orders) }} .</h6>
                         </div>
                         <div>
                             <i class="icon-basket-loaded info font-large-2 float-right"></i>
