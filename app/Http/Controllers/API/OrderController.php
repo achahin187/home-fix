@@ -423,7 +423,9 @@ class OrderController extends Controller
                 && in_array($order->status,
                     $state_arr, false)) {
                         
-                         $language = Auth::user()->language;
+                         //$language = Auth::user()->language;
+                        $lang = User::where('id',$order->client_id)->first();
+                        $language = $lang->language;
                         if ($language == 'arabic') {
                             $message = NotificationType::where('type',  'order_' . $status)
                                 ->first()->message_ar;
@@ -541,7 +543,9 @@ class OrderController extends Controller
         $order->save();
 
         if ($order->worker_id !== null) {
-             $language = Auth::user()->language;
+                //$language = Auth::user()->language;
+                $lang = User::where('id',$order->worker_id)->first();
+                $language = $lang->language;
                 if ($language == 'arabic') {
                     $message = NotificationType::where('type',  'new_order')
                         ->first()->message_ar;
@@ -596,7 +600,9 @@ class OrderController extends Controller
 
         $order = Order::where('id', $id)->first();
         if ($order->client_id !== null) {
-                  $language = Auth::user()->language;
+            //$language = Auth::user()->language;
+            $lang = User::where('id',$order->client_id)->first();
+            $language = $lang->language;
             if ($language == 'arabic') {
                 $message = NotificationType::where('type', 'order_note')
                     ->first()->message_ar;
@@ -665,7 +671,9 @@ class OrderController extends Controller
             $type = ((int)$state === 1)
                 ? 'accept_order_note'
                 : 'decline_order_note'; 
-     $language = Auth::user()->language;
+                //$language = Auth::user()->language;
+                $lang = User::where('id',$order->worker_id)->first();
+                $language = $lang->language;
                 if ($language == 'arabic') {
                     $message = NotificationType::where('type', $type)
                         ->first()->message_ar;
