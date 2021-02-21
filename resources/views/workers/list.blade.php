@@ -164,7 +164,6 @@
                                                 data-ok="@lang('admin.send activation_key')"
                                                 title="@lang('admin.send activation_key')">
                                                 <i class="far fa-paper-plane"></i>
-                                        
                                              </a>
                                         </th>
                                         <th style="border-right: 1px solid #E3EBF3">
