@@ -6,7 +6,8 @@ return [
     | APIs Language Lines
     |--------------------------------------------------------------------------
     */
-
+    'This email or phone number was taken before'=>'This email or phone number was taken before',
+         'This email was taken before' => 'This email was taken before',
     'not_found'              => 'sorry, this page doesn\'t exist',
     'language_notfound'      => 'sorry, this language doesn\'t exist',
     'password_reset_success' => 'a new password is sent to your phone number',
