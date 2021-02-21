@@ -152,7 +152,7 @@
                                                     <i class="ft-user-check" style="color:green"></i>
                                                 @endif
                                             </a>
-
+                                             
                                             <a id="tr_{{$worker->id}}" href="#" class="sendMessage"
                                                 style="padding: 0.25vw;"
                                                 data-url="{{route('sendMessage', $worker->id)}}"
