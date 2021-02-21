@@ -285,6 +285,7 @@ $('.sendMessage').on('click', function(e) {
         }
     });
 });
+
 $("#parent_cat_selector").on('change', function(e) {
     if ($(this).val() > 0) {
         $("#quick_price").addClass('hidden');
