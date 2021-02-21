@@ -225,7 +225,7 @@ $('.verify_user').on('click', function(e) {
     });
 });
 
-$('.send-message').on('click', function(e) {
+$('.sendMessage').on('click', function(e) {
     e.preventDefault();
     var item = $(this),
         page = item.attr('data-url'),

@@ -153,7 +153,7 @@
                                                 @endif
                                             </a>
 
-                                            <a id="tr_{{$worker->id}}" href="#" class="send-message"
+                                            <a id="tr_{{$worker->id}}" href="#" class="sendMessage"
                                                 style="padding: 0.25vw;"
                                                 data-url="{{route('sendMessage', $worker->id)}}"
                                                 data-cancel="@lang('admin.cancel')"
