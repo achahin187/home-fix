@@ -152,8 +152,8 @@
                                                     <i class="ft-user-check" style="color:green"></i>
                                                 @endif
                                             </a>
-
-                                            <a id="tr_{{$worker->id}}" href="#" class="send-message"
+                                             
+                                            <a id="tr_{{$worker->id}}" href="#" class="sendMessage"
                                                 style="padding: 0.25vw;"
                                                 data-url="{{route('sendMessage', $worker->id)}}"
                                                 data-cancel="@lang('admin.cancel')"
@@ -164,7 +164,6 @@
                                                 data-ok="@lang('admin.send activation_key')"
                                                 title="@lang('admin.send activation_key')">
                                                 <i class="far fa-paper-plane"></i>
-                                         
                                              </a>
                                         </th>
                                         <th style="border-right: 1px solid #E3EBF3">
