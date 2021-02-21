@@ -225,7 +225,7 @@ $('.verify_user').on('click', function(e) {
     });
 });
 
-$('.send-message').on('click', function(e) {
+$('.sendMessage').on('click', function(e) {
     e.preventDefault();
     var item = $(this),
         page = item.attr('data-url'),
@@ -285,6 +285,7 @@ $('.send-message').on('click', function(e) {
         }
     });
 });
+
 $("#parent_cat_selector").on('change', function(e) {
     if ($(this).val() > 0) {
         $("#quick_price").addClass('hidden');

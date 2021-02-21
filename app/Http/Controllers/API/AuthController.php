@@ -39,130 +39,139 @@ class AuthController extends Controller
 
     public function register(Request $request, $role = null)
     {
-        
-        if ($request->isMethod('get')) {
-            return __success(Country::where('status', true)
-                ->with('cities')->where('status', true)
-                ->get(), 200);
-        }
-        
-        
 
-        if ($role !== 'client' && $role !== 'worker') {
-            return __error(trans('api.not_found'), 200);
-        }
-        
-
-        $validator = Validator::make($request->all(), [
-            'name'     => 'required|string',
-            'email'    => ['required', 'email', 'unique:users', new DisposableEmail()],
-            'phone'    => ['required', 'unique:users', new PhoneNumber()],
-            'password' => ['required', 'confirmed', new Password(8)],
-            'cv'       => 'mimes:pdf,doc,docx',
-            'identity' => 'image',
-            'country'  => 'required',
-            'city'     => 'required',
-            'area'     => 'required|string',
-         
-
-        ]);
-        
-            if($role == 'worker'){
-            $validator = Validator::make($request->all(), [ 
-                'category' => 'required',
-
+        try{
+            if ($request->isMethod('get')) {
+                return __success(Country::where('status', true)
+                    ->with('cities')->where('status', true)
+                    ->get(), 200);
+            }
+            
+            
+    
+            if ($role !== 'client' && $role !== 'worker') {
+                return __error(trans('api.not_found'), 200);
+            }
+            
+    
+            $validator = Validator::make($request->all(), [
+                'name'     => 'required|string',
+                'email'    => ['required', 'email', 'unique:users', new DisposableEmail()],
+                'phone'    => ['required', 'unique:users', new PhoneNumber()],
+                'password' => ['required', 'confirmed', new Password(8)],
+                'cv'       => 'mimes:pdf,doc,docx',
+                'identity' => 'image',
+                'country'  => 'required',
+                'city'     => 'required',
+                'area'     => 'required|string',
+             
+    
             ]);
-
-        }
-
-        if ($validator->fails()) {
-            return __error($validator->errors()->all()[0], 200);
-        }
-
-        $user = new User([
-            'name'           => $request->name,
-            'email'          => $request->email,
-            'phone'          => $request->phone,
-            'password'       => bcrypt($request->password),
-            'activation_key' => random_int(10000, 99999),
-            'role'           => $role,
-        ]);
-
-        $user->notifications_key = $request->notifications_key;
-        $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
-        $user->save();
-
-        $user_address = new UserAddress([
-            'user_id'    => $user->id,
-            'country_id' => $request->country,
-            'city_id'    => $request->city,
-            'area'       => $request->area,
-        ]);
-        $user_address->save();
-
-        if ($role === 'worker') {
-
-            $categories = explode(',', $request->category);
-
-            $user->category()->attach($categories);
+            
+                if($role == 'worker'){
+                $validator = Validator::make($request->all(), [ 
+                    'category' => 'required',
+    
+                ]);
+    
+            }
+    
+            if ($validator->fails()) {
+                return __error($validator->errors()->all()[0], 200);
+            }
+    
+            $user = new User([
+                'name'           => $request->name,
+                'email'          => $request->email,
+                'phone'          => $request->phone,
+                'password'       => bcrypt($request->password),
+                'activation_key' => random_int(10000, 99999),
+                'role'           => $role,
+            ]);
+    
+            $user->notifications_key = $request->notifications_key;
+            $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
             $user->save();
-            
-            
-            if ($request->file('cv')) {
-                $cv          = $request->file('cv');
-                $cv_fileName = uniqid() . '.' . $cv->getClientOriginalExtension();
-                Storage::disk('uploads')
-                    ->putFileAs('CVs/' . $user->id, $cv, $cv_fileName);
-
-                @unlink(base_path($user->cv_path));
-
-                $user->cv = $cv_fileName;
+    
+            $user_address = new UserAddress([
+                'user_id'    => $user->id,
+                'country_id' => $request->country,
+                'city_id'    => $request->city,
+                'area'       => $request->area,
+            ]);
+            $user_address->save();
+    
+            if ($role === 'worker') {
+    
+                $categories = explode(',', $request->category);
+    
+                $user->category()->attach($categories);
                 $user->save();
+                
+                
+                if ($request->file('cv')) {
+                    $cv          = $request->file('cv');
+                    $cv_fileName = uniqid() . '.' . $cv->getClientOriginalExtension();
+                    Storage::disk('uploads')
+                        ->putFileAs('CVs/' . $user->id, $cv, $cv_fileName);
+    
+                    @unlink(base_path($user->cv_path));
+    
+                    $user->cv = $cv_fileName;
+                    $user->save();
+                }
+    
+                if ($request->file('identity')) {
+                    $identity          = $request->file('identity');
+                    $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
+                    Storage::disk('uploads')
+                        ->putFileAs('CVs/' . $user->id, $identity, $identity_fileName);
+    
+                    @unlink(base_path($user->id_path));
+    
+                    $user->identity = $identity_fileName;
+                    $user->save();
+                }
+            }
+            if($role === 'client') {
+                        #TODO: SMS Verification Code
+            $this->sendSMS($user->phone , $user->activation_key);
+                 #send mail       
+                 Mail::to($user->email)
+                     ->send(new ActivationCode($user)); 
+         
+            }
+    
+           
+           
+            $this->createPlaceHolderAvatar($user->id, $user->name);
+            if($role === 'client') {
+                return __success([
+                    'api_token'      => $user->api_token,
+                    'activation_key' => $user->activation_key,
+                 ], 200);
+            }
+    
+    
+            if($role === 'worker') {
+                return __success([
+                    'api_token'      => $user->api_token,
+                    'activation_key' => $user->activation_key,
+                    'role'           =>$user->role,
+                    'verified'=> Auth::user()->verified?? 0,
+                    'status' =>'not Active',
+    
+                 ], 200);
+    
             }
 
-            if ($request->file('identity')) {
-                $identity          = $request->file('identity');
-                $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
-                Storage::disk('uploads')
-                    ->putFileAs('CVs/' . $user->id, $identity, $identity_fileName);
+        }catch(exception $e){
 
-                @unlink(base_path($user->id_path));
+            return __error(trans('api.This email or phone number was taken before'),200);
 
-                $user->identity = $identity_fileName;
-                $user->save();
-            }
         }
-        if($role === 'client') {
-                    #TODO: SMS Verification Code
-        $this->sendSMS($user->phone , $user->activation_key);
-             #send mail       
-             Mail::to($user->email)
-                 ->send(new ActivationCode($user)); 
-     
-        }
-
+        
        
-       
-        $this->createPlaceHolderAvatar($user->id, $user->name);
-        if($role === 'client') {
-            return __success([
-                'api_token'      => $user->api_token,
-                'activation_key' => $user->activation_key,
-             ], 200);
-        }
-
-
-        if($role === 'worker') {
-            return __success([
-                'api_token'      => $user->api_token,
-                'activation_key' => $user->activation_key,
-                'role'           =>$user->role,
-                'verified'=> Auth::user()->verified,
-                'status' =>'not Active',
-
-             ], 200);
-
-        }
 
 
     
@@ -183,65 +192,76 @@ class AuthController extends Controller
         $user = User::where(
             'email', $request->email
         )->first();
-
-        if (!$user) {
-            if (!$request->phone) {
-                return __error('Phone is required', 200);
-            } else {
-                $validator = Validator::make($request->all(), [
-                    'name'  => 'required|string',
-                    'email' => ['required', 'email', 'unique:users', new DisposableEmail()],
-                    'phone' => ['required', 'unique:users', new PhoneNumber()],
-                ]);
-
-                if ($validator->fails()) {
-                    return __error($validator->errors()->all()[0], 200);
-                }
-
-                $user = new User([
-                    'name'           => $request->name,
-                    'email'          => $request->email,
-                    'phone'          => $request->phone,
-                    'password'       => bcrypt('socialLoginProvider'),
-                    'activation_key' => random_int(10000, 99999),
-                    'role'           => 'client',
-                ]);
-
-                $user->notifications_key = $request->notifications_key;
-                $user->save();
-                 $user_address = new UserAddress([
-                    'user_id'    => $user->id,
-                    'country_id' => $request->country,
-                    'city_id'    => $request->city,
-                    'area'       => $request->area,
-                ]);
-                $user_address->save();
-
-                #TODO: SMS Verification Code
-                $this->sendSMS($user->phone , $user->activation_key);
-                try{
-                    if ($request->image) {
-                        $path = base_path(Storage::disk('uploads')->url('avatars/' . $user->id));
-                        @File::makeDirectory($path);
-
-                        $avatar = file_get_contents($request->image,
-                            false, stream_context_create([
-                                'ssl' => [
-                                    'verify_peer'      => false,
-                                    'verify_peer_name' => false,
-                                ]
-                            ]));
-
-                        @file_put_contents($path . '/avatar.png', $avatar);
-                    } else {
+        $users= User::where('id',auth::id())->where('email',$request->email)->exists();
+        if($users) {
+ 
+         return __error(trans('api.This email was taken before'),200);
+ 
+        }else{
+            if (!$user) {
+                if (!$request->phone) {
+                    return __error('Phone is required', 200);
+                } else {
+                    $validator = Validator::make($request->all(), [
+                        'name'  => 'required|string',
+                        'email' => ['required', 'email', 'unique:users', new DisposableEmail()],
+                        'phone' => ['required', 'unique:users', new PhoneNumber()],
+                    ]);
+    
+                    if ($validator->fails()) {
+                        return __error($validator->errors()->all()[0], 200);
+                    }
+    
+                    $user = new User([
+                        'name'           => $request->name,
+                        'email'          => $request->email,
+                        'phone'          => $request->phone,
+                        'password'       => bcrypt('socialLoginProvider'),
+                        'activation_key' => random_int(10000, 99999),
+                        'role'           => 'client',
+                    ]);
+    
+                    $user->notifications_key = $request->notifications_key;
+                    $user->save();
+                     $user_address = new UserAddress([
+                        'user_id'    => $user->id,
+                        'country_id' => $request->country,
+                        'city_id'    => $request->city,
+                        'area'       => $request->area,
+                    ]);
+                    $user_address->save();
+    
+                    #TODO: SMS Verification Code
+                    $this->sendSMS($user->phone , $user->activation_key);
+                    try{
+                        if ($request->image) {
+                            $path = base_path(Storage::disk('uploads')->url('avatars/' . $user->id));
+                            @File::makeDirectory($path);
+    
+                            $avatar = file_get_contents($request->image,
+                                false, stream_context_create([
+                                    'ssl' => [
+                                        'verify_peer'      => false,
+                                        'verify_peer_name' => false,
+                                    ]
+                                ]));
+    
+                            @file_put_contents($path . '/avatar.png', $avatar);
+                        } else {
+                            $this->createPlaceHolderAvatar($user->id, $user->name);
+                        }
+                    }catch(\Exception $e){
                         $this->createPlaceHolderAvatar($user->id, $user->name);
                     }
-                }catch(\Exception $e){
-                    $this->createPlaceHolderAvatar($user->id, $user->name);
                 }
             }
+    
+
+
         }
 
+
+      
         // User Login with Social networks!
         $user = User::where([
             ['email', $request->email],
@@ -275,6 +295,7 @@ class AuthController extends Controller
             'password' => $request->password,
             'role'     => $request->role,
         ];
+   
 
         if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
             $user = $request->user();
@@ -287,21 +308,31 @@ class AuthController extends Controller
             return __success($user, 200);
         }
 
-        if(Auth::user()->role === 'worker') {
-            return __error([
-                'api_token'      => Auth::user()->api_token,
-                'activation_key' => Auth::user()->activation_key,
-                'role'  =>Auth::user()->role,
-                'verified'=> Auth::user()->verified,
-                'status' =>'not Active',
 
-             ], 200);
+        try{
+            if(Auth::user()->role === 'worker') {
+                return __error([
+                    'api_token'      => Auth::user()->api_token,
+                    'activation_key' => Auth::user()->activation_key,
+                    'role'  =>Auth::user()->role,
+                    'verified'=> Auth::user()->verified,
+                    'status' =>'not Active',
+    
+                 ], 200);
+    
+            }else{
+                return __error(trans('auth.failed'), 200);
+    
+    
+            }
 
-        }else{
-            return __error(trans('auth.failed'), 200);
+        }catch(Exception $e){
+         return __error('unauthorized', 200);
 
-
+            
         }
+
+
     }
 
 
