@@ -277,39 +277,45 @@ class AuthController extends Controller
 
     public function login(Request $request, Authenticatable $user = null)
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'password' => 'required',
-            'role'     => 'in:worker,client',
-        ]);
-
-        if ($validator->fails()) {
-            return __error($validator->errors()->all()[0], 200);
-        }
-
-        $type = filter_var($request->username,
-            FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
-
-        $credentials = [
-            $type      => $request->username,
-            'password' => $request->password,
-            'role'     => $request->role,
-        ];
+      
    
 
-        if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
-            $user = $request->user();
-
-            $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
-            $user->notifications_key = $request->notifications_key;
-            $user->save();
-
-            $user->is_social = 0;
-            return __success($user, 200);
-        }
+      
 
 
         try{
+
+            $validator = Validator::make($request->all(), [
+                'username' => 'required',
+                'password' => 'required',
+                'role'     => 'in:worker,client',
+            ]);
+    
+            if ($validator->fails()) {
+                return __error($validator->errors()->all()[0], 200);
+            }
+    
+            $type = filter_var($request->username,
+                FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+    
+            $credentials = [
+                $type      => $request->username,
+                'password' => $request->password,
+                'role'     => $request->role,
+            ];
+
+
+            if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
+                $user = $request->user();
+    
+                $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
+                $user->notifications_key = $request->notifications_key;
+                $user->save();
+    
+                $user->is_social = 0;
+                return __success($user, 200);
+            }
+
             if(Auth::user()->role === 'worker') {
                 return __error([
                     'api_token'      => Auth::user()->api_token,
