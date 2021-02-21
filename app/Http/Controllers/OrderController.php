@@ -191,9 +191,9 @@ class OrderController extends Controller
                 'client',
                 'offer',
                 'notes',
-                'tracking'
+                'tracking',
+                'servicesDetails'
             )->first();
-
         if (!$order) {
             return $this->_404(
                 trans('admin.order_notfound'),
@@ -201,6 +201,7 @@ class OrderController extends Controller
                 'orders.index'
             );
         }
+        
 
         $workers = User::where([
             ['role', 'worker'],
