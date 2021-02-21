@@ -132,20 +132,41 @@ class AuthController extends Controller
                 $user->save();
             }
         }
-
-        #TODO: SMS Verification Code
+        if($role === 'client') {
+                    #TODO: SMS Verification Code
         $this->sendSMS($user->phone , $user->activation_key);
-        #send mail       
-        Mail::to($user->email)
-            ->send(new ActivationCode($user));
+             #send mail       
+             Mail::to($user->email)
+                 ->send(new ActivationCode($user)); 
+     
+        }
+
        
        
         $this->createPlaceHolderAvatar($user->id, $user->name);
+        if($role === 'client') {
+            return __success([
+                'api_token'      => $user->api_token,
+                'activation_key' => $user->activation_key,
+             ], 200);
+        }
 
-        return __success([
-            'api_token'      => $user->api_token,
-            'activation_key' => $user->activation_key
-        ], 200);
+
+        if($role === 'worker') {
+            return __success([
+                'api_token'      => $user->api_token,
+                'activation_key' => $user->activation_key,
+                'role'           =>$user->role,
+                'verified'=> Auth::user()->verified,
+                'status' =>'not Active',
+
+             ], 200);
+
+        }
+
+
+    
+
     }
     
         public function category(Request $request) {
@@ -255,7 +276,7 @@ class AuthController extends Controller
             'role'     => $request->role,
         ];
 
-        if (Auth::attempt($credentials) && (Auth::user()->ban == 0)) {
+        if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
             $user = $request->user();
 
             $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
@@ -266,8 +287,24 @@ class AuthController extends Controller
             return __success($user, 200);
         }
 
-        return __error(trans('auth.failed'), 200);
+        if(Auth::user()->role === 'worker') {
+            return __error([
+                'api_token'      => Auth::user()->api_token,
+                'activation_key' => Auth::user()->activation_key,
+                'role'  =>Auth::user()->role,
+                'verified'=> Auth::user()->verified,
+                'status' =>'not Active',
+
+             ], 200);
+
+        }else{
+            return __error(trans('auth.failed'), 200);
+
+
+        }
     }
+
+
 
     public function logout(Request $request)
     {
@@ -348,7 +385,7 @@ class AuthController extends Controller
         #TODO: SMS Password Reset
         $this->sendSMS($user->phone ,'' , 'password' , $new_password);
         #send mail
-       
+    
         Mail::to($user->email)
             ->send(new ResetPassword($new_password));
         return __success(trans('api.password_reset_success'), 200);

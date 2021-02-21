@@ -152,6 +152,7 @@ class OfferController extends Controller
         $workers = $_offer->first()
             ->category()->first()
             ->workers()->get();
+            
 
 
         return view('offers.view', [
