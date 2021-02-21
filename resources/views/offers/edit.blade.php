@@ -209,6 +209,45 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-1 label-control" for="name"
+                                                       style="
+                                                            padding: 0.75rem 1rem;
+                                                            flex: 0 0 12.5%;
+                                                            max-width: 12.5%;">
+                                                    @lang('admin.choose_country')</label>
+                                                <div class="col-md-11" style="
+                                                        flex: 0 0 calc(100% - 12.5%);
+                                                        max-width: calc(100% - 12.5%);">
+                                                    <fieldset id="choose_country">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon3"><i
+                                                                        class="ft-list"></i></span>
+                                                            </div>
+                                                            <select name="country_id"
+                                                                    class="form-control">
+                                                                @foreach($countries as $country)
+                                                                    <option 
+                                                                    @if ($country->id === $offer->country_id)
+                                                                    selected="selected"
+                                                                    @endif
+                                                                    value="{{ $country->id }}">
+                                                                        {{ $country->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('country_id')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
