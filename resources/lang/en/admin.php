@@ -12,6 +12,9 @@ return [
     /**
      * Global
      */
+    'send activation_key'       =>     'send activation_key',
+
+    'the_country'             =>  'the_country',
     'control_panel'           => 'Control Panel',
     'greeting'                => 'Hello',
     'or_upload'               => 'Or Upload',

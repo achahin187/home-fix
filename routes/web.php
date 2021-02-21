@@ -75,6 +75,10 @@ Route::put('user/ban/{id}', 'UserController@ban')
 // Verify / Unverify a User
 Route::put('user/verify/{id}', 'UserController@verify')
     ->name('verify.user');
+    ///send message to mobile 
+ Route::get('user/sendMessage/{id}', 'UserController@sendMessage')
+    ->name('sendMessage');
+
 
 
 // Categories

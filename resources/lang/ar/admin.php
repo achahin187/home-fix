@@ -12,6 +12,8 @@ return [
     /**
      * Global
      */
+    'send activation_key' => 'أرسال مفتاح التنشيط',
+    'the_country'             =>'الدولة',
     'control_panel'           => 'لوحة التحكم',
     'greeting'                => 'مرحباً، ',
     'or_upload'               => 'أو رفع ',

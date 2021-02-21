@@ -1,43 +1,43 @@
-(function (window, undefined) {
+(function(window, undefined) {
     'use strict';
 })(window);
-$(function () {
+$(function() {
     'use strict';
-    $('#onshowbtn').on('click', function () {
-        $('#onshow').on('show.bs.modal', function () {
+    $('#onshowbtn').on('click', function() {
+        $('#onshow').on('show.bs.modal', function() {
             alert('onShow event fired.');
         });
     });
-    $('#onshownbtn').on('click', function () {
-        $('#onshown').on('shown.bs.modal', function () {
+    $('#onshownbtn').on('click', function() {
+        $('#onshown').on('shown.bs.modal', function() {
             alert('onShown event fired.');
         });
     });
-    $('#onhidebtn').on('click', function () {
-        $('#onhide').on('hide.bs.modal', function () {
+    $('#onhidebtn').on('click', function() {
+        $('#onhide').on('hide.bs.modal', function() {
             alert('onHide event fired.');
         });
     });
-    $('#onhiddenbtn').on('click', function () {
-        $('#onhidden').on('hidden.bs.modal', function () {
+    $('#onhiddenbtn').on('click', function() {
+        $('#onhidden').on('hidden.bs.modal', function() {
             alert('onHidden event fired.');
         });
     });
     $(document).tooltip();
-    $('.tool-item').on('click', function () {
+    $('.tool-item').on('click', function() {
         window.location = $(this).attr('href');
     });
     $('#loading').hide();
     $('#icon_error').hide();
     var fitties = [];
-    setTimeout(function () {
+    setTimeout(function() {
         fitties = fitty('.data_to_fit', {
             minSize: 12,
             maxSize: 50
         });
     }, 1000);
 });
-$('.delete_record').on('click', function (e) {
+$('.delete_record').on('click', function(e) {
     e.preventDefault();
     var item = $(this),
         page = item.attr('data-url'),
@@ -79,14 +79,14 @@ $('.delete_record').on('click', function (e) {
                     "_method": "DELETE",
                     "_token": token,
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data === "success") {
-                        $(item_parent).fadeTo(400, 0, function () {
+                        $(item_parent).fadeTo(400, 0, function() {
                             $(item_parent).slideUp(400);
                         });
                         fileExportTable.row($(item_parent)).remove().draw(false);
                         if (redirectUrl) {
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 window.location = redirectUrl;
                             }, 1000);
                         }
@@ -95,7 +95,7 @@ $('.delete_record').on('click', function (e) {
                         swal(errorMessage, "", "error");
                     }
                 },
-                error: function () {
+                error: function() {
                     return true;
                 }
             });
@@ -104,7 +104,7 @@ $('.delete_record').on('click', function (e) {
         }
     });
 });
-$('.ban_user').on('click', function (e) {
+$('.ban_user').on('click', function(e) {
     e.preventDefault();
     var item = $(this),
         page = item.attr('data-url'),
@@ -145,17 +145,17 @@ $('.ban_user').on('click', function (e) {
                     "_method": "PUT",
                     "_token": token,
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data === "success") {
                         swal(successMessage, "", "success");
-                        setTimeout(function () {
+                        setTimeout(function() {
                             window.location.reload();
                         }, 1000);
                     } else {
                         swal(errorMessage, "", "error");
                     }
                 },
-                error: function () {
+                error: function() {
                     return true;
                 }
             });
@@ -164,7 +164,7 @@ $('.ban_user').on('click', function (e) {
         }
     });
 });
-$('.verify_user').on('click', function (e) {
+$('.verify_user').on('click', function(e) {
     e.preventDefault();
     var item = $(this),
         page = item.attr('data-url'),
@@ -205,17 +205,17 @@ $('.verify_user').on('click', function (e) {
                     "_method": "PUT",
                     "_token": token,
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data === "success") {
                         swal(successMessage, "", "success");
-                        setTimeout(function () {
+                        setTimeout(function() {
                             window.location.reload();
                         }, 1000);
                     } else {
                         swal(errorMessage, "", "error");
                     }
                 },
-                error: function () {
+                error: function() {
                     return true;
                 }
             });
@@ -224,7 +224,68 @@ $('.verify_user').on('click', function (e) {
         }
     });
 });
-$("#parent_cat_selector").on('change', function (e) {
+
+$('.send-message').on('click', function(e) {
+    e.preventDefault();
+    var item = $(this),
+        page = item.attr('data-url'),
+        item_parent = 'tr#' + item.attr('id'),
+        confirmMessage = item.attr('data-confirm-message'),
+        errorMessage = item.attr('data-error-message'),
+        successMessage = item.attr('data-success-message'),
+        confirm = item.attr('data-ok'),
+        cancel = item.attr('data-cancel'),
+        token = item.attr('data-token');
+    swal({
+        title: confirmMessage,
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: cancel,
+                value: null,
+                visible: true,
+                className: "",
+                closeModal: false,
+            },
+            confirm: {
+                text: confirm,
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: false
+            }
+        }
+    }).then(isConfirm => {
+        if (isConfirm) {
+            jQuery.ajax({
+                async: true,
+                type: "GET",
+                dataType: "JSON",
+                url: page,
+                data: {
+                    "_method": "GET",
+                    "_token": token,
+                },
+                success: function(data) {
+                    if (data === "success") {
+                        swal(successMessage, "", "success");
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        swal(errorMessage, "", "error");
+                    }
+                },
+                error: function() {
+                    return true;
+                }
+            });
+        } else {
+            $('.swal-overlay').removeClass('swal-overlay--show-modal');
+        }
+    });
+});
+$("#parent_cat_selector").on('change', function(e) {
     if ($(this).val() > 0) {
         $("#quick_price").addClass('hidden');
         $("#checkup_price").removeClass('hidden');
@@ -237,7 +298,7 @@ $("#parent_cat_selector").on('change', function (e) {
         $("#quick_price_input").attr('required', 'required');
     }
 });
-$("#icon-finder").on('keypress', function (e) {
+$("#icon-finder").on('keypress', function(e) {
     if (e.which === 13) {
         e.preventDefault();
         $('#icon_error').hide();
@@ -251,11 +312,11 @@ $("#icon-finder").on('keypress', function (e) {
             data: {
                 'q': searchQuery
             },
-            success: function (data) {
+            success: function(data) {
                 $("#finder-content").html("");
                 $('#loading').hide();
                 data = JSON.parse(data).data;
-                data.forEach(function (icon) {
+                data.forEach(function(icon) {
                     $("#finder-content").append("" +
                         "<label class=\"col-md-2\">\n" +
                         "   <input type=\"radio\" name=\"icon\" value=\"" + icon.images.png[512] + "\" class=\"hidden\">\n" +
@@ -263,7 +324,7 @@ $("#icon-finder").on('keypress', function (e) {
                         "</label>\n");
                 });
             },
-            error: function () {
+            error: function() {
                 $('#loading').hide();
                 $('#icon_error').show();
             }
@@ -285,7 +346,7 @@ function view_review(comment, title, review) {
     });
 }
 
-$('.notifications-clear').on('click', function (e) {
+$('.notifications-clear').on('click', function(e) {
     e.preventDefault();
     $.ajax({
         url: '/notifications/clear',
@@ -312,12 +373,12 @@ function changeNotificationStatus() {
         type: 'GET',
     });
     $('.notifications-count').html('0');
-    setTimeout(function () {
+    setTimeout(function() {
         $('.notification-item').removeClass('skyblue')
     }, 5000);
 }
 
-$('input[type=checkbox]').on('click', function (e) {
+$('input[type=checkbox]').on('click', function(e) {
     if ($(this).attr('checked')) {
         $(this).removeAttr('checked')
     } else {
@@ -325,17 +386,17 @@ $('input[type=checkbox]').on('click', function (e) {
     }
 });
 
-$('#select_all').on('click', function (e) {
+$('#select_all').on('click', function(e) {
     e.preventDefault();
     $("[id*=\"checkbox_\"]").attr('checked', 'checked');
 });
 
-$('#deselect_all').on('click', function (e) {
+$('#deselect_all').on('click', function(e) {
     e.preventDefault();
     $("[id*=\"checkbox_\"]").removeAttr('checked');
 });
 
-$('#delete_all').on('click', function (e) {
+$('#delete_all').on('click', function(e) {
     e.preventDefault();
     var items = $("[checked=\"checked\"]"),
         confirmMessage = $(this).attr("data-confirm-message"),
@@ -367,7 +428,7 @@ $('#delete_all').on('click', function (e) {
         }
     }).then(isConfirm => {
         if (isConfirm) {
-            items.each(function (item) {
+            items.each(function(item) {
                 var id = $(this).attr('id').replace('checkbox_', ''),
                     item_parent = 'tr_' + id;
                 jQuery.ajax({
@@ -379,9 +440,9 @@ $('#delete_all').on('click', function (e) {
                         "_method": "DELETE",
                         "_token": token,
                     },
-                    success: function (data) {
+                    success: function(data) {
                         if (data === "success") {
-                            $("tr#" + item_parent).fadeTo(400, 0, function () {
+                            $("tr#" + item_parent).fadeTo(400, 0, function() {
                                 $("tr#" + item_parent).slideUp(400);
                             });
                             fileExportTable.row($("tr#" + item_parent)).remove().draw();
@@ -390,7 +451,7 @@ $('#delete_all').on('click', function (e) {
                             swal('Error', "", "error");
                         }
                     },
-                    error: function () {
+                    error: function() {
                         return true;
                     }
                 });
@@ -400,10 +461,10 @@ $('#delete_all').on('click', function (e) {
         }
     });
 });
-$('.show_prices_form').on('click', function (e) {
+$('.show_prices_form').on('click', function(e) {
     e.preventDefault();
 });
-$('#country_selector').on('click', function (e) {
+$('#country_selector').on('click', function(e) {
     e.preventDefault();
     var id = $(this).val();
     jQuery.ajax({
@@ -411,10 +472,10 @@ $('#country_selector').on('click', function (e) {
         type: "GET",
         dataType: "JSON",
         url: '/countries/cities/' + id,
-        success: function (data) {
+        success: function(data) {
             if (data) {
                 $('#city_selector').html('');
-                data.forEach(function (city) {
+                data.forEach(function(city) {
                     $('#city_selector').append(new Option(city.name, city.id));
                 });
             }
