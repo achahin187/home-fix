@@ -309,6 +309,9 @@ class WorkerController extends Controller
             @unlink(base_path($user->cv_path));
 
             $user->cv = $cv_fileName;
+
+
+
             $user->save();
         }
 
@@ -345,6 +348,13 @@ class WorkerController extends Controller
             ]);
         }
 
+/*    #TODO: SMS Verification Code
+   $this->sendSMSFromAdmin($user->phone , $user->activation_key);
+   /*      #send mail       
+        Mail::to($user->email)
+            ->send(new ActivationCode($user)); */ 
+
+            
         $request->session()->flash('success',
             trans('admin.worker_updated'));
         return redirect()->route('workers.index');
@@ -362,4 +372,43 @@ class WorkerController extends Controller
             return response()->json('success', 200);
         }
     }
+
+
+
+
+    
+    protected function sendSMSFromAdmin($phone, $activation_key , $type='key')
+    {
+
+
+        $phone = "" . $phone;
+        $type == 'key';
+
+      $message = "+Your+Activation+Key+Is+كود+التفعيل+الخاص+بك+هو".$activation_key ."+". "👍";
+ 
+
+        // "https://dashboard.mobile-sms.com/api/sms/send?api_key=N1kxRFJiaUhQQWtnekxwUGt6RGxwWFh0dVlXTjNZUWVPeEtYREhLdE5SbDVhRkhJUVJGRVdnSVBTWTVx5eb3d8805bcc8&name=HomeFix&message=".$message."&numbers=".$number."&sender=HomeFix%20App&language=ar"
+       // $c = curl_init("https://dashboard.mobile-sms.com/api/sms/send?api_key=N1kxRFJiaUhQQWtnekxwUGt6RGxwWFh0dVlXTjNZUWVPeEtYREhLdE5SbDVhRkhJUVJGRVdnSVBTWTVx5eb3d8805bcc8&name=HomeFix&message=".$message."&numbers=".$phone."&sender=HomeFix%20App&language=ar");
+        $ch = curl_init("https://dashboard.mobile-sms.com/api/sms/send?api_key=dkVlUUJHRlBCZGlZdWhOZ1NieEduYVo3eGd6R0ozTW0xbEl2aEJRNmZkZENJWTZxNnFGelZJQ3MzWGcy5f62148cec25a&name=HomeFix&message=You%20have%20been%20accepted$20by$20the$20administrator$20تم%20قبولك%20من$20المسؤل".$message."&numbers=".$phone."&sender=HomeFix%20App&language=en");
+
+
+
+        curl_setopt_array($ch, array(
+            CURLOPT_POST => false,
+            CURLOPT_RETURNTRANSFER => TRUE
+        ));
+
+ 
+        
+        $response = curl_exec($ch);
+        return $response;
+
+        if ($response === FALSE) {
+            return 0;
+        } 
+
+
+    }
+  
+
 }

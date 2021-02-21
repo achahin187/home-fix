@@ -136,7 +136,7 @@
                                                data-url="{{route('verify.user', $worker->id)}}"
                                                data-cancel="@lang('admin.cancel')"
                                                data-token="{{csrf_token()}}"
-                                               @if ($worker->verified == false)
+                                               @if($worker->verified == false)
                                                data-confirm-message="@lang("admin.verify_confirm|role:admin.the_worker")"
                                                data-success-message="@lang("admin.verify_success|role:admin.the_worker")"
                                                data-error-message="@lang("admin.verify_error|role:admin.the_worker")"
@@ -152,6 +152,20 @@
                                                     <i class="ft-user-check" style="color:green"></i>
                                                 @endif
                                             </a>
+
+                                            <a id="tr_{{$worker->id}}" href="#" class="send-message"
+                                                style="padding: 0.25vw;"
+                                                data-url="{{route('sendMessage', $worker->id)}}"
+                                                data-cancel="@lang('admin.cancel')"
+                                                data-token="{{csrf_token()}}"
+                                                data-confirm-message="@lang("admin.verify_confirm|role:admin.the_worker")"
+                                                data-success-message="@lang("admin.verify_success|role:admin.the_worker")"
+                                                data-error-message="@lang("admin.verify_error|role:admin.the_worker")"
+                                                data-ok="@lang('admin.send activation_key')"
+                                                title="@lang('admin.send activation_key')">
+                                                <i class="far fa-paper-plane"></i>
+                                         
+                                             </a>
                                         </th>
                                         <th style="border-right: 1px solid #E3EBF3">
                                             <a href="{{route('workers.edit', $worker->id)}}"

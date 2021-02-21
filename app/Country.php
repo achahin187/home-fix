@@ -17,4 +17,11 @@ class Country extends Model
     {
         return $this->hasMany(City::class, 'country_id');
     }
+
+    public function offer()
+    {
+        return $this->hasOne(Offer::class, 'country_id');
+    }
+
+
 }

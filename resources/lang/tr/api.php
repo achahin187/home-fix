@@ -29,6 +29,7 @@ return [
     'unknown_status'         => 'unknown status',
     'notes_remains'          => 'your order has been sent to client, response pending',
     'attachment_message'     => 'You received an image',
+    'This offer was taken before'=>'Bu teklif daha önce alındı',
 
     'day'     => '[0,2] day |[3,10] days |[11,*] day',
     'hour'    => '[0,2] hour |[3,10] hours |[11,*] hour',

@@ -49,6 +49,13 @@ class Offer extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+ 
+  
+
     public function getImageAttribute()
     {
         return Storage::disk('uploads')

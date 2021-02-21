@@ -89,6 +89,7 @@ class OfferController extends Controller
             'time'           => 'required|string',
             'payment_method' => 'required|string',
         ]);
+      
 
         if ($validator->fails()) {
             return __error($validator->errors()->all()[0], 200);
@@ -113,24 +114,43 @@ class OfferController extends Controller
         if ((bool) $automatic_worker === false) {
             $worker_id = null;
         }
+ 
+
+     ///check client take this offer before
+
+        $order= order::where('client_id',auth::id())->where('offer_id',$request->offer_id)->exists();
+        if($order) {
+ 
+         return __error(trans('api.This offer was taken before'),200);
+ 
+        }else{
+            ///store offer
+
+            $order = new Order([
+                'issue'       => ($request->issue) ?: "",
+                'address'     => $request->address,
+                'latitude'    => $request->latitude,
+                'longitude'   => $request->longitude,
+                'day'         => $request->day,
+                'time'        => $request->time,
+                'total_price' => $offer->price,
+                'cod'         => $cod,
+                'client_id'   => Auth::id(),
+                'worker_id'   => $worker_id,
+                'offer_id'    => $request->offer_id,
+                'order_no'    => $this->generateOrderNo(),
+                'country_id' => $offer->country_id,
+            ]);
+    
+            $order->save();
+
+        }
+
+ 
 
 
-        $order = new Order([
-            'issue'       => ($request->issue) ?: "",
-            'address'     => $request->address,
-            'latitude'    => $request->latitude,
-            'longitude'   => $request->longitude,
-            'day'         => $request->day,
-            'time'        => $request->time,
-            'total_price' => $offer->price,
-            'cod'         => $cod,
-            'client_id'   => Auth::id(),
-            'worker_id'   => $worker_id,
-            'offer_id'    => $request->offer_id,
-            'order_no'    => $this->generateOrderNo(),
-        ]);
 
-        $order->save();
+     
 
         $newState = new OrderTracking([
             'status'   => self::BOUGHT,
