@@ -116,10 +116,25 @@ class OfferController extends Controller
         }
 
         $users   = User::whereIn('role', ['worker', 'client'])->get();
-        $message = NotificationType::where('type', 'new_offer')
-            ->first()->message;
-        $message = str_replace('{offer_name}', '( ' . $offer->name_ar . ' )', $message);
+        $lang = User::where('id',Auth::user()->id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic') {
+                $msg = NotificationType::where('type', 'new_offer')
+                    ->first()->message_ar;
+                    $message = str_replace('{offer_name}', '( ' . $offer->name_ar . ' )', $msg);
 
+            } else if ($language == 'english') {
+                $msg = NotificationType::where('type', 'new_offer')
+                    ->first()->message_en;
+                    $message = str_replace('{offer_name}', '( ' . $offer->name_en . ' )', $msg);
+
+            } else {
+                $msg = NotificationType::where('type', 'new_offer')
+                    ->first()->message;
+                    $message = str_replace('{offer_name}', '( ' . $offer->name_tr . ' )', $msg);
+
+            }
+      
         foreach ($users as $user) {
             pushNotification($user->id, Auth::id(), $message);
             pushFCM($user->id, 'offer', $message, ['offerId', $offer->id]);
@@ -172,6 +187,8 @@ class OfferController extends Controller
      */
     public function edit($id)
     {
+        $countries= Country::all();
+
         $categories = Category::where('parent_id', null)->get();
         $offer      = Offer::where('id', $id)
             ->with('category')->first();
@@ -184,6 +201,7 @@ class OfferController extends Controller
         }
 
         return view('offers.edit', [
+            'countries' => $countries,
             'offer'      => $offer,
             'categories' => $categories,
             'mainTitle'  => $this->mainTitle,
@@ -214,6 +232,8 @@ class OfferController extends Controller
             'image'          => 'image',
             'end_at_date'    => 'required',
             'end_at_time'    => 'required',
+            'country_id' => 'required',
+            
         ]);
 
         $time   = strtotime($request->end_at_date . $request->end_at_time);
@@ -228,14 +248,14 @@ class OfferController extends Controller
         $offer->category_id    = $request->category;
         $offer->price          = $request->price;
         $offer->end_at         = $end_at;
+        $offer->country_id     =$request->country_id;
 
         $offer->save();
-
         if ($request->file('image')) {
             $image = $request->file('image');
             Storage::disk('uploads')
-                ->putFileAs('images/offers/' . $offer->id,
-                    $image, 'image.png');
+                ->putFileAs('images/offers/' .
+                    $offer->id, $image, 'image.png');
         }
 
         $request->session()->flash('success',
