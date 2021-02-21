@@ -280,6 +280,10 @@ class AuthController extends Controller
       
    
 
+      
+
+
+        try{
 
             $validator = Validator::make($request->all(), [
                 'username' => 'required',
@@ -328,7 +332,11 @@ class AuthController extends Controller
     
             }
 
-     
+        }catch(Exception $e){
+         return __error('unauthorized', 200);
+
+            
+        }
 
 
     }
