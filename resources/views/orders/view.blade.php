@@ -72,10 +72,14 @@
                                     <div class="col-sm-3 text-center">
                                         <h5 class="success text-bold-600">@lang('admin.the_worker')</h5>
                                         <h6 class="font-large-2 text-bold-400">
+                                            @if(isset($order->worker['id']))
                                             <a class="data_to_fit"
                                                href="@if ($order->worker['id']){{ route('workers.show', $order->worker['id']) }}@endif">
                                                 {{ $order->worker['name'] }}
                                             </a>
+                                            @else
+                                            لايوجد 
+                                            @endif
                                         </h6>
                                     </div>
                                     <div class="col-sm-3 text-center border-right-blue-grey border-right-lighten-5">
@@ -219,12 +223,12 @@
                                                     <tr class="text-center">
                                                         <th colspan="6">@lang('admin.client_orders')</th>
                                                     </tr>
-                                                    @foreach($order->services as $service)
+                                                    @foreach($order->servicesDetails as $service)
                                                         <tr class="text-center" id="tr_{{ $service->id }}">
                                                             <th>{{ ++$counter }}</th>
                                                             <th>
                                                                 <a href="{{ route('services.show', $service->id) }}">
-                                                                    {{ $service->name }}
+                                                                    {{ services_name($service->service_id) }}
                                                                 </a>
                                                             </th>
                                                             <th>

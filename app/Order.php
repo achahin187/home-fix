@@ -53,6 +53,11 @@ class Order extends Model
             ->select('services.*', 'order_services.quantity');
     }
 
+    public function servicesDetails()
+    {
+        return $this->hasMany(OrderService::class, 'order_id');
+    }
+
     public function offer()
     {
         return $this->belongsToMany(Offer::class, 'orders', 'id', 'offer_id')

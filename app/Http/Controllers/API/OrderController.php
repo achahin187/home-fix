@@ -178,6 +178,8 @@ class OrderController extends Controller
                                 $y                 = (float)$v->longitude - (float)$request->longitude;
                                 $distance          = sqrt(($x ** 2) + ($y ** 2));
                                 $distances[$v->id] = $distance;
+                            }else {
+                                $worker_id = null;
                             }
                            
                         }
@@ -212,30 +214,33 @@ class OrderController extends Controller
                 $servs     = $matches[1];
                 $total_price = 0; 
                 $_services   = explode(',', $servs);
-                     
+                
                     
                         foreach ($_services as $k => $v) {
     
                             $d = explode(':', $v);
+                            
                             $s = Service::find($d[0]);
-                                    if($s !== null) {
-                                        foreach($s->prices as $p)
-                                        {
-                                            $price = (float)$p->price * (float)$d[1];
-                                        }
-                    
-                                        DB::table('order_services')->insert([
-                                            'order_id'   => $order_id,
-                                            'service_id' => (int)$d[0],
-                                            'quantity'   => (float)$d[1],
-                                            'price'      => $price
-                                        ]);
-                                         $total_price+=$price;
-                                        
+                            if($s !== null) {
+                                foreach($s->prices as $p)
+                                {
+                                    if ($p->country_id == Auth::user()->country_id) {
+                                        $price = (float)$p->price * (float)$d[1];
                                     }
+                                }
+            
+                                DB::table('order_services')->insert([
+                                    'order_id'   => $order_id,
+                                    'service_id' => (int)$d[0],
+                                    'quantity'   => (float)$d[1],
+                                    'price'      => $price
+                                ]);
+                                    $total_price+=$price;
+                                
+                            }
                                 
                                      
-                                       }
+                        }
                                     
                     
                             

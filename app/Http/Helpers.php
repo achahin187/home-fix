@@ -160,3 +160,14 @@ if (!function_exists('changeUnverifiedWorkerColor')) {
     }
 }
 
+if (!function_exists('services_name')) {
+    function services_name($id){
+        $services_name = "";
+        $service = Service::find($id);
+        if($service){
+            $services_name = $service->name_ar ;
+        }
+        return $services_name;
+  }
+}
+
