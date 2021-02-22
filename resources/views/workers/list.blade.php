@@ -158,12 +158,22 @@
                                                 data-url="{{route('sendMessage', $worker->id)}}"
                                                 data-cancel="@lang('admin.cancel')"
                                                 data-token="{{csrf_token()}}"
+                                                @if ($worker->verified == false)
                                                 data-confirm-message="@lang("admin.verify_confirm|role:admin.the_worker")"
                                                 data-success-message="@lang("admin.verify_success|role:admin.the_worker")"
                                                 data-error-message="@lang("admin.verify_error|role:admin.the_worker")"
                                                 data-ok="@lang('admin.send activation_key')"
                                                 title="@lang('admin.send activation_key')">
-                                                <i class="far fa-paper-plane"></i>
+                                                <i class="far fa-paper-plane" style="color:red"></i>
+                                                @else
+                                                data-confirm-message="@lang("admin.verify_confirm|role:admin.the_worker")"
+                                                data-success-message="@lang("admin.verify_success|role:admin.the_worker")"
+                                                data-error-message="@lang("admin.verify_error|role:admin.the_worker")"
+                                                data-ok="@lang('admin.send activation_key')"
+                                                title="@lang('admin.send activation_key')">
+                                                <i class="far fa-paper-plane" style="color:green"></i>
+                                                @endif
+                                          
                                              </a>
                                         </th>
                                         <th style="border-right: 1px solid #E3EBF3">
