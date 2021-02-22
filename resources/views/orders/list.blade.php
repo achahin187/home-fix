@@ -208,7 +208,7 @@
 
                                             {{ $category->name  }}
                                                     </a>
-
+                                                
                                             @else
 
                                             no category

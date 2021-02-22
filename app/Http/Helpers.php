@@ -41,6 +41,7 @@ if (!function_exists('getOrderCategory')) {
          $order = Order::where('id', $order_id)->first();
        
         if ($order->offer_id != NULL) {
+            
             $offer_id = Order::where('id', $order_id)
                 ->first()->offer()->first()->id;
             $category = Offer::find($offer_id)
