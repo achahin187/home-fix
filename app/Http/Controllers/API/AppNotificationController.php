@@ -31,7 +31,6 @@ class AppNotificationController extends Controller
     public function getNotifications()
     {
         $user = User::where('id', Auth::id())->first();
-
         if ($user->notifications) {
             $readNotifications   = $user->readNotifications;
             $unreadNotifications = $user->unreadNotifications;

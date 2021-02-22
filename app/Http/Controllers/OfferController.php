@@ -115,29 +115,44 @@ class OfferController extends Controller
                     $offer->id, $image, 'image.png');
         }
 
-        $users   = User::whereIn('role', ['worker', 'client'])->get();
-        $lang = User::where('id',Auth::user()->id)->first();
-            $language = $lang->language;
+
+
+        $users   = User::whereIn('role', ['worker', 'client'])
+        ->whereIn('language', ['english', 'arabic','turkish'])
+        ->get();
+        
+    
+        
+      foreach ($users as $user) {
+        $lang = User::where('id',$user->id)->first();
+        $language = $lang->language;
+
+
             if ($language == 'arabic') {
-                $msg = NotificationType::where('type', 'new_offer')
-                    ->first()->message_ar;
-                    $message = str_replace('{offer_name}', '( ' . $offer->name_ar . ' )', $msg);
+                $msg= NotificationType::where('type', 'new_offer')->first()->message_ar;
+
+                    $message = str_replace('offer_name','( ' . $offer->name_ar . ' )',$msg);
+                    pushNotification($user->id, Auth::id(), $message);
+                    pushFCM($user->id, 'offer', $message, ['offerId', $offer->id]);
 
             } else if ($language == 'english') {
-                $msg = NotificationType::where('type', 'new_offer')
-                    ->first()->message_en;
-                    $message = str_replace('{offer_name}', '( ' . $offer->name_en . ' )', $msg);
+
+                $msg= NotificationType::where('type', 'new_offer')->first()->message_en;
+                    $message = str_replace('offer_name','( ' . $offer->name_en . ' )', $msg);
+
+                    pushNotification($user->id, Auth::id(), $message);
+                    pushFCM($user->id, 'offer', $message, ['offerId', $offer->id]);
 
             } else {
-                $msg = NotificationType::where('type', 'new_offer')
-                    ->first()->message;
-                    $message = str_replace('{offer_name}', '( ' . $offer->name_tr . ' )', $msg);
+                $msg= NotificationType::where('type', 'new_offer')->first()->message;
+                    $message = str_replace('offer_name', '( ' . $offer->name_tr . ' )', $msg);
+                    pushNotification($user->id, Auth::id(), $message);
+                    pushFCM($user->id, 'offer', $message, ['offerId', $offer->id]);
 
             }
-      
-        foreach ($users as $user) {
-            pushNotification($user->id, Auth::id(), $message);
-            pushFCM($user->id, 'offer', $message, ['offerId', $offer->id]);
+              
+
+           
         }
 
         $request->session()->flash('success',
