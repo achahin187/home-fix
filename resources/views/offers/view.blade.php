@@ -170,6 +170,7 @@
                                                         <span><strong>@lang('admin.the_country')</strong></span> :
                                                         <p style="display: inline;">
                                                             {{ $offer->country['name'] }}
+
                                                         </p>
                                                     </div>
                                                 </div>
