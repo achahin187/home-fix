@@ -449,6 +449,7 @@ return [
     /**
      * Complains
      */
+    'add_complain'            => 'Add Complain',
     'the_complain'            => 'The Complain',
     'complain_management'     => 'Complains Management',
     'complain_make_as_read'   => 'Mark as Read',

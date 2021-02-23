@@ -487,6 +487,7 @@ return [
     /**
      * Complains
      */
+    'add_complain'             => 'اضافه شكوي',
     'the_complain'            => 'الشكوى',
     'complain_management'     => 'إدارة الشكاوى',
     'complain_make_as_read'   => 'إغلاق الشكوى',
