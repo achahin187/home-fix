@@ -120,23 +120,30 @@ class AuthController extends Controller
                 $user->save();
                 
                 
-                if ($request->file('cv')) {
-                    $cv          = $request->file('cv');
-                    $cv_fileName = uniqid() . '.' . $cv->getClientOriginalExtension();
+
+
+                if ($request->hasFile('cv')) {
+                    //Upload Cv
+                    $cv = $request->file('cv');
+                    $cv_fileName = time() . '.' . $request->file('cv')->extension();
                     Storage::disk('uploads')
-                        ->putFileAs('CVs/' . $user->id, $cv, $cv_fileName);
+                    ->putFileAs('CVs/' . $user->id, $cv, $cv_fileName);
+
+                @unlink(base_path($user->cv_path));
     
-                    @unlink(base_path($user->cv_path));
+                        $user->cv = $cv_fileName;
+                        $user->save();
     
-                    $user->cv = $cv_fileName;
-                    $user->save();
-                }
+            
+                } 
+
+
     
                 if ($request->file('identity')) {
                     $identity          = $request->file('identity');
                     $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
                     Storage::disk('uploads')
-                        ->putFileAs('CVs/' . $user->id, $identity, $identity_fileName);
+                        ->putFileAs('identities/' . $user->id, $identity, $identity_fileName);
     
                     @unlink(base_path($user->id_path));
     
