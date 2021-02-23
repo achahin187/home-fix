@@ -54,7 +54,7 @@ class Offer extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
  
-  
+ 
 
     public function getImageAttribute()
     {
@@ -74,6 +74,12 @@ class Offer extends Model
         $description = 'description_' . app()->getLocale();
         return $this->$description;
     }
+    
+    public function getCurrencyAttribute()
+    {
+        $currency = $this->belongsTo(Country::class, 'country_id');
+        return $currency->first()->currency ?? config('app.currency');
+    }
 
     public function getCountdownAttribute()
     {
@@ -91,4 +97,8 @@ class Offer extends Model
 
         return $day . $hr . $min . $sec . '.';
     }
+
+
+
+  
 }
