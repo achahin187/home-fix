@@ -248,6 +248,7 @@
                                     </a>
                                 </th>
                                 <th>
+                                    @if(isset($order->worker['id']))
                                     <a href="@if ($order->worker['id'])
                                             {{ route('workers.show', $order->worker['id']) }}
                                             @else#@endif">
@@ -257,6 +258,9 @@
                                         @lang('admin.order_need_worker')
                                         @endif
                                     </a>
+                                    @else
+                                    لايوجد
+                                    @endif
                                 </th>
                                 <th>
                                     <a
