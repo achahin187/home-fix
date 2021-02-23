@@ -227,7 +227,7 @@
                                                         <tr class="text-center" id="tr_{{ $service->id }}">
                                                             <th>{{ ++$counter }}</th>
                                                             <th>
-                                                                <a href="{{ route('services.show', $service->id) }}">
+                                                                <a href="{{ route('services.show', $service->service_id) }}">
                                                                     {{ services_name($service->service_id) }}
                                                                 </a>
                                                             </th>
