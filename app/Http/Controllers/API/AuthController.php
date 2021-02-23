@@ -25,6 +25,7 @@ use Storage;
 use Twilio\Rest\Client;
 use Validator;
 
+
 class AuthController extends Controller
 {
     protected $sid;
@@ -40,7 +41,7 @@ class AuthController extends Controller
     public function register(Request $request, $role = null)
     {
 
-        try{
+       
             if ($request->isMethod('get')) {
                 return __success(Country::where('status', true)
                     ->with('cities')->where('status', true)
@@ -52,10 +53,10 @@ class AuthController extends Controller
             if ($role !== 'client' && $role !== 'worker') {
                 return __error(trans('api.not_found'), 200);
             }
-            
+              
     
             $validator = Validator::make($request->all(), [
-                'name'     => 'required|string',
+                'name'     => ['required','unique:users', 'min:2', 'max:60', 'not_regex:([0-9])'],
                 'email'    => ['required', 'email', 'unique:users', new DisposableEmail()],
                 'phone'    => ['required', 'unique:users', new PhoneNumber()],
                 'password' => ['required', 'confirmed', new Password(8)],
@@ -64,22 +65,30 @@ class AuthController extends Controller
                 'country'  => 'required',
                 'city'     => 'required',
                 'area'     => 'required|string',
-             
-    
-            ]);
-            
-                if($role == 'worker'){
-                $validator = Validator::make($request->all(), [ 
-                    'category' => 'required',
-    
+
                 ]);
-    
-            }
-    
-            if ($validator->fails()) {
-                return __error($validator->errors()->all()[0], 200);
-            }
-    
+
+                if ($validator->fails()) {
+                    return __error($validator->errors()->all()[0], 200);
+                }
+
+             
+            
+                if ($role === 'worker') {
+                    $validator = Validator::make($request->all(), [
+          
+                        'category' => 'required',
+        
+                        ]);
+        
+                        if ($validator->fails()) {
+                            return __error($validator->errors()->all()[0], 200);
+                        }
+                    }    
+           
+         
+
+            
             $user = new User([
                 'name'           => $request->name,
                 'email'          => $request->email,
@@ -102,6 +111,8 @@ class AuthController extends Controller
             $user_address->save();
     
             if ($role === 'worker') {
+        
+        
     
                 $categories = explode(',', $request->category);
     
@@ -137,7 +148,7 @@ class AuthController extends Controller
                         #TODO: SMS Verification Code
             $this->sendSMS($user->phone , $user->activation_key);
                  #send mail       
-                 Mail::to($user->email)
+                  Mail::to($user->email)
                      ->send(new ActivationCode($user)); 
          
             }
@@ -165,12 +176,8 @@ class AuthController extends Controller
     
             }
 
-        }catch(exception $e){
-
-            return __error(trans('api.This email or phone number was taken before'),200);
-
-        }
-        
+   
+         
        
 
 
