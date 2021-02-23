@@ -246,7 +246,7 @@
                                                                    style="padding: 0.25vw;"
                                                                    data-url="{{ route('order_service.destroy', [
                                                                                                                    'order'   => $order->id,
-                                                                                                                   'service' => $service->id,
+                                                                                                                   'service' => $service->service_id,
                                                                                                                 ]) }}"
                                                                    data-confirm-message="@lang("admin.delete_confirm|role:admin.the_service")"
                                                                    data-success-message="@lang("admin.delete_success|role:admin.the_service")"
