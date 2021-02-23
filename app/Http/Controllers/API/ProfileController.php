@@ -120,7 +120,7 @@ class ProfileController extends Controller
         if ($request->file('avatar')) {
             $avatar = $request->file('avatar');
 
-
+            
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.jpg');
         }
 
