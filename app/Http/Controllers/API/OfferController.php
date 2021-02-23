@@ -29,11 +29,11 @@ class OfferController extends Controller
         
        try {
             if (Auth::user()->role == 'worker') {
-               
+                $currency = Auth::user();
+
                 $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id]);
-                dd($offers);
-                die();
-                $_offers = [];
+          
+               
                 foreach ($offers->get() as $offer) {
                     $workers = $offer->workers()
                       ->where('user_id', Auth::id())
@@ -54,6 +54,12 @@ class OfferController extends Controller
                    $offer->join_state = $state;
                     $_offers[]         = $offer;
                  }
+
+                 $data=[];
+                 foreach($_offers as $offer){
+ 
+                     $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
+                 }
                
             } else {
                 $currency = Auth::user();
@@ -71,7 +77,6 @@ class OfferController extends Controller
             return __success(
                 $data, 200);
          } catch (Exception $e) {
-            dd($e);
              return __success([], 200);
          }
     }
