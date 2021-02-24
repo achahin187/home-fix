@@ -43,7 +43,7 @@ class ProfileController extends Controller
             'address'  => 'string',
             'area'     => 'string',
             'cv'       => 'mimes:pdf,doc,docx',
-            'identity' => 'image',
+            'identity' => 'mimes:jpeg,jpg,png',
         ]);
 
         if ($validator->fails()) {
@@ -107,7 +107,7 @@ class ProfileController extends Controller
     public function setUserAvatar(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'avatar' => 'image',
+            'avatar' => 'mimes:jpeg,jpg,png',
         ]);
 
         if ($validator->fails()) {
