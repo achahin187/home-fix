@@ -56,6 +56,8 @@
                                     <th>#</th>
                                     <th>@lang('admin.name')</th>
                                     <th>@lang('admin.currency')</th>
+                                    <th>@lang('admin.max_length')</th>
+
                                     <th>@lang('admin.cities')</th>
                                     <th>@lang('admin.status')</th>
                                     <th style="border-right: 1px solid #E3EBF3">@lang('admin.settings')</th>
@@ -72,6 +74,8 @@
                                             </a>
                                         </th>
                                         <th class="text-center">{{ $country->currency }}</th>
+                                        <th class="text-center">{{ $country->max_length }}</th>
+
                                         <th class="text-center">{{ count($country->cities) }}</th>
                                         <th class="text-center">
                                             <a id="tr_{{$country->id}}" href="#" class="verify_user"

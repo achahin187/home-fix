@@ -279,7 +279,7 @@ class CategoryController extends Controller
             'price.*' => 'required|numeric',
         ]);
 
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
         $category->name_en = $request->name_en;
         $category->name_ar = $request->name_ar;
@@ -287,7 +287,8 @@ class CategoryController extends Controller
         $category->status  = $request->status;
 
         $category->save();
-
+            
+      
         $service_id = $category->quick()->first()->id;
         ServicePrice::where(
             'service_id', $service_id
