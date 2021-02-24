@@ -164,6 +164,7 @@ return [
     /**
      * Admins
      */
+    
     'user'                     => 'Manager',
     'the_user'                 => 'The manager',
     'user_info'                => 'Manager Information',

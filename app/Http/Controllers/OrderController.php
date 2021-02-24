@@ -195,7 +195,7 @@ class OrderController extends Controller
                 'servicesDetails'
             )->first();
         if (!$order) {
-            return $this->_404(
+            return $this->_404( 
                 trans('admin.order_notfound'),
                 $this->mainTitle,
                 'orders.index'
