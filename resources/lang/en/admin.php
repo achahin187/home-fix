@@ -12,6 +12,8 @@ return [
     /**
      * Global
      */
+    'country_management' => 'country management',
+
     'send activation_key'       =>     'send activation_key',
 
     'the_country'             =>  'the_country',

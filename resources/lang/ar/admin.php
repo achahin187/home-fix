@@ -289,6 +289,7 @@ return [
     /**
      * Counties
      */
+    'country_management'          => 'اداره الدول',
     'country'                  => 'دولة',
     'the_country'              => 'الدولة',
     'countries'                => 'الدول',
