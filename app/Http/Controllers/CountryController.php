@@ -63,11 +63,13 @@ class CountryController extends Controller
         $request->validate([
             'name'     => 'required|string',
             'currency' => 'required|string',
+            'max_length' => 'required|integer',
         ]);
 
         $country = new Country([
             'name'     => $request->name,
             'currency' => $request->currency,
+            'max_length' => $request->max_length, 
         ]);
 
         $country->save();
@@ -136,10 +138,12 @@ class CountryController extends Controller
         $request->validate([
             'name'     => 'required',
             'currency' => 'required',
+            'max_length'=>'required',
         ]);
 
         $country->name     = $request->name;
         $country->currency = $request->currency;
+        $country->max_length = $request->max_length;
         $country->save();
 
         $request->session()->flash(

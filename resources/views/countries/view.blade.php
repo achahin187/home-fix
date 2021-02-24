@@ -92,6 +92,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="card border-bottom-info box-shadow-1 border-bottom-2">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <span><strong>@lang('admin.max_length')</strong></span> :
+                                                <p style="display: inline;">
+                                                    {{$country->max_length}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">

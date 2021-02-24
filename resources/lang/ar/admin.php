@@ -289,6 +289,7 @@ return [
     /**
      * Counties
      */
+    'max_length'                => ' الحد الاقصي  لرقم المحمول',
     'country_management'          => 'اداره الدول',
     'country'                  => 'دولة',
     'the_country'              => 'الدولة',

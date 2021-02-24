@@ -9,7 +9,7 @@ class Country extends Model
     protected $table = 'countries';
 
     protected $fillable = [
-        'name', 'currency',
+        'name', 'currency','max_length',
         'status',
     ];
 

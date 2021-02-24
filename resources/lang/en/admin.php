@@ -12,6 +12,7 @@ return [
     /**
      * Global
      */
+    'max_length' => 'max_length',
     'country_management' => 'country management',
 
     'send activation_key'       =>     'send activation_key',

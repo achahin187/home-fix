@@ -98,6 +98,30 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="name"
+                                                       style="padding: 0.75rem 1rem;">@lang('admin.max_length')</label>
+                                                <div class="col-md-9">
+                                                    <fieldset>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon3"><i class="fas fa-ruler-horizontal"></i></span>
+                                                            </div>
+                                                            <input id="max_length" type="text"
+                                                                   class="form-control @error('max_length') is-invalid @enderror"
+                                                                   name="max_length" value="@if (old('max_length')){{ old('max_length') }}@else{{ $country->max_length }}@endif" required
+                                                                   autocomplete="max_length">
+                                                            @error('max_length')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
