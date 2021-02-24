@@ -111,7 +111,10 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        return Storage::disk('uploads') ->url('avatars/' . $this->id . '/avatar.jpg','/avatar.png') . '?t=' . time();
+        // return Storage::disk('uploads')
+        //         ->url('avatars/' . $this->id .
+        //             '/avatar.png') . '?t=' . time();
+        return \URL::to('/').'/storage/app/public/avatars/'.$this->id. '/avatar.png' . '?t=' . time();
     }
 
     public function getTotalOrdersAttribute()
