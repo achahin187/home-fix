@@ -15,7 +15,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('slider.index') }}">
-                            {{ $mainTitle }}
+                            {{ __('admin.slider')}}
                         </a>
                     </li>
                 </ol>
@@ -220,7 +220,7 @@
                                                             </div>
                                                             <input type="file" name="image" value="{{ old('image') }}"
                                                                    class="form-control @error('image') is-invalid @enderror">
-                                                                   <div class="alert alert-info text-center"> 780 * 422 لا بد ان تكون الصوره </div>
+                                                                   <div class="alert alert-info text-center">{{ __('admin.image must be 780 * 422') }}</div>
                                                             @error('image')
                                                             <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>

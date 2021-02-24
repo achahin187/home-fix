@@ -15,8 +15,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('offers.index') }}">
-                            {{ $mainTitle }}
-                        </a>
+                            {{ __('admin.offer_management') }}                        </a>
                     </li>
                 </ol>
             </div>
@@ -212,7 +211,7 @@
                                                        style="
                                                             padding: 0.75rem 1rem;
                                                             flex: 0 0 12.5%;
-                                                            max-width: 12.5%;">
+                                                            max-width: 15%;">
                                                     @lang('admin.the_category')</label>
                                                 <div class="col-md-11" style="
                                                         flex: 0 0 calc(100% - 12.5%);
@@ -242,7 +241,7 @@
                                                        style="
                                                             padding: 0.75rem 1rem;
                                                             flex: 0 0 12.5%;
-                                                            max-width: 12.5%;">
+                                                            max-width: 15%;">
                                                     @lang('admin.choose_country')</label>
                                                 <div class="col-md-11" style="
                                                         flex: 0 0 calc(100% - 12.5%);

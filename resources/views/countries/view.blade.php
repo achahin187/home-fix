@@ -27,7 +27,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('countries.index') }}">
-                            {{ $mainTitle }}
+                            {{ __('admin.country_management') }}
                         </a>
                     </li>
                 </ol>

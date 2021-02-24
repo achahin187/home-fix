@@ -5,8 +5,7 @@
 @section('content-header')
     <div class="content-header-left col-md-6 col-12 mb-2">
         <h3 class="content-header-title">
-            {{ $title }}
-        </h3>
+            {{ __('admin.offer_management') }}        </h3>
         <div class="row breadcrumbs-top">
             <div class="breadcrumb-wrapper col-12">
                 <ol class="breadcrumb">
@@ -17,8 +16,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('offers.index') }}">
-                            {{ $mainTitle }}
-                        </a>
+                            {{ __('admin.offer_management') }}                        </a>
                     </li>
                 </ol>
             </div>

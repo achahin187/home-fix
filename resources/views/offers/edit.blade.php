@@ -4,7 +4,7 @@
 
 @section('content-header')
     <div class="content-header-left col-md-6 col-12 mb-2">
-        <h3 class="content-header-title">{{ $title }}</h3>
+        <h3 class="content-header-title">{{ __('admin.offer_management') }}</h3>
         <div class="row breadcrumbs-top">
             <div class="breadcrumb-wrapper col-12">
                 <ol class="breadcrumb">
@@ -15,8 +15,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('offers.index') }}">
-                            {{ $mainTitle }}
-                        </a>
+                            {{ __('admin.offer_management') }}                        </a>
                     </li>
                 </ol>
             </div>
@@ -215,7 +214,7 @@
                                                        style="
                                                             padding: 0.75rem 1rem;
                                                             flex: 0 0 12.5%;
-                                                            max-width: 12.5%;">
+                                                            max-width: 15%;">
                                                     @lang('admin.choose_country')</label>
                                                 <div class="col-md-11" style="
                                                         flex: 0 0 calc(100% - 12.5%);

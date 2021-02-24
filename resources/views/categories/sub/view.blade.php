@@ -27,8 +27,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('categories.index') }}">
-                            {{ $mainTitle }}
-                        </a>
+                            {{ __('admin.category_management') }}                        </a>
                     </li>
                 </ol>
             </div>

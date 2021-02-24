@@ -17,7 +17,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('complains.index') }}">
-                            {{ $mainTitle }}
+                            {{ __('admin.complain_management') }}
                         </a>
                     </li>
                 </ol>

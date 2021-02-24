@@ -15,8 +15,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('offers.orders') }}">
-                            {{ $mainTitle }}
-                        </a>
+                            {{ __('admin.order_management') }}                        </a>
                     </li>
                 </ol>
             </div>
