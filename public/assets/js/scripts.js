@@ -84,7 +84,7 @@ $('.delete_record').on('click', function(e) {
                         $(item_parent).fadeTo(400, 0, function() {
                             $(item_parent).slideUp(400);
                         });
-                        fileExportTable.row($(item_parent)).remove().draw(false);
+                        // fileExportTable.row($(item_parent)).remove().draw(false);
                         if (redirectUrl) {
                             setTimeout(function() {
                                 window.location = redirectUrl;
