@@ -43,7 +43,7 @@
                                 @csrf
                                 <div class="form-body">
                                     <h4 class="form-section"><i class="la la-gift"></i>
-                                       اضافه شريك جديد 
+                                       {{ __('admin.Add a new partner') }} 
                                     </h4>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -60,7 +60,7 @@
                                                             </div>
                                                             <input type="file" name="image" value="{{ old('image') }}"
                                                                    class="form-control @error('image') is-invalid @enderror">
-                                                                   <div class="alert alert-info text-center"> 720 * 73 لا بد ان تكون الصوره </div>
+                                                                   <div class="alert alert-info text-center"> {{ __('admin.image must be 720 * 73') }}  </div>
                                                             @error('image')
                                                             <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>

@@ -330,7 +330,6 @@ class AuthController extends Controller
                 return __success($user, 200);
             }
 
-            if(Auth::user()->role === 'worker') {
                 return __error([
                     'api_token'      => Auth::user()->api_token,
                     'activation_key' => Auth::user()->activation_key,
@@ -340,11 +339,10 @@ class AuthController extends Controller
     
                  ], 200);
     
-            }else{
-                return __error(trans('auth.failed'), 200);
+            
     
     
-            }
+            
 
         }catch(Exception $e){
          return __error('unauthorized', 200);

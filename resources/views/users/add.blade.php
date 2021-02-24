@@ -50,7 +50,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="name"
-                                                       style="padding: 0.75rem 1rem;">الإسم الكامل</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.Full name') }}</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -75,7 +75,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="email"
-                                                       style="padding: 0.75rem 1rem;">البريد الإلكترونى</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.E-mail') }}</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -103,7 +103,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="phone"
-                                                       style="padding: 0.75rem 1rem;">رقم الهاتف</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.Telephone number') }}</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -128,7 +128,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="image"
-                                                       style="padding: 0.75rem 1rem;">الصورة</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.Image') }}</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -154,7 +154,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="password"
-                                                       style="padding: 0.75rem 1rem;">كلمة المرور</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.password') }}</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -180,7 +180,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="password_confirmation"
-                                                       style="padding: 0.75rem 1rem;">تأكيد كلمة المرور</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.confirm password') }}</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -209,7 +209,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="address"
-                                                       style="padding: 0.75rem 1rem;">العنوان</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.Address') }}</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -270,7 +270,7 @@
                                                        style="
                                                             padding: 0.75rem 1rem;
                                                             flex: 0 0 12.5%;
-                                                            max-width: 12.5%;">ملاحظات</label>
+                                                            max-width: 12.5%;">{{ __('admin.Notes') }}</label>
                                                 <div class="col-md-10"
                                                      style="
                                                             flex: 0 0 calc(100% - 12.5%);
