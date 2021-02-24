@@ -26,42 +26,59 @@ class OfferController extends Controller
 
    public function getAllOffers()
     {
-        try {
+        
+       try {
             if (Auth::user()->role == 'worker') {
+                $currency = Auth::user();
+
                 $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id]);
-                
-                $_offers = [];
+          
+               
                 foreach ($offers->get() as $offer) {
                     $workers = $offer->workers()
-                        ->where('user_id', Auth::id())
-                        ->withPivot('status');
+                      ->where('user_id', Auth::id())
+                  ->withPivot('status');
                    
                     @$worker = $workers->first()->pivot->status;
-                  //  dd($workers);
-                    if(isset($worker)) {
-                        if((int) $worker === 0) {
-                            $state = -1;
-                        }else{
-                            $state = 1;
-                        }
+                //   //  dd($workers);
+                if(isset($worker)) {
+                   if((int) $worker === 0) {
+                          $state = -1;
+                      }else{
+                          $state = 1;
+                       }
                     }else{
                         $state = 0;
-                    }
+                   }
 
-                    $offer->join_state = $state;
+                   $offer->join_state = $state;
                     $_offers[]         = $offer;
-                }
+                 }
+
+                 $data=[];
+                 foreach($_offers as $offer){
+ 
+                     $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
+                 }
                
             } else {
-
+                $currency = Auth::user();
+                    
+             
                 $_offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
+                $data=[];
+                foreach($_offers as $offer){
+
+                    $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
+                }
 
             }
 
-            return __success($_offers, 200);
-        } catch (Exception $e) {
-            return __success([], 200);
-        }
+            return __success(
+                $data, 200);
+         } catch (Exception $e) {
+             return __success([], 200);
+         }
     }
 
     protected function getOrderInformations($id)

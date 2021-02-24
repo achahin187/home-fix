@@ -10,6 +10,7 @@ use App\Rules\PhoneNumber;
 use App\User;
 use App\UserAddress;
 use Avatar;
+use Illuminate\Http\File;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -118,7 +119,9 @@ class ProfileController extends Controller
 
         if ($request->file('avatar')) {
             $avatar = $request->file('avatar');
-            Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
+
+            
+            Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.jpg');
         }
 
         return __success($user, 200);

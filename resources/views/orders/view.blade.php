@@ -278,7 +278,7 @@
                                                             <th class="text-center">
                                                                 @if ($service->status == 1)
                                                                     <i class="ft-check-circle"
-                                                                       title="@lang('admin.accepted')"
+                                                                       title="@lang('admin.accepted')" 
                                                                        style="color:green"></i>
                                                                 @else
                                                                     <i class="ft-x-circle"
