@@ -280,7 +280,6 @@ class CategoryController extends Controller
         ]);
 
         $category = Category::findOrFail($id);
-
         $category->name_en = $request->name_en;
         $category->name_ar = $request->name_ar;
         $category->name_tr = $request->name_tr;
@@ -288,20 +287,39 @@ class CategoryController extends Controller
 
         $category->save();
             
-      
-        $service_id = $category->quick()->first()->id;
-        ServicePrice::where(
-            'service_id', $service_id
-        )->delete();
-
-        foreach ((array)$request->price as $k => $v) {
-            $price = new ServicePrice([
-                'service_id' => $service_id,
-                'country_id' => (int)$k,
-                'price'      => round((double)$v, 2)
-            ]);
-            $price->save();
+        if($category !== null){
+         
+          
+            $service_id = $category->quick()->first()->id;
+            ServicePrice::where(
+                'service_id', $service_id
+            )->delete();
+    
+            foreach ((array)$request->price as $k => $v) {
+                $price = new ServicePrice([
+                    'service_id' => $service_id,
+                    'country_id' => (int)$k,
+                    'price'      => round((double)$v, 2)
+                ]);
+                $price->save();
+            }
+        }else{
+            $service_id = $category->quick()->first()->id;
+            ServicePrice::where(
+                'service_id', null
+            )->delete();
+    
+            foreach ((array)$request->price as $k => $v) {
+                $price = new ServicePrice([
+                    'service_id' => null,
+                    'country_id' => (int)$k,
+                    'price'      => round((double)$v, 2)
+                ]);
+               
+            
         }
+    }
+    
 
         if ($request->file('upload_icon')) {
             $icon = $request->file('upload_icon');
