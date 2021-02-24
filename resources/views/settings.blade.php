@@ -15,7 +15,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('admin.settings') }}">
-                            {{ $mainTitle }}
+                            {{ $title }}
                         </a>
                     </li>
                 </ol>

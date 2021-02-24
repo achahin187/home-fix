@@ -270,6 +270,7 @@
                                                                                     <strong>{{ $message }}</strong></span>
                                                                                 @enderror
                                                                             </div>
+                                                                             
                                                                         </fieldset>
                                                                     </div>
                                                                     <label class="col-md-2 label-control" for="name"
