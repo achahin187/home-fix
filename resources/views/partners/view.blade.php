@@ -17,7 +17,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('partners.index') }}">
-                            {{ $mainTitle }}
+                            {{ __('admin.Partners_management')}}
                         </a>
                     </li>
                 </ol>

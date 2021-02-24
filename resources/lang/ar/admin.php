@@ -12,6 +12,8 @@ return [
     /**
      * Global
      */
+    'add_country' => 'اضافه دوله',
+
     'send activation_key' => 'أرسال مفتاح التنشيط',
     'the_country'             =>'الدولة',
     'control_panel'           => 'لوحة التحكم',
@@ -167,6 +169,15 @@ return [
     /**
      * Admins
      */
+    'Full name'         =>    'الإسم الكامل',
+    'Telephone number' => 'رقم الهاتف',
+    'password'=>'كلمة المرور',
+    'Address' => 'العنوان',
+    'E-mail' => 'البريد الإلكترونى',
+    'Image' => 'الصورة',
+    'confirm password' =>     'تأكيد كلمة المرور',
+    'Notes' => 'ملاحظات',
+
     'user'                     => 'مدير',
     'the_user'                 => 'المدير',
     'user_info'                => 'بيانات المدير',
@@ -456,6 +467,8 @@ return [
     'type_message'            => 'اكتب رسالتك',
     'send'                    => 'إرسال',
      /*  Sliser */
+     'image must be 780 * 422' =>'780 * 422 لا بد ان تكون الصوره ',
+
     'slider'                  => 'اداره السليد شو ',
     'add_Slider'              => 'اضافه سليدر',
     'view_Slider'             => 'عرض السليدر',
@@ -477,9 +490,10 @@ return [
     'text_tr'            => 'تكست السليدر بالعربيه  ' ,
 
     'Slider_added'     => 'تم الاضافه بنجاح' ,
+    'image must be 720 * 73' => '720 * 73 لا بد ان تكون الصوره',
 
-    
-     'Partners'   => 'اداره الشركاء',
+    'Add a new partner' =>'اضافه شريك جديد',
+     'Partners_management'   => 'اداره الشركاء',
     'add_Partners' => 'اضافه شركاء' , 
     'Partners_added' => 'تم اضافه شريك بنجاح ',
     'Partner_notfound' => 'لا يوجد شريك' , 

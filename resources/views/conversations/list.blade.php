@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title') {{ $title }} @endsection
+@section('title') {{ __('admin.chat_managment')}} @endsection
 
 @section('content-header')
 <div class="content-header-left col-md-6 col-12 mb-2">
-    <h3 class="content-header-title">{{ $title }}</h3>
+    <h3 class="content-header-title">{{ __('admin.chat_managment')}}</h3>
     <div class="row breadcrumbs-top">
         <div class="breadcrumb-wrapper col-12">
             <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                 </li>
                 <li class="breadcrumb-item">
                     <a href="{{ route('clients.index') }}">
-                        {{ $mainTitle }}
+                        {{ __('admin.chat_managment')}}
                     </a>
                 </li>
             </ol>

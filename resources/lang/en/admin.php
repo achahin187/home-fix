@@ -14,6 +14,7 @@ return [
      */
     'max_length' => 'max_length',
     'country_management' => 'country management',
+    'add_country' => 'add_country',
 
     'send activation_key'       =>     'send activation_key',
 
@@ -165,7 +166,16 @@ return [
     /**
      * Admins
      */
-    
+    'Full name'         =>    'Full name',
+       'Telephone number' => 'Telephone number',
+       'password'=>'Password',
+       'Address' => 'Address',
+       'E-mail' => 'Email',
+       'Image' => 'Image',
+       'confirm password' =>     'confirm password',
+       'Notes' => 'Notes',
+       
+
     'user'                     => 'Manager',
     'the_user'                 => 'The manager',
     'user_info'                => 'Manager Information',
@@ -428,8 +438,9 @@ return [
     'view_Slider'             => 'view_Slider',
     'edit_Slider'             => 'edit_Slider',
     'Slider_updated'         => 'Slider_updated',
-    'Slider_notfound'        => 'لا يوجد سليدر',
+    'Slider_notfound'        => 'Slider_notfound',
     'Slider_head'          => 'Slider Head' , 
+
 
     'Slider_text'          => 'Slider Text',
     'title_ar'            => 'Slider Title In Arabic' , 
@@ -440,6 +451,8 @@ return [
     'text_en'            => 'Slider Text In English ' ,
     'text_tr'            => 'Slider Text In Turkish ' ,
     'Slider_added'       =>   'You Add Slider Show Successfully ' ,
+    'image must be 780 * 422' => 'image must be 780 * 422',
+
     
         'Partners'   =>   'Add Partners',
     'add_Partners' => 'Add Partners',
@@ -448,6 +461,10 @@ return [
     'view_Partner' => 'View Partner',
     'edit_Partner' => 'Edit Partner',
     'Partner_updated' => 'update Partner',
+    'Partners_management' => 'Partners_management',
+    'image must be 720 * 73' => 'image must be 720 * 73',
+    'Add a new partner' => 'Add a new partner',
+
 
 
     /**

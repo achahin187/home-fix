@@ -15,7 +15,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('partners.index') }}">
-                            {{ $mainTitle }}
+                            {{ __('admin.Partners_management')}}
                         </a>
                     </li>
                 </ol>
@@ -78,10 +78,10 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
-                                                <label class="col-md-2 label-control" for="name"
+                                                <label class="col-md-6 label-control" for="name"
                                                        style="padding: 0.75rem 1rem;">
                                                     @lang('admin.image')</label>
-                                                <div class="col-md-9">
+                                                <div class="col-md-12">
                                                     <fieldset>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">

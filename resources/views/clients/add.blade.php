@@ -15,7 +15,8 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('clients.index') }}">
-                            {{ $mainTitle }}
+                            {{ __('admin.client_management') }}   
+                        
                         </a>
                     </li>
                 </ol>

@@ -15,7 +15,7 @@
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('offers.index') }}">
-                            {{ $mainTitle }}
+                            {{ __('admin.slider')}}
                         </a>
                     </li>
                 </ol>
