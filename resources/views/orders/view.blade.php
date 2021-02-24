@@ -224,7 +224,7 @@
                                                         <th colspan="6">@lang('admin.client_orders')</th>
                                                     </tr>
                                                     @foreach($order->servicesDetails as $service)
-                                                        <tr class="text-center" id="tr_{{ $service->id }}">
+                                                        <tr class="text-center" id="tr_{{ $service->service_id }}">
                                                             <th>{{ ++$counter }}</th>
                                                             <th>
                                                                 <a href="{{ route('services.show', $service->service_id) }}">
@@ -242,7 +242,7 @@
                                                                    title="@lang('admin.accepted')"
                                                                    style="color:green"></i>
                                                             <th style="border-right: 1px solid #E3EBF3">
-                                                                <a id="tr_{{$service->id}}" href="#" class="delete_record btn btn-danger"
+                                                                <a id="tr_{{$service->service_id}}" href="#" class="delete_record btn btn-danger"
                                                                    style="padding: 0.25vw;"
                                                                    data-url="{{ route('order_service.destroy', [
                                                                                                                    'order'   => $order->id,
