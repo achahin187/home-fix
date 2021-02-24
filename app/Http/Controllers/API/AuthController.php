@@ -60,7 +60,7 @@ class AuthController extends Controller
                 'phone'    => ['required', 'unique:users', new PhoneNumber()],
                 'password' => ['required', 'confirmed', new Password(8)],
                 'cv'       => 'mimes:pdf,doc,docx',
-                'identity' => 'image',
+                'identity' => 'mimes:jpeg,jpg,png',
                 'country'  => 'required',
                 'city'     => 'required',
                 'area'     => 'required|string',
