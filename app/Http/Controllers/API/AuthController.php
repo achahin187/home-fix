@@ -330,7 +330,7 @@ class AuthController extends Controller
                 return __success($user, 200);
             }
 
-                return __error([
+                return __success([
                     'api_token'      => Auth::user()->api_token,
                     'activation_key' => Auth::user()->activation_key,
                     'role'  =>Auth::user()->role,
