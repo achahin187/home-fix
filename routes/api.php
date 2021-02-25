@@ -37,7 +37,7 @@ Route::group([
         ], function () {
             Route::get('/', 'ProfileController@getUserInformation');
             Route::post('/', 'ProfileController@setUserInformation');
-            Route::post('/avatar', 'ProfileController@setUserFAvatar');
+            Route::post('/avatar', 'ProfileController@setUserAvatar');
             Route::post('/password', 'ProfileController@setUserPassword');
             Route::post('/location', 'ProfileController@setUserLocation');
             Route::get('logout', 'AuthController@logout');
