@@ -16,6 +16,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Storage;
+use App\UserAddress;
 
 
 class OfferController extends Controller
@@ -121,12 +122,12 @@ class OfferController extends Controller
         ->whereIn('language', ['english', 'arabic','turkish'])
         ->get();
         
-    
         
       foreach ($users as $user) {
         $lang = User::where('id',$user->id)->first();
         $language = $lang->language;
 
+        if($request->country_id == $user->country_id){
 
             if ($language == 'arabic') {
                 $msg= NotificationType::where('type', 'new_offer')->first()->message_ar;
@@ -150,6 +151,16 @@ class OfferController extends Controller
                     pushFCM($user->id, 'offer', $message, ['offerId', $offer->id]);
 
             }
+
+        }
+        
+
+
+         
+
+                 
+                
+    
               
 
            
