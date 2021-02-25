@@ -126,7 +126,7 @@
                         @role('super-admin|admin')
             <li class="nav-item has-sub"><a href="{{ route('partners.index') }}">
                     <i class="la la-gift"></i>
-                    <span class="menu-title">@lang('admin.Partners')</span></a>
+                    <span class="menu-title">@lang('admin.Partners_management')</span></a>
                 <ul class="menu-content" style="">
                     <li class=""><a class="menu-item" href="{{ route('partners.index') }}">
                             @lang('admin.view_Partner')</a>
