@@ -121,8 +121,9 @@ class ProfileController extends Controller
             $avatar = $request->file('avatar');
 
             
-            Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.jpg');
+            Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
         }
+      
 
         return __success($user, 200);
     }
