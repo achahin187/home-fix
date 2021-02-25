@@ -530,7 +530,28 @@ class AuthController extends Controller
     }
 
  
+  ///set_device_token
 
+  public function setnotifications_key(Request $request )
+  {
+
+
+
+    try{
+        $user = User::where([
+            ['id', $request->user_id]
+        ])->first();
+
+        $user->notifications_key= $request->notifications_key ?? $user->notifications_key;
+       $user->update();
+
+        return __success($user, 200);
+   }catch (Exception $e) {
+     return __error('error', 200);
+    }
+
+
+  }
 
 }
 
