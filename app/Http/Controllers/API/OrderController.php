@@ -204,10 +204,8 @@ class OrderController extends Controller
     
                 # Add New Order!
                     $order_id = $this->addNewOrder($request, $worker_id);
-
-                
-    
-                
+                //////////////////////
+               
     
                 # Add services related to order!
                 $_services = preg_match('/{(.*?)}/', $service, $matches);
