@@ -56,8 +56,9 @@ class OfferController extends Controller
                  }
 
                  $data=[];
-                 foreach($_offers as $offer){
- 
+                 foreach($_offers as $offer){  
+                    $offer->setAttribute('pricebycountry',$offer->price); 
+                    unset($offer->price);                 
                      $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
                  }
                
@@ -68,8 +69,10 @@ class OfferController extends Controller
                 $_offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
                 $data=[];
                 foreach($_offers as $offer){
-
+                    $offer->setAttribute('pricebycountry',$offer->price); 
+                    unset($offer->price); 
                     $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
+                  
                 }
 
             }
