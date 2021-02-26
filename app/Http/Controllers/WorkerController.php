@@ -271,11 +271,11 @@ class WorkerController extends Controller
             'phone'    => $phone,
             'address'  => 'string',
             'password' => 'confirmed',
-            'image'    => 'image',
+            'image'    => 'mimes:jpeg,jpg,png',
             'category' => 'required',
             'cv'       => 'mimes:pdf,doc,docx',
             'badge'    => 'numeric',
-            'identity' => 'image',
+            'identity' => 'mimes:jpeg,jpg,png',
         ]);
 
         $user->name     = ($request->name) ?: $user->name;
