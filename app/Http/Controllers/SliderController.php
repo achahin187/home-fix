@@ -71,7 +71,7 @@ class SliderController extends Controller
             'text_en'         => 'required|string',
             'text_ar'         => 'required|string',
             'text_tr'         => 'required|string',
-            'image'          => 'required|image',
+            'image'          => 'required|mimes:jpeg,jpg,png',
  
         ]);
 
@@ -187,7 +187,7 @@ class SliderController extends Controller
             'text_en'         => 'required|string',
             'text_ar'         => 'required|string',
             'text_tr'         => 'required|string',
-            'image'          => 'required|image',
+            'image'          => 'required|mimes:jpeg,jpg,png',
         ]);
 
 
