@@ -191,7 +191,6 @@
                                         <div class="media">
                                             <div class="media-left align-self-center">
                                                 <img src="{{ $notification->data['avatar'] }}"
-                                                styel="height:5px;width:5px"
                                               alt="worker image">                                       
                                                  </div>
                                             <div class="media-body">
@@ -255,9 +254,7 @@
                                         class="box overlay skyblue notification-item">
                                         <div class="media">
                                             <div class="media-left align-self-center">
-                                                <img src="{{ $notification->data['avatar'] }}"
-                                                  styel="height:5px;width:5px"
-                                                alt="worker image">
+                                                <img src="{{ $notification->data['avatar'] }}"  alt="worker image">
                                                 
                                                 </div>
                                             <div class="media-body">
