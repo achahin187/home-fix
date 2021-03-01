@@ -190,10 +190,7 @@
                                         class="box overlay skyblue notification-item">
                                         <div class="media">
                                             <div class="media-left align-self-center">
-                                                <div styel="height:5px;width:5px" >
-
-                                                 <img src="/{{ $notification->data['avatar'] }}" alt="worker image">     
-                                                </div>                                  
+                                                <img class="ft-plus-square" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
                                                  </div>
                                             <div class="media-body">
                                                 <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
@@ -256,10 +253,7 @@
                                         class="box overlay skyblue notification-item">
                                         <div class="media">
                                             <div class="media-left align-self-center">
-                                                <div styel="height:5px;width:5px">
-                                                    <img src="/{{ $notification->data['avatar'] }}"  alt="worker image">
-
-                                                </div>
+                                                <img class="ft-plus-square" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
                                                 
                                                 </div>
                                             <div class="media-body">
