@@ -199,7 +199,7 @@ class ClientController extends Controller
             'phone'    => $phone,
             'address'  => 'string',
             'password' => 'confirmed',
-            'image'    => 'image',
+            'image'    => 'mimes:jpeg,jpg,png',
         ]);
 
         $user->name     = ($request->name) ?: $user->name;

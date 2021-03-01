@@ -335,9 +335,17 @@ class AuthController extends Controller
     
                 $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
                 $user->notifications_key = $request->notifications_key;
+                $user->language=$request->language ?? $user->language;
+
+
                 $user->save();
-    
                 $user->is_social = 0;
+
+
+           
+          
+              
+
                 return __success($user, 200);
             }
 
