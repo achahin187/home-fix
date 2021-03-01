@@ -171,7 +171,6 @@ class AuthController extends Controller
                 'id'  => $user->id,
                 'username' => $request->name,
                 'avatar' => $user->avatar,
-                'message' => 'تم تسجيل فني جديد',
                 'type'     => 'new_worker',
             ];
             User::find(1)->notify(new WorkerRegisterNotification($data));
