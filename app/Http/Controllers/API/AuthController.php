@@ -24,6 +24,8 @@ use Illuminate\Support\Str;
 use Storage;
 use Twilio\Rest\Client;
 use Validator;
+use App\Notifications\WorkerRegisterNotification;
+use Notification;
 
 
 class AuthController extends Controller
@@ -150,6 +152,15 @@ class AuthController extends Controller
                     $user->identity = $identity_fileName;
                     $user->save();
                 }
+                //send notification
+               // $message ='تم تسجيل فني جديد';
+               // $user->setAttribute('type','new_worker');
+               $data = [
+                    'id'  => $user->id,
+                    'message' => 'تم تسجيل فني جديد',
+                    'type'     => 'new_worker',
+                ];
+                User::find(1)->notify(new WorkerRegisterNotification($data));
             }
             if($role === 'client') {
                         #TODO: SMS Verification Code
