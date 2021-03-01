@@ -164,14 +164,13 @@ class AuthController extends Controller
                      ->send(new ActivationCode($user)); 
          
             }
-           $avatar= $this->createPlaceHolderAvatar($user->id, $user->name);
-
+            $this->createPlaceHolderAvatar($user->id, $user->name);
 
            if($role == 'worker'){
             $data = [
                 'id'  => $user->id,
                 'username' => $request->name,
-                'avatar' => $avatar,
+                'avatar' => $user->avatar,
                 'message' => 'تم تسجيل فني جديد',
                 'type'     => 'new_worker',
             ];
