@@ -247,7 +247,7 @@
                                         class="box overlay skyblue notification-item">
                                         <div class="media">
                                             <div class="media-left align-self-center">
-                                                <img src="/{{$user->avatar}}"
+                                                <img src="/{{$worker->avatar}}"
                                                   styel="height:20px;width:20px"
                                                 alt="User image">
                                                 </div>
