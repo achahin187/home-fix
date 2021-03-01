@@ -9,8 +9,7 @@ use Notification;
 
 class NotificationController extends Controller
 {
-    public function pushNotification(
-        $orderId, $orderNo, $price, $type)
+    public function pushNotification($orderId, $orderNo, $price, $type)
     {
         $users = User::where([
             ['role', '<>', 'worker'],
