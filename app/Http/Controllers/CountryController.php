@@ -134,6 +134,8 @@ class CountryController extends Controller
     public function update(Request $request, $id)
     {
         $country = Country::find($id);
+        $countries = Country::with('cities')->get();
+
 
         $request->validate([
             'name'     => 'required',
@@ -150,7 +152,12 @@ class CountryController extends Controller
             'success',
             trans('admin.country_update_success')
         );
-        return redirect()->back();
+        return view('countries.list', [
+            'mainTitle' => $this->mainTitle,
+            'title'     => $this->mainTitle,
+            'countries' => $countries,
+        ]);  
+    
     }
 
     /**

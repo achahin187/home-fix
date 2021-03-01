@@ -24,6 +24,7 @@ use Illuminate\Support\Str;
 use Storage;
 use Twilio\Rest\Client;
 use Validator;
+use App\NotificationType;
 
 
 class AuthController extends Controller
@@ -150,6 +151,36 @@ class AuthController extends Controller
                     $user->identity = $identity_fileName;
                     $user->save();
                 }
+/* 
+
+               
+                //send notification to dashboard 
+                $lang = User::where('id',$user->id)->first();
+                $language = $lang->language;
+                if ($language == 'arabic') {
+                    $msg= NotificationType::where('type', 'new_worker')->first()->message_ar;
+    
+                     
+    
+                } else if ($language == 'english') {
+    
+                    $msg= NotificationType::where('type', 'new_worker')->first()->message_en;
+               
+    
+                } else {
+                    $msg= NotificationType::where('type', 'new_worker')->first()->message;
+                    
+                }
+                $message = str_replace('user_name', '( ' . $user->name . ' )', $msg);
+                pushNotification($user->id, Auth::id(), $message);
+                dd(); */
+
+
+
+
+
+
+
             }
             if($role === 'client') {
                         #TODO: SMS Verification Code

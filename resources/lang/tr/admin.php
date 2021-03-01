@@ -13,7 +13,7 @@ return [
      * Global
      */
     
-    
+    'new_worker'=>'new_worker',
     'country_management' => 'country management',
 
     'send activation_key'       =>     'send activation_key',
