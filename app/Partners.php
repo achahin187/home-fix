@@ -16,17 +16,7 @@ class Partners extends Model
 
 
 
-    // public function getImageAttribute($val)
-    // {
 
-        
-    //             return $this->image !== ''
-    //         ? Storage::disk('uploads')
-    //             ->url('partners/' .
-    //                 '/' . $this->image)
-    //         : '';
-
-    // }
 
 
 
