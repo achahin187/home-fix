@@ -191,7 +191,7 @@
                                         <div class="media">
                                             <div class="media-left align-self-center">
                                                 <img src="{{ $notification->data['avatar'] }}"
-                                                styel="height:15px;width:15px"
+                                                styel="height:5px;width:5px"
                                               alt="worker image">                                       
                                                  </div>
                                             <div class="media-body">
@@ -256,7 +256,7 @@
                                         <div class="media">
                                             <div class="media-left align-self-center">
                                                 <img src="{{ $notification->data['avatar'] }}"
-                                                  styel="height:15px;width:15px"
+                                                  styel="height:5px;width:5px"
                                                 alt="worker image">
                                                 
                                                 </div>
