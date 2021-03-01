@@ -50,7 +50,7 @@ class NotificationController extends Controller
             $notificaitons       = $user->notifications;
             $readNotifications   = $user->readNotifications;
             $unreadNotifications = $user->unreadNotifications;
-
+                
             if ($notificaitons) {
                 return [
                     'notifications'       => $notificaitons,
