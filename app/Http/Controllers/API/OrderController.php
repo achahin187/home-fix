@@ -441,9 +441,8 @@ class OrderController extends Controller
                 && in_array($order->status,
                     $state_arr, false)) {
                         
-                         //$language = Auth::user()->language;
-                        $lang = User::where('id',$order->client_id)->first();
-                        $language = $lang->language;
+                        
+                         $language = Auth::user()->language;
                         if ($language == 'arabic') {
                             $message = NotificationType::where('type',  'order_' . $status)
                                 ->first()->message_ar;
