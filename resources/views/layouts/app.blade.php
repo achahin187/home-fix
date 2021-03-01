@@ -179,7 +179,24 @@
                                             </div>
                                         </div>
                                     </a>
-                                    @endif
+                                    @elseif($notification->data['type'] === 'new_worker')
+                                    <a href="{{ route('workers.show',$notification->data['id'])}}"
+                                        onclick="changeNotificationStatus()"
+                                        class="box overlay skyblue notification-item">
+                                        <div class="media">
+                                            <div class="media-left align-self-center">
+                                                <i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">تم اضافة فني جديد</h6>
+                                                <small>
+                                                    <time class="media-meta text-muted"
+                                                        datetime="{{$notification->time}}">
+                                                        {{$notification->time}}</time>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    @else
                                     <a href="@if ($notification->data['type'] === 'order')
                                         {{ route('orders.show',$notification->data['orderId'])}}
                                         @else
@@ -203,6 +220,7 @@
                                             </div>
                                         </div>
                                     </a>
+                                    @endif
                                     @endforeach
                                     @foreach($readNotifications as $notification)
                                     @if ($notification->data['type'] === 'worker')
@@ -222,7 +240,25 @@
                                             </div>
                                         </div>
                                     </a>
-                                    @endif
+                                    @elseif($notification->data['type'] === 'new_worker')
+                                    <a href="{{ route('workers.show',$notification->data['id'])}}"
+                                        onclick="changeNotificationStatus()"
+                                        class="box overlay skyblue notification-item">
+                                        <div class="media">
+                                            <div class="media-left align-self-center">
+                                                <i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                                            <div class="media-body">
+                                                <h6 class="media-heading">تم اضافة فني جديد</h6>
+                                                <small>
+                                                    <time class="media-meta text-muted"
+                                                        datetime="{{$notification->time}}">
+                                                        {{$notification->time}}</time>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    @else
+                                    
                                     <a href="{{ route('orders.show',$notification->data['orderId'])}}"
                                         onclick="changeNotificationStatus()">
                                         <div class="media">
@@ -242,6 +278,7 @@
                                             </div>
                                         </div>
                                     </a>
+                                    @endif
                                     @endforeach
 
                     <!------------------------ add notifications ---------------->
