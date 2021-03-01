@@ -12,7 +12,7 @@ return [
     /**
      * Global
      */
-    'new_worker' =>'new_worker',
+    'new_worker' =>'A new technician has been added',
     'max_length' => 'max_length',
     'country_management' => 'country management',
     'add_country' => 'add_country',
