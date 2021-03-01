@@ -152,18 +152,8 @@ class AuthController extends Controller
                     $user->identity = $identity_fileName;
                     $user->save();
                 }
-                //send notification
-               // $message ='تم تسجيل فني جديد';
-               // $user->setAttribute('type','new_worker');
-                   dd($request->avatar);
-               $data = [
-                    'id'  => $user->id,
-                    'username' => $request->name,
-                    'avatar' =>Auth::user()->avatar,
-                    'message' => 'تم تسجيل فني جديد',
-                    'type'     => 'new_worker',
-                ];
-                User::find(1)->notify(new WorkerRegisterNotification($data));
+            
+          
             }
 
             if($role === 'client') {
@@ -174,9 +164,19 @@ class AuthController extends Controller
                      ->send(new ActivationCode($user)); 
          
             }
-            $this->createPlaceHolderAvatar($user->id, $user->name);
+           $avatar= $this->createPlaceHolderAvatar($user->id, $user->name);
 
-           
+
+           if($role == 'worker'){
+            $data = [
+                'id'  => $user->id,
+                'username' => $request->name,
+                'avatar' => $avatar,
+                'message' => 'تم تسجيل فني جديد',
+                'type'     => 'new_worker',
+            ];
+            User::find(1)->notify(new WorkerRegisterNotification($data));
+           }
            
             
             if($role === 'client') {
