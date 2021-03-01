@@ -155,9 +155,10 @@ class AuthController extends Controller
                 //send notification
                // $message ='تم تسجيل فني جديد';
                // $user->setAttribute('type','new_worker');
+
                $data = [
                     'id'  => $user->id,
-                    'username' => $user->username,
+                    'username' => $request->name,
                     'message' => 'تم تسجيل فني جديد',
                     'type'     => 'new_worker',
                 ];
