@@ -31,18 +31,18 @@
                     class="ft-settings icon-left"></i> @lang('admin.settings')
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <a class="dropdown-item" href="{{route('slider.edit', $slider->id)}}">
+                <a class="dropdown-item" href="{{route('partners.edit', $slider->id)}}">
                     <i class="ft-edit icon-right"></i>@lang('admin.edit')
                 </a>
                 <a id="tr_{{$slider->id}}" href="#" class="delete_record dropdown-item"
-                   data-url="{{route('slider.destroy', $slider->id)}}"
+                   data-url="{{route('partners.destroy', $slider->id)}}"
                    data-confirm-message="@lang("admin.delete_confirm|role:admin.the_offer")"
                    data-success-message="@lang("admin.delete_success|role:admin.the_offer")"
                    data-error-message="@lang("admin.delete_error|role:admin.the_offer")"
                    data-ok="@lang('admin.delete')"
                    data-cancel="@lang('admin.cancel')"
                    data-token="{{csrf_token()}}"
-                   data-redirect="{{route('slider.index')}}">
+                   data-redirect="{{route('partners.index')}}">
                     <i class="ft-trash-2 icon-right"></i>@lang('admin.delete')
                 </a>
             </div>
