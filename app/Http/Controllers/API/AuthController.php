@@ -151,30 +151,6 @@ class AuthController extends Controller
                     $user->identity = $identity_fileName;
                     $user->save();
                 }
-/* 
-
-               
-                //send notification to dashboard 
-                $lang = User::where('id',$user->id)->first();
-                $language = $lang->language;
-                if ($language == 'arabic') {
-                    $msg= NotificationType::where('type', 'new_worker')->first()->message_ar;
-    
-                     
-    
-                } else if ($language == 'english') {
-    
-                    $msg= NotificationType::where('type', 'new_worker')->first()->message_en;
-               
-    
-                } else {
-                    $msg= NotificationType::where('type', 'new_worker')->first()->message;
-                    
-                }
-                $message = str_replace('user_name', '( ' . $user->name . ' )', $msg);
-                pushNotification($user->id, Auth::id(), $message);
-                dd(); */
-
 
 
 
@@ -214,10 +190,14 @@ class AuthController extends Controller
     
             }
 
-   
-         
+        #TODO: SMS Verification Code
+        $this->sendSMS($user->phone , $user->activation_key);
+        #send mail       
+        Mail::to($user->email)
+            ->send(new ActivationCode($user));
        
-
+       
+        $this->createPlaceHolderAvatar($user->id, $user->name);
 
     
 
@@ -473,7 +453,11 @@ class AuthController extends Controller
         #TODO: SMS Password Reset
         $this->sendSMS($user->phone ,'' , 'password' , $new_password);
         #send mail
+<<<<<<< HEAD
     
+=======
+       
+>>>>>>> master
         Mail::to($user->email)
             ->send(new ResetPassword($new_password));
         return __success(trans('api.password_reset_success'), 200);

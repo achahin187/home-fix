@@ -91,6 +91,7 @@
                                 href="#"><i class="ft-menu"></i></a></li>
                     </ul>
                     @if (auth()->check())
+                
                     <ul class="nav navbar-nav float-right">
                         <li class="dropdown dropdown-user nav-item">
                             <a class="height-100-per dropdown-toggle nav-link dropdown-user-link" href="#"
