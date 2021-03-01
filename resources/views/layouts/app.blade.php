@@ -247,7 +247,10 @@
                                         class="box overlay skyblue notification-item">
                                         <div class="media">
                                             <div class="media-left align-self-center">
-                                                <i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                                                <img src="/{{$user->avatar}}"
+                                                  styel="height:20px;width:20px"
+                                                alt="User image">
+                                                </div>
                                             <div class="media-body">
                                                 <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
                                                 <p>{{ $notification->data['username'] }}</p>

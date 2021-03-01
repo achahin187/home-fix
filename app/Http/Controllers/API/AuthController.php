@@ -175,7 +175,7 @@ class AuthController extends Controller
     
            
            
-            $this->createPlaceHolderAvatar($user->id, $user->name);
+            
             if($role === 'client') {
                 return __success([
                     'api_token'      => $user->api_token,
