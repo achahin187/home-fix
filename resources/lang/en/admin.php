@@ -12,6 +12,7 @@ return [
     /**
      * Global
      */
+    'new_worker' =>'new_worker',
     'max_length' => 'max_length',
     'country_management' => 'country management',
     'add_country' => 'add_country',

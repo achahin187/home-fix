@@ -180,6 +180,7 @@ class OrderController extends Controller
                                 $distances[$v->id] = $distance;
                             }else {
                                 $worker_id = null;
+
                             }
                            
                         }

@@ -61,9 +61,9 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string',
-            'currency' => 'required|string',
-            'max_length' => 'required|integer',
+            'name'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'max_length' => 'required|integer|min:1|max:100',
         ]);
 
         $country = new Country([
@@ -134,11 +134,13 @@ class CountryController extends Controller
     public function update(Request $request, $id)
     {
         $country = Country::find($id);
+        $countries = Country::with('cities')->get();
+
 
         $request->validate([
-            'name'     => 'required',
-            'currency' => 'required',
-            'max_length'=>'required',
+            'name'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'max_length' => 'required|integer|min:1|max:100',
         ]);
 
         $country->name     = $request->name;
@@ -150,7 +152,12 @@ class CountryController extends Controller
             'success',
             trans('admin.country_update_success')
         );
-        return redirect()->back();
+        return view('countries.list', [
+            'mainTitle' => $this->mainTitle,
+            'title'     => $this->mainTitle,
+            'countries' => $countries,
+        ]);  
+    
     }
 
     /**
