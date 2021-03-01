@@ -13,7 +13,7 @@ return [
      * Global
      */
     'add_country' => 'اضافه دوله',
-    'new_worker' => 'فني جديد',
+    'new_worker' => 'تم اضافة فني جديد ',
 
     'send activation_key' => 'أرسال مفتاح التنشيط',
     'the_country'             =>'الدولة',

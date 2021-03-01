@@ -152,16 +152,10 @@ class AuthController extends Controller
                     $user->identity = $identity_fileName;
                     $user->save();
                 }
-                //send notification
-               // $message ='تم تسجيل فني جديد';
-               // $user->setAttribute('type','new_worker');
-               $data = [
-                    'id'  => $user->id,
-                    'message' => 'تم تسجيل فني جديد',
-                    'type'     => 'new_worker',
-                ];
-                User::find(1)->notify(new WorkerRegisterNotification($data));
+            
+          
             }
+
             if($role === 'client') {
                         #TODO: SMS Verification Code
             $this->sendSMS($user->phone , $user->activation_key);
@@ -170,10 +164,19 @@ class AuthController extends Controller
                      ->send(new ActivationCode($user)); 
          
             }
-    
-           
-           
             $this->createPlaceHolderAvatar($user->id, $user->name);
+
+           if($role == 'worker'){
+            $data = [
+                'id'  => $user->id,
+                'username' => $request->name,
+                'avatar' => $user->avatar,
+                'type' => 'new_worker',
+            ];
+            User::find(1)->notify(new WorkerRegisterNotification($data));
+           }
+           
+            
             if($role === 'client') {
                 return __success([
                     'api_token'      => $user->api_token,
@@ -194,14 +197,13 @@ class AuthController extends Controller
     
             }
 
-        #TODO: SMS Verification Code
+  /*       #TODO: SMS Verification Code
         $this->sendSMS($user->phone , $user->activation_key);
         #send mail       
         Mail::to($user->email)
-            ->send(new ActivationCode($user));
+            ->send(new ActivationCode($user)); */
        
        
-        $this->createPlaceHolderAvatar($user->id, $user->name);
 
     
 
