@@ -152,14 +152,6 @@ class AuthController extends Controller
                     $user->identity = $identity_fileName;
                     $user->save();
                 }
-<<<<<<< HEAD
-
-
-
-
-
-
-=======
                 //send notification
                // $message ='تم تسجيل فني جديد';
                // $user->setAttribute('type','new_worker');
@@ -169,7 +161,6 @@ class AuthController extends Controller
                     'type'     => 'new_worker',
                 ];
                 User::find(1)->notify(new WorkerRegisterNotification($data));
->>>>>>> 2d8325721d5939e5e0caaaccd798b20f583ef5f0
             }
             if($role === 'client') {
                         #TODO: SMS Verification Code
@@ -466,11 +457,7 @@ class AuthController extends Controller
         #TODO: SMS Password Reset
         $this->sendSMS($user->phone ,'' , 'password' , $new_password);
         #send mail
-<<<<<<< HEAD
-    
-=======
        
->>>>>>> master
         Mail::to($user->email)
             ->send(new ResetPassword($new_password));
         return __success(trans('api.password_reset_success'), 200);
