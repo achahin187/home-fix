@@ -39,6 +39,7 @@ class WorkerRegisterNotification extends Notification
     public function toArray($notifiable)
     {
         return [
+            'username' =>$this->data['username'],
             'id'   => $this->data['id'],
             'message'   => $this->data['message'],
             'type' => $this->data['type']

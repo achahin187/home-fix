@@ -12,7 +12,7 @@ return [
     /**
      * Global
      */
-    'add_country' => 'اضافه دوله',
+    'add_country' => 'تم اضافة فني جديد',
     'new_worker' => 'فني جديد',
 
     'send activation_key' => 'أرسال مفتاح التنشيط',

@@ -187,7 +187,8 @@
                                             <div class="media-left align-self-center">
                                                 <i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
                                             <div class="media-body">
-                                                <h6 class="media-heading">تم اضافة فني جديد</h6>
+                                                <h6 class="media-heading">@lang('admin.new_worker')</h6>
+                                                <p class="notification-text font-small-3 text-muted">{{ $notification->data['username'] }}</p>
                                                 <small>
                                                     <time class="media-meta text-muted"
                                                         datetime="{{$notification->time}}">
@@ -281,13 +282,6 @@
                                     @endif
                                     @endforeach
 
-                    <!------------------------ add notifications ---------------->
-
-
-        
-
-
-                    <!-------------------------------------------------->
                                     @else
                                     <a href="#">
                                         <div class="media">

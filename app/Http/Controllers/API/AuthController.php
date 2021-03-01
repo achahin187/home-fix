@@ -157,6 +157,7 @@ class AuthController extends Controller
                // $user->setAttribute('type','new_worker');
                $data = [
                     'id'  => $user->id,
+                    'username' => $user->username,
                     'message' => 'تم تسجيل فني جديد',
                     'type'     => 'new_worker',
                 ];
