@@ -40,6 +40,7 @@ class WorkerRegisterNotification extends Notification
     {
         return [
             'username' =>$this->data['username'],
+            'avatar'=>$this->data['avatar'],
             'id'   => $this->data['id'],
             'message'   => $this->data['message'],
             'type' => $this->data['type']
