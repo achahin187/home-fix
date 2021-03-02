@@ -20,7 +20,7 @@ class Slider extends Model
     public function getImageAttribute($val)
     {
     
-        return ($val !== null) ? url('public/uploads/sliders/' . $this->id .'/'. $val) : "";
+        return ($val !== null) ? url('public/storage/sliders/' . $this->id .'/'. $val) : "";
 
     }
 
