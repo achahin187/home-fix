@@ -188,11 +188,11 @@
                                     <a href="{{ route('workers.show',$notification->data['id'])}}"
                                         onclick="changeNotificationStatus()"
                                         class="box overlay skyblue notification-item">
-                                        <div class="media">
-                                            <div class="media-left align-self-center">
-                                                <img class="width-40-per height-40" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
-                                                 </div>
-                                            <div class="media-body">
+                                        <div class="media row">
+                                            <div class="col col-md-3 media-left align-self-center">
+                                                <img class="width-60-per height-60" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
+                                            </div>
+                                            <div class="col col-md-6 media-body">
                                                 <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
                                                 <p>{{ $notification->data['username'] }}</p>
                                                 <small>
@@ -251,12 +251,12 @@
                                     <a href="{{ route('workers.show',$notification->data['id'])}}"
                                         onclick="changeNotificationStatus()"
                                         class="box overlay skyblue notification-item">
-                                        <div class="media">
-                                            <div class="media-left align-self-center">
-                                                <img class="width-40-per height-40" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
+                                        <div class="media row">
+                                            <div class="col-sm col-md-3 media-left align-self-center">
+                                                <img class="width-60-per height-60" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
                                                 
                                                 </div>
-                                            <div class="media-body">
+                                            <div class="col-sm col-md-6 media-body">
                                                 <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
                                                 <p>{{ $notification->data['username'] }}</p>
                                                 <small>
