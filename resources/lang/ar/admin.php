@@ -14,6 +14,7 @@ return [
      */
     'add_country' => 'اضافه دوله',
     'new_worker' => 'تم اضافة فني جديد ',
+    'minutes' =>'دقائق',
 
     'send activation_key' => 'أرسال مفتاح التنشيط',
     'the_country'             =>'الدولة',

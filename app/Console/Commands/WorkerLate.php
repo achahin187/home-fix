@@ -135,29 +135,28 @@ class WorkerLate extends Command
         $order->save();
 
         if ($order->worker_id !== null) {
-              $language = Auth::user()->language;
-            if ($language == 'arabic') {
-                $mesg  = NotificationType::where('type', 'new_order')
-                    ->first()->message_ar;
-            } else if ($language == 'english') {
-                $mesg  = NotificationType::where('type', 'new_order')
-                    ->first()->message_en;
-            } else {
-                $mesg = NotificationType::where('type', 'new_order')
-                    ->first()->message;
-            }
-
-
-
-          /*   $message = NotificationType::where('type', 'new_order')
-                ->first()->message; */
-            $message = str_replace('{order_no}', '#' . $order->order_no, $mesg);
-
-            pushNotification($order->worker_id, $order->client_id, $message);
-            pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+               //$language = Auth::user()->language;
+               $lang = User::where('id',$order->worker_id)->first();
+               $language = $lang->language;
+                if ($language == 'arabic') {
+                    $msg = NotificationType::where('type', 'new_order')
+                        ->first()->message_ar;
+                } else if ($language == 'english') {
+                    $msg = NotificationType::where('type', 'new_order')
+                        ->first()->message_en;
+                } else {
+                    $msg = NotificationType::where('type', 'new_order')
+                        ->first()->message;
+                }
+                $message = str_replace('{order_no}', '#' . $order->order_no, $msg);
+    
+                pushNotification($order->worker_id, $order->client_id, $message);
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
         }
         
-            $language = Auth::user()->language;
+        $lang = User::where('id',$order->client_id)->first();
+        $language = $lang->language;
+        
         if ($language == 'arabic') {
             $mesg  = NotificationType::where('type', 'late_notifiy')
                 ->first()->message_ar;
