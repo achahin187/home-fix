@@ -12,6 +12,7 @@ return [
     /**
      * Global
      */
+    'minutes' =>'minutes',
     'new_worker' =>'A new technician has been added',
     'max_length' => 'max_length',
     'country_management' => 'country management',

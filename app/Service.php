@@ -40,13 +40,18 @@ class Service extends Model
     }
 
  public function getPriceByCountryAttribute()
+
   {
-      $country = Auth::user()->country()->first()->id;
+      if(isset(Auth::user()->country()->first()->id)){
+        $country = Auth::user()->country()->first()->id;
          
-      return $this->prices()->get()
-            ->where(
-                'country_id', $country
-            )->first()->price ?? 0.00;
+        return $this->prices()->get()
+              ->where(
+                  'country_id', $country
+              )->first()->price ?? 0.00;
+      }
+     
+  
   }
 
     public function getNameAttribute()

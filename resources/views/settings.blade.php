@@ -331,7 +331,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <label class="col-md-2 label-control"
-                                                       style="padding: 0.75rem 1rem;">@lang('admin.hour')</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.minutes') }}</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
