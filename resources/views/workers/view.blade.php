@@ -167,11 +167,14 @@
                                                  class="rounded-circle width-100-per height-150"
                                                  alt="User image">
                                         </div>
+                                        @if($worker->badge_path)
                                         <div class="col-sm-12 pull-right card border-blue border-lighten-2">
                                             <img src="{{$worker->badge_path}}"
                                                  class="rounded-circle width-100-per height-150"
                                                  alt="User image" title="{{ $worker->badge == 1 ? trans('admin.certified') : trans('admin.un_certified') }}">
                                         </div>
+                                        @endif
+                                             
                                     </div>
                                 </div>
                             </div>
