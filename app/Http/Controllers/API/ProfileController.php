@@ -94,7 +94,7 @@ class ProfileController extends Controller
             $identity          = $request->file('identity');
             $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
             Storage::disk('uploads')
-                ->putFileAs('CVs/' . $user->id, $identity, $identity_fileName);
+                ->putFileAs('identities/' . $user->id, $identity, $identity_fileName);
 
             @unlink(base_path($user->id_path));
 
