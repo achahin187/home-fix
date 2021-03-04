@@ -128,6 +128,30 @@ class ProfileController extends Controller
         return __success($user, 200);
     }
 
+    public function setAvatarFromWeb(Request $request)
+    {
+        //return $request;
+        $validator = Validator::make($request->all(), [
+            'avatar' => 'mimes:jpeg,jpg,png',
+        ]);
+
+        if ($validator->fails()) {
+            return __error($validator->errors()->all()[0], 200);
+        }
+
+        $user = User::find($request->user_id);
+
+        if ($request->file('avatar')) {
+            $avatar = $request->file('avatar');
+
+            
+            Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
+        }
+      
+
+        return 'sucesssssss';
+    }
+
     public function setUserPassword(Request $request)
     {
         $user = User::find(Auth::id());

@@ -137,4 +137,5 @@ Route::group([
             Route::get('/clearAll', 'AppNotificationController@clearAllNotifications');
         });
     });
+    Route::post('set/avater', 'ProfileController@setAvatarFromWeb');
 });
