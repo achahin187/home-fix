@@ -149,7 +149,7 @@ class ProfileController extends Controller
         }
       
 
-        return 'sucesssssss';
+        
     }
 
     public function setUserPassword(Request $request)
