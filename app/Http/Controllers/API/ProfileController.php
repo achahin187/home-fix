@@ -149,7 +149,7 @@ class ProfileController extends Controller
         }
       
 
-        return redirect()->back();
+        return redirect('https://homefix-website.za3bot.com/en/home');
     }
 
     public function setUserPassword(Request $request)
