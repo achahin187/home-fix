@@ -331,7 +331,7 @@
                                                     </fieldset>
                                                 </div>
                                                 <label class="col-md-2 label-control"
-                                                       style="padding: 0.75rem 1rem;">@lang('admin.hour')</label>
+                                                       style="padding: 0.75rem 1rem;">{{ __('admin.minutes') }}</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -1960,85 +1960,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label class="col-md-4 label-control"
-                                                       style="padding: 0.75rem 1rem;">@lang('admin.new_worker')</label>
-                                                <div class="col-md-8">
-
-
-                                                    <fieldset>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"  style=" width: 47px; "   id="basic-addon3">Tu</span>
-                                                            </div>
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="basic-addon3"><i
-                                                                        class="ft-message-circle"></i></span>
-                                                            </div>
-                                                            <input id="order_cancel" type="text"
-                                                                   class="form-control @error('new_worker') is-invalid @enderror"
-                                                                   name="new_worker[]"
-                                                                   value="@if (old('new_worker')){{ old('new_worker') }}@else{{ $notifications_types['new_worker']['tu'] }}@endif"
-                                                                   autocomplete="new_worker">
-                                                            @error('new_worker')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </fieldset>
-
-
-                                                    <fieldset>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"  style=" width: 47px; "   id="basic-addon3">En</span>
-                                                            </div>
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="basic-addon3"><i
-                                                                        class="ft-message-circle"></i></span>
-                                                            </div>
-                                                            <input id="new_worker" type="text"
-                                                                   class="form-control @error('new_worker') is-invalid @enderror"
-                                                                   name="new_worker[]"
-                                                                   value="@if (old('new_worker')){{ old('new_worker') }}@else{{ $notifications_types['new_worker']['en'] }}@endif"
-                                                                   autocomplete="new_worker">
-                                                            @error('new_worker')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </fieldset>
-
-
-                                                    <fieldset>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"  style=" width: 47px; "   id="basic-addon3">Ar</span>
-                                                            </div>
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="basic-addon3"><i
-                                                                        class="ft-message-circle"></i></span>
-                                                            </div>
-                                                            <input id="new_worker" type="text"
-                                                                   class="form-control @error('new_worker') is-invalid @enderror"
-                                                                   name="new_worker[]"
-                                                                   value="@if (old('new_worker')){{ old('new_worker') }}@else{{ $notifications_types['new_worker']['ar'] }}@endif"
-                                                                   autocomplete="new_worker">
-                                                            @error('new_worker')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                       
                                 <div class="form-actions">
                                     <div class="text-right">
                                         <input type="submit" class="btn btn-primary" value="@lang('admin.save')">

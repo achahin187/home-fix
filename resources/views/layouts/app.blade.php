@@ -64,6 +64,9 @@
             font-family: 'Noto Naskh Arabic UI', sans-serif;
         }
     </style>
+
+
+
     <nav
         class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-dark navbar-shadow">
         <div class="navbar-wrapper">
@@ -161,8 +164,10 @@
                                         }
                                     </style>
                                     @if (count($notifications) > 0)
+                                    
                                     @foreach($unreadNotifications as $notification)
-                                    @if ($notification->data['type'] === 'worker')
+                                    
+                                    @if ( isset($notification->data['type']) && $notification->data['type'] === 'worker' )
                                     <a href="{{ route('offers.show',$notification->data['orderId'])}}"
                                         onclick="changeNotificationStatus()"
                                         class="box overlay skyblue notification-item">
@@ -179,15 +184,17 @@
                                             </div>
                                         </div>
                                     </a>
-                                    @elseif($notification->data['type'] === 'new_worker')
+                                    @elseif( isset($notification->data['type']) && $notification->data['type'] === 'new_worker')
                                     <a href="{{ route('workers.show',$notification->data['id'])}}"
                                         onclick="changeNotificationStatus()"
                                         class="box overlay skyblue notification-item">
-                                        <div class="media">
-                                            <div class="media-left align-self-center">
-                                                <i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading">تم اضافة فني جديد</h6>
+                                        <div class="media row">
+                                            <div class="col col-md-3 media-left align-self-center">
+                                                <img class="height-60" style="width:75px" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
+                                            </div>
+                                            <div class="col col-md-6 media-body">
+                                                <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
+                                                <p>{{ $notification->data['username'] }}</p>
                                                 <small>
                                                     <time class="media-meta text-muted"
                                                         datetime="{{$notification->time}}">
@@ -197,7 +204,7 @@
                                         </div>
                                     </a>
                                     @else
-                                    <a href="@if ($notification->data['type'] === 'order')
+                                    <a href="@if (  isset($notification->data['type']) && $notification->data['type'] === 'order')
                                         {{ route('orders.show',$notification->data['orderId'])}}
                                         @else
                                         {{ route('offer.order',$notification->data['orderId'])}}
@@ -223,7 +230,7 @@
                                     @endif
                                     @endforeach
                                     @foreach($readNotifications as $notification)
-                                    @if ($notification->data['type'] === 'worker')
+                                    @if ( isset($notification->data['type']) && $notification->data['type'] === 'worker')
                                     <a href="{{ route('offers.show',$notification->data['orderId'])}}"
                                         onclick="changeNotificationStatus()"
                                         class="box overlay skyblue notification-item">
@@ -240,15 +247,18 @@
                                             </div>
                                         </div>
                                     </a>
-                                    @elseif($notification->data['type'] === 'new_worker')
+                                    @elseif( isset($notification->data['type']) && $notification->data['type'] === 'new_worker')
                                     <a href="{{ route('workers.show',$notification->data['id'])}}"
                                         onclick="changeNotificationStatus()"
                                         class="box overlay skyblue notification-item">
-                                        <div class="media">
-                                            <div class="media-left align-self-center">
-                                                <i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
-                                            <div class="media-body">
-                                                <h6 class="media-heading">تم اضافة فني جديد</h6>
+                                        <div class="media row">
+                                            <div class="col-sm col-md-3 media-left align-self-center">
+                                                <img class="height-60" style="width:70px" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
+                                                
+                                                </div>
+                                            <div class="col-sm col-md-6 media-body">
+                                                <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
+                                                <p>{{ $notification->data['username'] }}</p>
                                                 <small>
                                                     <time class="media-meta text-muted"
                                                         datetime="{{$notification->time}}">
@@ -281,13 +291,6 @@
                                     @endif
                                     @endforeach
 
-                    <!------------------------ add notifications ---------------->
-
-
-        
-
-
-                    <!-------------------------------------------------->
                                     @else
                                     <a href="#">
                                         <div class="media">

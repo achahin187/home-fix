@@ -58,9 +58,7 @@ class Offer extends Model
 
     public function getImageAttribute()
     {
-        return Storage::disk('uploads')
-                ->url('images/offers/' . $this->id .
-                    '/image.png') . '?t=' . time();
+        return Storage::disk('uploads') ->url('images/offers/' . $this->id .'/image.png') . '?t=' . time();
     }
 
     public function getNameAttribute()

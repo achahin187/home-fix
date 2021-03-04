@@ -12,8 +12,8 @@ return [
     /**
      * Global
      */
-    
-    'new_worker'=>'new_worker',
+    'minutes' =>'minutes',
+    'new_worker'=>'A new technician has been added',
     'country_management' => 'country management',
 
     'send activation_key'       =>     'send activation_key',
