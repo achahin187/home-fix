@@ -161,6 +161,34 @@ class ProfileController extends Controller
 
 
     }
+    public function setIdentityFromWeb(Request $request){
+
+     //return $request;
+     $validator = Validator::make($request->all(), [
+        'identity' => 'mimes:jpeg,jpg,png',
+    ]);
+
+    if ($validator->fails()) {
+        return __error($validator->errors()->all()[0], 200);
+    }
+    $user = User::find($request->user_id);
+
+    if ($request->file('identity')) {
+        $identity          = $request->file('identity');
+        $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
+        Storage::disk('uploads')
+            ->putFileAs('identities/' . $user->id, $identity, $identity_fileName);
+
+        @unlink(base_path($user->id_path));
+
+        $user->identity = $identity_fileName;
+        $user->save();
+    }
+
+
+            return redirect('https://homefix-website.za3bot.com/dashboard');
+
+    }
 
     public function setUserPassword(Request $request)
     {
