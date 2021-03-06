@@ -47,16 +47,10 @@ class ChatController extends Controller
 
                 if ($ord->offer_id !== null) {
                     $service = $ord->offer()->first();
-                    $service = Offer::where(
-                        'id',
-                        $service->id
-                    )->first();
+                    $service = Offer::where( 'id',   $service->id )->first();
                 } else {
                     $service = $ord->services()->first();
-                    $service = Service::where(
-                        'id',
-                        $service->id
-                    )->first();
+                    $service = Service::where( 'id',  $service->id)->first();
                 }
 
                 $category = $service->category()->first();
