@@ -68,7 +68,8 @@ class ProfileController extends Controller
         $user->save();
 
         $user_address = UserAddress::where(
-            'user_id', Auth::id()
+            'user_id',
+            Auth::id()
         )->first();
 
         if ($user_address !== null) {
@@ -120,10 +121,10 @@ class ProfileController extends Controller
         if ($request->file('avatar')) {
             $avatar = $request->file('avatar');
 
-            
+
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
         }
-      
+
 
         return __success($user, 200);
     }
@@ -140,55 +141,78 @@ class ProfileController extends Controller
         }
 
         $user = User::find($request->user_id);
-        
+
 
 
         if ($request->file('avatar')) {
             $avatar = $request->file('avatar');
 
-            
+
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
         }
-      
-          if($request->role === 'worker'){
+
+        if ($request->role === 'worker') {
 
             return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("Photo changed successfully !");
-
-
-          }else{
+        } else {
             return redirect('https://homefix-website.za3bot.com/home')->withSuccessMessage("Photo changed successfully !");
-
-          }
-
-
+        }
     }
-    public function setIdentityFromWeb(Request $request){
+    public function setIdentityFromWeb(Request $request)
+    {
 
-     //return $request;
-     $validator = Validator::make($request->all(), [
-        'identity' => 'mimes:jpeg,jpg,png',
-    ]);
+        //return $request;
+        $validator = Validator::make($request->all(), [
+            'identity' => 'mimes:jpeg,jpg,png',
+        ]);
 
-    if ($validator->fails()) {
-        return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload ID Image.");
+        if ($validator->fails()) {
+            return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload ID Image.");
+        }
+        $user = User::find($request->user_id);
+
+        if ($request->file('identity')) {
+            $identity          = $request->file('identity');
+            $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
+            Storage::disk('uploads')
+                ->putFileAs('identities/' . $user->id, $identity, $identity_fileName);
+
+            @unlink(base_path($user->id_path));
+
+            $user->identity = $identity_fileName;
+            $user->save();
+        }
+
+
+        return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("ID Uploaded successfully !");
     }
-    $user = User::find($request->user_id);
+    public function setCVFromWeb(Request $request)
+    {
+        //return $request;
+        $validator = Validator::make($request->all(), [
+            'cv'       => 'mimes:pdf,doc,docx',
+        ]);
 
-    if ($request->file('identity')) {
-        $identity          = $request->file('identity');
-        $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
-        Storage::disk('uploads')
-            ->putFileAs('identities/' . $user->id, $identity, $identity_fileName);
+        if ($validator->fails()) {
+            return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload CV Image.");
+        }
 
-        @unlink(base_path($user->id_path));
-
-        $user->identity = $identity_fileName;
-        $user->save();
-    }
+        $user = User::find($request->user_id);
 
 
-            return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("ID Uploaded successfully !");
 
+        if ($request->file('cv')) {
+            $cv          = $request->file('cv');
+            $cv_fileName = uniqid() . '.' . $cv->getClientOriginalExtension();
+            Storage::disk('uploads')
+                ->putFileAs('CVs/' . $user->id, $cv, $cv_fileName);
+
+            @unlink(base_path($user->cv_path));
+
+            $user->cv = $cv_fileName;
+            $user->save();
+        }
+        return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
     }
 
     public function setUserPassword(Request $request)
@@ -238,10 +262,10 @@ class ProfileController extends Controller
             return __error('error', 200);
         }
     }
-    
-    
+
+
     ///update country and city
-  public function setCountry(Request $request)
+    public function setCountry(Request $request)
     {
 
 
@@ -267,6 +291,5 @@ class ProfileController extends Controller
         } catch (Exception $e) {
             return __error('error', 200);
         }
-        
     }
 }
