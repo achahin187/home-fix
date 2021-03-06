@@ -150,7 +150,7 @@ class ProfileController extends Controller
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
         }
       
-          if($user_role->role === 'worker'){
+          if($user_role === 'worker'){
             return redirect('https://homefix-website.za3bot.com/dashboard');
 
 
