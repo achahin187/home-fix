@@ -136,7 +136,7 @@ class ProfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return __error($validator->errors()->all()[0], 200);
+            return redirect()->back()->withErrorMessage("You Should Upload Profile Image.");
         }
 
         $user = User::find($request->user_id);
@@ -151,11 +151,12 @@ class ProfileController extends Controller
         }
       
           if($request->role === 'worker'){
-            return redirect('https://homefix-website.za3bot.com/dashboard');
+
+            return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("Photo changed successfully !");
 
 
           }else{
-            return redirect('https://homefix-website.za3bot.com/home');
+            return redirect('https://homefix-website.za3bot.com/home')->withSuccessMessage("Photo changed successfully !");
 
           }
 
@@ -169,7 +170,7 @@ class ProfileController extends Controller
     ]);
 
     if ($validator->fails()) {
-        return __error($validator->errors()->all()[0], 200);
+        return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload ID Image.");
     }
     $user = User::find($request->user_id);
 
@@ -186,7 +187,7 @@ class ProfileController extends Controller
     }
 
 
-            return redirect('https://homefix-website.za3bot.com/dashboard');
+            return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("ID Uploaded successfully !");
 
     }
 
