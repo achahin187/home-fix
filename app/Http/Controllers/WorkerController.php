@@ -95,7 +95,7 @@ class WorkerController extends Controller
             'phone'    => ['required', 'unique:users', new PhoneNumber()],
             'address'  => 'required|string',
             'password' => ['required', 'confirmed', new Password(8)],
-            'image'    => 'image',
+            'image'    => 'mimes:jpeg,jpg,png',
             'category' => 'required',
             'cv'       => 'mimes:pdf,doc,docx',
             'identity' => 'image',

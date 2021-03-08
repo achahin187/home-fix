@@ -77,7 +77,7 @@ class ClientController extends Controller
             'city'     => 'required|string',
             'address'  => 'required|string',
             'password' => ['required', 'confirmed', new Password(8)],
-            'image'    => 'image',
+            'image'    => 'mimes:jpeg,jpg,png',
         ]);
 
         $user = new User([
