@@ -163,7 +163,6 @@ class ProfileController extends Controller
           }else{
             return redirect('https://homefix-website.za3bot.com/home')->with('message', 'تم التغير بنجاح');
 
-            $user->identity = $identity_fileName;
             $user->save();
         }
 
@@ -198,6 +197,35 @@ class ProfileController extends Controller
         }
         
         return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
+    }
+
+    public function setIdentityFromWeb(Request $request){
+  //return $request;
+  $validator = Validator::make($request->all(), [
+    'identity'       => 'mimes:jpeg,jpg,png',
+]);
+
+if ($validator->fails()) {
+    return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload CV Image.");
+}
+
+$user = User::find($request->user_id);
+if ($request->file('identity')) {
+    $identity          = $request->file('identity');
+    $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
+    Storage::disk('uploads')
+        ->putFileAs('identities/' . $user->id, $identity, $identity_fileName);
+
+    @unlink(base_path($user->id_path));
+
+    $user->identity = $identity_fileName;
+    $user->save();
+}
+
+
+return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
+
+
     }
 
     public function setUserPassword(Request $request)
