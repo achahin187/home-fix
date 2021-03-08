@@ -156,34 +156,12 @@ class ProfileController extends Controller
                 'status_image' => 1
             ]);
         }
+      
+          if($request->role === 'worker'){
+            return redirect('https://homefix-website.za3bot.com/dashboard')->with('flash_message_success', 'تم التغير بنجاح');
 
-        if ($request->role === 'worker') {
-
-            return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("Photo changed successfully !");
-        } else {
-            return redirect('https://homefix-website.za3bot.com/home')->withSuccessMessage("Photo changed successfully !");
-        }
-    }
-    public function setIdentityFromWeb(Request $request)
-    {
-
-        //return $request;
-        $validator = Validator::make($request->all(), [
-            'identity' => 'mimes:jpeg,jpg,png',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload ID Image.");
-        }
-        $user = User::find($request->user_id);
-
-        if ($request->file('identity')) {
-            $identity          = $request->file('identity');
-            $identity_fileName = uniqid() . '.' . $identity->getClientOriginalExtension();
-            Storage::disk('uploads')
-                ->putFileAs('identities/' . $user->id, $identity, $identity_fileName);
-
-            @unlink(base_path($user->id_path));
+          }else{
+            return redirect('https://homefix-website.za3bot.com/home')->with('flash_message_success', 'تم التغير بنجاح');
 
             $user->identity = $identity_fileName;
             $user->save();
