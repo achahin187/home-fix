@@ -140,7 +140,7 @@ class ProfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrorMessage("You Should Upload Profile Image.");
+            return redirect()->with('message', "You Should Upload Profile Image.");
         }
 
         $user = User::find($request->user_id);
@@ -177,7 +177,7 @@ class ProfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload CV Image.");
+            return redirect('https://homefix-website.za3bot.com/dashboard')->with('message', "You Should Upload CV .");
         }
 
         $user = User::find($request->user_id);
@@ -223,7 +223,7 @@ if ($request->file('identity')) {
 }
 
 
-return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
+return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("identity ploaded successfully !");
 
 
     }

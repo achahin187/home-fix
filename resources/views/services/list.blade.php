@@ -119,12 +119,12 @@
                                             </div>
                                         @endsection
                                         <th class="text-center">
-                                            <a href="{{ route('categories.show', $service->parent_category->id) }}">
-                                                {{ $service->parent_category->name }}
+                                            <a href="{{ route('categories.show', $service->parent_category->id ?? '') }}">
+                                                {{ $service->parent_category->name ?? '' }}
                                             </a>
                                             /
-                                            <a href="{{ route('sub.show', $service->category->id) }}">
-                                                {{ $service->category->name }}
+                                            <a href="{{ route('sub.show', $service->category->id ?? '') }}">
+                                                {{ $service->category->name ?? '' }}
                                             </a>
                                         </th>
                                         <th class="text-center">
