@@ -140,7 +140,7 @@ class ProfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrorMessage("You Should Upload Profile Image.");
+            return redirect('https://homefix-website.za3bot.com/validation/message');
         }
 
         $user = User::find($request->user_id);
