@@ -158,6 +158,9 @@ class WorkerController extends Controller
             $avatar = $request->file('image');
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id,
                 $avatar, 'avatar.png');
+                $user->update([
+                    'status_image' => 1
+                ]);
         } else {
             $this->createPlaceHolderAvatar($user->id, $user->name);
         }
@@ -332,6 +335,9 @@ class WorkerController extends Controller
             $avatar = $request->file('image');
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id,
                 $avatar, 'avatar.png');
+                $user->update([
+                    'status_image' => 1
+                ]);
         }
 
         $user->save();
