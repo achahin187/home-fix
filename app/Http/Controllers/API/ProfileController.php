@@ -157,11 +157,10 @@ class ProfileController extends Controller
         }
       
           if($request->role === 'worker'){
-            return redirect('https://homefix-website.za3bot.com/dashboard');
-
+            return redirect('https://homefix-website.za3bot.com/dashboard')->with('flash_message_success', 'تم التغير بنجاح');
 
           }else{
-            return redirect('https://homefix-website.za3bot.com/home');
+            return redirect('https://homefix-website.za3bot.com/home')->with('flash_message_success', 'تم التغير بنجاح');
 
           }
 
