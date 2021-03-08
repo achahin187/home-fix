@@ -183,7 +183,7 @@ class ProfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload CV Image.");
+            return redirect('https://homefix-website.za3bot.com/validation/message/worker/cv');
         }
 
         $user = User::find($request->user_id);
@@ -202,7 +202,8 @@ class ProfileController extends Controller
             $user->save();
         }
         
-        return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
+      // return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
+        return redirect('https://homefix-website.za3bot.com/test/worker');
     }
 
     public function setIdentityFromWeb(Request $request){
@@ -212,7 +213,7 @@ class ProfileController extends Controller
 ]);
 
 if ($validator->fails()) {
-    return redirect('https://homefix-website.za3bot.com/dashboard')->withErrorMessage("You Should Upload CV Image.");
+    return redirect('https://homefix-website.za3bot.com/validation/message/worker');
 }
 
 $user = User::find($request->user_id);
@@ -229,7 +230,8 @@ if ($request->file('identity')) {
 }
 
 
-return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
+//return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
+return redirect('https://homefix-website.za3bot.com/test/worker');
 
 
     }
