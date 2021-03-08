@@ -77,7 +77,7 @@ class ClientController extends Controller
             'city'     => 'required|string',
             'address'  => 'required|string',
             'password' => ['required', 'confirmed', new Password(8)],
-            'image'    => 'image',
+            'image'    => 'mimes:jpeg,jpg,png',
         ]);
 
         $user = new User([
@@ -106,6 +106,9 @@ class ClientController extends Controller
             $avatar = $request->file('image');
             Storage::disk('uploads')
                 ->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
+                $user->update([
+                    'status_image' => 1
+                ]);
         } else {
             $this->createPlaceHolderAvatar($user->id, $user->name);
         }
@@ -217,6 +220,9 @@ class ClientController extends Controller
             $avatar = $request->file('image');
             Storage::disk('uploads')
                 ->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
+                $user->update([
+                    'status_image' => 1
+                ]);
         }
 
         $user->save();

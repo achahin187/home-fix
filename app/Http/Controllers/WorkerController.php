@@ -95,7 +95,7 @@ class WorkerController extends Controller
             'phone'    => ['required', 'unique:users', new PhoneNumber()],
             'address'  => 'required|string',
             'password' => ['required', 'confirmed', new Password(8)],
-            'image'    => 'image',
+            'image'    => 'mimes:jpeg,jpg,png',
             'category' => 'required',
             'cv'       => 'mimes:pdf,doc,docx',
             'identity' => 'image',
@@ -158,6 +158,9 @@ class WorkerController extends Controller
             $avatar = $request->file('image');
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id,
                 $avatar, 'avatar.png');
+                $user->update([
+                    'status_image' => 1
+                ]);
         } else {
             $this->createPlaceHolderAvatar($user->id, $user->name);
         }
@@ -332,6 +335,9 @@ class WorkerController extends Controller
             $avatar = $request->file('image');
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id,
                 $avatar, 'avatar.png');
+                $user->update([
+                    'status_image' => 1
+                ]);
         }
 
         $user->save();
