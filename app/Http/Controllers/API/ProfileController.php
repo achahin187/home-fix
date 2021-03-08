@@ -122,6 +122,9 @@ class ProfileController extends Controller
 
             
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
+            $user->update([
+                'status_image' => 1
+            ]);
         }
       
 
@@ -148,6 +151,9 @@ class ProfileController extends Controller
 
             
             Storage::disk('uploads')->putFileAs('avatars/' . $user->id, $avatar, 'avatar.png');
+            $user->update([
+                'status_image' => 1
+            ]);
         }
       
           if($request->role === 'worker'){
