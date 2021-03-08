@@ -140,7 +140,13 @@ class ProfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('https://homefix-website.za3bot.com/validation/message');
+            if($request->role === 'worker'){
+                return redirect('https://homefix-website.za3bot.com/validation/message/worker');
+    
+              }else{
+                return redirect('https://homefix-website.za3bot.com/validation/message');
+            }
+            
         }
 
         $user = User::find($request->user_id);
@@ -158,7 +164,7 @@ class ProfileController extends Controller
         }
       
           if($request->role === 'worker'){
-            return redirect('https://homefix-website.za3bot.com/dashboard')->with('message', 'تم التغير بنجاح');
+            return redirect('https://homefix-website.za3bot.com/test/worker');
 
           }else{
             return redirect('https://homefix-website.za3bot.com/test');
