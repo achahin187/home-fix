@@ -139,4 +139,7 @@ Route::group([
     });
     ///apis for website
     Route::post('set/avater', 'ProfileController@setAvatarFromWeb');
+    Route::post('set/identity', 'ProfileController@setIdentityFromWeb');
+    Route::post('set/cv', 'ProfileController@setCVFromWeb');
+
 });
