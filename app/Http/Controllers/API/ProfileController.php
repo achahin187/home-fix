@@ -201,8 +201,8 @@ class ProfileController extends Controller
             $user->cv = $cv_fileName;
             $user->save();
         }
-        return ($cv_fileName !== null) ? 'https://homefix.za3bot.com/storage/app/public/CVs' . '/' . $this->id . '/' . $cv_fileName : "";
 
+     
       // return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
         return redirect('https://homefix-website.za3bot.com/test/worker');
     }
