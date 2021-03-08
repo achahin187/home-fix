@@ -162,21 +162,13 @@ class User extends Authenticatable
 
     public function getCvPathAttribute()
     {
-        // return $this->cv !== ''
-        //     ? Storage::disk('uploads')
-        //         ->url('CVs/' . $this->id .
-        //             '/' . $this->cv)
-        //     : '';
+     
         return 'storage/app/public/CVs/'. $this->id .'/' . $this->cv;
     }
 
     public function getIdPathAttribute()
     {
-        // return $this->identity !== ''
-        //     ? Storage::disk('uploads')
-        //         ->url('identities/' . $this->id .
-        //             '/' . $this->identity)
-        //     : '';
+    
         return 'storage/app/public/identities/'. $this->id .'/' . $this->identity;
     }
 
