@@ -161,7 +161,7 @@ class ProfileController extends Controller
             return redirect('https://homefix-website.za3bot.com/dashboard')->with('message', 'تم التغير بنجاح');
 
           }else{
-            return redirect('https://homefix-website.za3bot.com/home')->with('message', 'تم التغير بنجاح');
+            return redirect('https://homefix-website.za3bot.com/test');
 
             $user->save();
         }
