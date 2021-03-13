@@ -55,6 +55,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    {? $counter = 0 ?}
+
                                 @foreach($contacts as $contact)
                                     <tr class="text-center" id="tr_{{ $contact->id }}">
                                         <th><input type="checkbox" id="checkbox_"></th>   
