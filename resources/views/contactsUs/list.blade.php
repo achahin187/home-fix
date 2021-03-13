@@ -45,6 +45,7 @@
                                 <thead>
                                 <tr class="text-center">
                                     <th>#</th>
+
                                     <th>#</th>
                                     <th>@lang('admin.name')</th>
                                     <th>@lang('admin.Email')</th>
@@ -56,6 +57,9 @@
                                 <tbody>
                                 @foreach($contacts as $contact)
                                     <tr class="text-center" id="tr_{{ $contact->id }}">
+                                        <th><input type="checkbox" id="checkbox_"></th>   
+                                        
+                                        <th class="text-center">{{ ++$counter }}</th>
                                         <th class="text-center">
                                                 {{$contact->User_Name}}
                                         </th>
