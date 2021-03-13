@@ -156,3 +156,6 @@ Route::resource('slider', 'SliderController');
 //Partners
 
 Route::resource('partners', 'PartnersController');
+///contact-Users
+Route::resource('contactUs', 'contactUsController');
+

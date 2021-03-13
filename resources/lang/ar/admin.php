@@ -12,6 +12,12 @@ return [
     /**
      * Global
      */
+    'Your Message'=>'الرساله',
+
+    'Information' => 'المعلومات',
+
+    'Email' =>'البريد الالكتروني',
+    'contactus' => 'اداره الاتصال بنا',
     'add_country' => 'اضافه دوله',
     'new_worker' => 'تم اضافة فني جديد ',
     'minutes' =>'دقائق',

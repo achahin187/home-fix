@@ -12,7 +12,13 @@ return [
     /**
      * Global
      */
-    'minutes' =>'minutes',
+    'Your Message'=>'Your Message',
+
+    'Information' => 'Information',
+
+    'Email'=>'Email',
+    'contactus' => 'contactus management',
+     'minutes' =>'minutes',
     'new_worker' =>'A new technician has been added',
     'max_length' => 'max_length',
     'country_management' => 'country management',
