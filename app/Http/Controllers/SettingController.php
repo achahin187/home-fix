@@ -40,8 +40,9 @@ class SettingController extends Controller
 
         $settings = DB::table('settings')
             ->first()->settings;
-        $settings = json_decode($settings);
-
+        //     dd(json_encode($settings));
+         $settings = json_decode($settings);
+        
         $settings->terms_en      = str_replace('|', "\n", $settings->terms_en ?? '');
         $settings->terms_ar      = str_replace('|', "\n", $settings->terms_ar ?? '');
         $settings->terms_tr      = str_replace('|', "\n", $settings->terms_tr ?? '');

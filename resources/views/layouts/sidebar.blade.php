@@ -155,6 +155,14 @@
                     </span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('contactUs.index') }}">
+                    <i class="ft-message-circle"></i>
+                    <span class="menu-title">
+                        @lang('admin.contactus')
+                    </span>
+                </a>
+            </li>
             @endrole
             @role('super-admin|admin')
             <li class="nav-item">
