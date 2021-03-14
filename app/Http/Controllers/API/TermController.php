@@ -17,10 +17,10 @@ class TermController extends Controller
         $terms = 'terms_' . app()->getLocale();
         $terms = $settings->$terms ?? '';
 
-        $image = Storage::disk('uploads')
+       $image = Storage::disk('uploads')
                 ->url(
                     'images/' . $settings->terms_image
-                ) . '?t=' . time();
+                ) . '?t=' . time(); 
 
         $conditions = 'conditions_' . app()->getLocale();
         $conditions = $settings->$conditions ?? '';
@@ -31,7 +31,7 @@ class TermController extends Controller
         return __success([
             'terms'      => $terms,
             'conditions' => $conditions,
-            'image'      => $image
-        ], 200);
+          'image'      => $image
+       ], 200);
     }
 }
