@@ -67,7 +67,9 @@
                                 {? $counter = 0 ?}
                                 @foreach($countries as $country)
                                     <tr class="text-center" id="tr_{{ $country->id }}">
-                                        <th><input type="checkbox" id="checkbox_{{ $country->id }}"></th>    <th class="text-center">{{ ++$counter }}</th>
+                                        <th><input type="checkbox" id="checkbox_{{ $country->id }}"></th>   
+                                        
+                                        <th class="text-center">{{ ++$counter }}</th>
                                         <th class="text-center">
                                             <a href="{{ route('countries.show', $country->id) }}">
                                                 {{$country->name}}

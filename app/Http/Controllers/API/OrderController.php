@@ -486,17 +486,14 @@ class OrderController extends Controller
     }
 
     public function cancelOrder(Request $request)
-    {
-        $order = Order::where(
-            'id',
-            $request->order_id
-        )->first();
+    {  
+        $order = Order::where('id',$request->order_id)->first();
 
         DB::table('excluded_workers')->insert([
             'order_id'  => $order->id,
             'worker_id' => $order->worker_id,
         ]);
-
+          
         if ($order->offer_id !== null) {
             $service = $order->offer()->first();
             $service = Offer::where(
@@ -513,51 +510,62 @@ class OrderController extends Controller
 
         $excluded_workers = DB::table('excluded_workers')
             ->where('order_id', $request->order_id)
-            ->get()->toArray();
-        $excluded_workers = (count($excluded_workers) > 0)
-            ? $excluded_workers = array_column($excluded_workers, 'worker_id')
-            : [0];
+            ->first();
+        
+        // $excluded_workers = (count($excluded_workers) > 0)
+        //     ? $excluded_workers = array_column($excluded_workers, 'worker_id')
+        //     : [0];
+
+            
+
+
 
         $category = $service->category();
-        if ($category->first()->parent_id > 0) {
+        if ($category->first()->parent_id != null) {
             $workers = $category->first()
                 ->parent()->first()
                 ->workers()
-                ->whereNotIn('id', $excluded_workers)
+                ->where('id', '!=',$excluded_workers->worker_id)
                 ->get();
+
         } else {
+          
             $workers = $category->first()
                 ->workers()
-                ->whereNotIn('id', $excluded_workers)
+                ->where('id', '!=',$excluded_workers->worker_id)
                 ->get();
-        }
-
-        $latitude  = $order->latitude;
-        $longitude = $order->longitude;
-
-        $distances = [];
-        foreach ($workers as $k => $v) {
-            $x                 = (float)$v->latitude - (float)$latitude;
-            $y                 = (float)$v->longitude - (float)$longitude;
-            $distance          = sqrt(($x ** 2) + ($y ** 2));
-            $distances[$v->id] = $distance;
-        }
-        asort($distances);
-
-        $workers = array_values(array_keys($distances));
-        if (isset($workers[0])) {
-            $worker_id = $workers[0];
-        } else {
-            $worker_id = null;
-        }
-
-        $order->worker_id = null;
-        $order->status    = self::PENDING;
-
-        if ($worker_id !== null) {
-        }
-
-        $order->save();
+                
+            }
+            
+            $latitude  = $order->latitude;
+            $longitude = $order->longitude;
+            
+            $distances = [];
+            foreach ($workers as $k => $v) {
+                $x                 = (float)$v->latitude - (float)$latitude;
+                $y                 = (float)$v->longitude - (float)$longitude;
+                $distance          = sqrt(($x ** 2) + ($y ** 2));
+                $distances[$v->id] = $distance;
+                
+            }
+            
+            asort($distances);
+            $workers = array_values(array_keys($distances));
+            
+            if (isset($workers[0])) {
+                $worker_id = $workers[0];
+            } else {
+                $worker_id = null;
+            }
+            //$order->worker_id = null;
+            $order->status    = self::PENDING;
+            
+            /*      if ($worker_id !== null) {
+            } */
+            
+            $order->update(['worker_id' => $worker_id]);
+            
+           
 
         if ($order->worker_id !== null) {
                 //$language = Auth::user()->language;
