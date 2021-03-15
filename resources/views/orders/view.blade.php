@@ -63,10 +63,14 @@
                                     <div class="col-sm-3 border-right-blue-grey border-right-lighten-5 text-center">
                                         <h5 class="danger text-bold-600">@lang('admin.the_client')</h5>
                                         <h6 class="font-large-2 text-bold-400">
+                                            @if(isset($order->client['id']))
                                             <a class="data_to_fit"
                                                href="@if ($order->client['id']){{ route('clients.show', $order->client['id']) }}@endif">
                                                 {{ $order->client['name'] }}
                                             </a>
+                                            @else
+                                            لايوجد 
+                                            @endif
                                         </h6>
                                     </div>
                                     <div class="col-sm-3 text-center">
