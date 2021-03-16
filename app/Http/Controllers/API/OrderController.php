@@ -563,7 +563,11 @@ class OrderController extends Controller
             /*      if ($worker_id !== null) {
             } */
             
-            $order->update(['worker_id' => $worker_id]);
+            $order->update(['worker_id' => $worker_id,
+            'status' => 0 ,
+            
+            
+            ]);
             
            
 
