@@ -36,9 +36,8 @@ class ProfileController extends Controller
         if (Auth::user()->phone !== $request->phone) {
             $phone[] = 'unique:users';
         }
-
         $validator = Validator::make($request->all(), [
-            'name'     => 'string',
+            'name'     => ['required','unique:users', 'min:2', 'max:60', 'not_regex:([0-9])'],
             'email'    => $email,
             'phone'    => $phone,
             'address'  => 'string',
