@@ -84,6 +84,8 @@ Route::group([
             Route::get('/m', 'OfferController@getUserOffers');
             Route::post('/join', 'OfferController@joinAnOffer');
             Route::post('/disjoin', 'OfferController@disjoinAnOffer');
+            Route::get('/getOfferDetails', 'OfferController@getOfferDetails');
+
         });
 
         // Reviews
