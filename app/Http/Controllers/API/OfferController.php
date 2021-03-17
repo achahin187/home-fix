@@ -316,4 +316,21 @@ class OfferController extends Controller
         }*/
         
     }
+
+
+    public function getOfferDetails(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'offer_id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return __error($validator->errors()->all()[0], 200);
+        }
+    
+        $offer = Offer::where('id', $request->offer_id)->first();
+
+        return __success($offer, 200);
+    }
 }
