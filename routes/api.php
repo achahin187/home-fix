@@ -84,6 +84,8 @@ Route::group([
             Route::get('/m', 'OfferController@getUserOffers');
             Route::post('/join', 'OfferController@joinAnOffer');
             Route::post('/disjoin', 'OfferController@disjoinAnOffer');
+            Route::get('/getOfferDetails', 'OfferController@getOfferDetails');
+
         });
 
         // Reviews
@@ -126,6 +128,7 @@ Route::group([
             Route::post('/note/accept', 'OrderController@acceptOrderNotes');
             Route::post('/note', 'OrderController@createOrderNote');
             Route::post('/verifyPayment', 'PaymentController@verifyPayment');
+
         });
 
         // Notifications
@@ -141,5 +144,7 @@ Route::group([
     Route::post('set/avater', 'ProfileController@setAvatarFromWeb');
     Route::post('set/identity', 'ProfileController@setIdentityFromWeb');
     Route::post('set/cv', 'ProfileController@setCVFromWeb');
+    Route::post('order/cancel', 'OrderController@cancelOrderFromWeb');
+
 
 });
