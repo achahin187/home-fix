@@ -721,4 +721,127 @@ class OrderController extends Controller
         }
         return $this->getAllOrders();
     }
+
+
+
+
+    public function cancelOrderFromWeb(Request $request){
+        $order = Order::where('id',$request->order_id)->first();
+
+        DB::table('excluded_workers')->insert([
+            'order_id'  => $order->id,
+            'worker_id' => $order->worker_id,
+        ]);
+          
+        if ($order->offer_id !== null) {
+            $service = $order->offer()->first();
+            $service = Offer::where(
+                'id',
+                $service->id
+            )->first();
+        } else {
+            $service = $order->services()->first();
+            $service = Service::where(
+                'id',
+                $service->id
+            )->first();
+        }
+
+        $excluded_workers = DB::table('excluded_workers')
+            ->where('order_id', $request->order_id)
+            ->first();
+        
+        // $excluded_workers = (count($excluded_workers) > 0)
+        //     ? $excluded_workers = array_column($excluded_workers, 'worker_id')
+        //     : [0];
+
+            
+
+
+
+        $category = $service->category();
+        if ($category->first()->parent_id != null) {
+            $workers = $category->first()
+                ->parent()->first()
+                ->workers()
+                ->where('id', '!=',$excluded_workers->worker_id)
+                ->get();
+
+        } else {
+          
+            $workers = $category->first()
+                ->workers()
+                ->where('id', '!=',$excluded_workers->worker_id)
+                ->get();
+                
+            }
+            
+            $latitude  = $order->latitude;
+            $longitude = $order->longitude;
+            
+            $distances = [];
+            foreach ($workers as $k => $v) {
+                $x                 = (float)$v->latitude - (float)$latitude;
+                $y                 = (float)$v->longitude - (float)$longitude;
+                $distance          = sqrt(($x ** 2) + ($y ** 2));
+                $distances[$v->id] = $distance;
+                
+            }
+            
+            asort($distances);
+            $workers = array_values(array_keys($distances));
+            
+            if (isset($workers[0])) {
+                $worker_id = $workers[0];
+            } else {
+                $worker_id = null;
+            }
+            //$order->worker_id = null;
+            $order->status    = self::PENDING;
+            
+            /*      if ($worker_id !== null) {
+            } */
+            
+            $order->update(['worker_id' => $worker_id,
+            'status' => 0 ,
+            
+            
+            ]);
+            
+           
+
+        if ($order->worker_id !== null) {
+                //$language = Auth::user()->language;
+                $lang = User::where('id',$order->worker_id)->first();
+                $language = $lang->language;
+                if ($language == 'arabic') {
+                    $message = NotificationType::where('type',  'new_order')
+                        ->first()->message_ar;
+                } else if ($language == 'english') {
+                    $message  = NotificationType::where('type',  'new_order')
+                        ->first()->message_en;
+                } else {
+                    $message  = NotificationType::where('type',  'new_order')
+                        ->first()->message;
+                }
+            $message = str_replace('{order_no}', '#' . $order->order_no, $message);
+
+            pushNotification($order->worker_id, $order->client_id, $message);
+            pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+        }
+
+        $newState = new OrderTracking([
+            'status'   => self::CANCELED,
+            'order_id' => $order->id,
+            'user_id'  => Auth::id(),
+            'note'     => $request->cancellation_note,
+        ]);
+
+        $newState->save();
+
+      
+        return redirect('https://homefix-website.za3bot.com/dashboard');
+
+
+    }
 }
