@@ -321,16 +321,41 @@ class OfferController extends Controller
     public function getOfferDetails(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'offer_id' => 'required|string',
-        ]);
 
-        if ($validator->fails()) {
-            return __error($validator->errors()->all()[0], 200);
-        }
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'offer_id' => 'required|string',
+            ]);
     
-        $offer = Offer::where('id', $request->offer_id)->first();
+            if ($validator->fails()) {
+                return __error($validator->errors()->all()[0], 200);
+            }
+        
+            $offer = Offer::where('id', $request->offer_id)->first();
 
-        return __success($offer, 200);
+    
+                $currency = Auth::user();
+                    
+             
+                $_offer = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
+                $data=[];
+               
+                    $offer->setAttribute('pricebycountry',$offer->price); 
+                    unset($offer->price); 
+                    $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
+                  
+                
+
+            
+
+            return __success( $data, 200);
+         } catch (Exception $e) {
+             return __success([], 200);
+         }
+
+
+
+
     }
 }
