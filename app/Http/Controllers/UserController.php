@@ -311,12 +311,13 @@ class UserController extends Controller
         $phone = "" . $phone;
         $type == 'key';
 
-      $message = "+Your+Activation+Key+Is+كود+التفعيل+الخاص+بك+هو".$activation_key ."+". "👍";
- 
+        $message = "+كود+التفعيل+الخاص+بك+هو" . $activation_key ."+". "👍";
+
 
         // "https://dashboard.mobile-sms.com/api/sms/send?api_key=N1kxRFJiaUhQQWtnekxwUGt6RGxwWFh0dVlXTjNZUWVPeEtYREhLdE5SbDVhRkhJUVJGRVdnSVBTWTVx5eb3d8805bcc8&name=HomeFix&message=".$message."&numbers=".$number."&sender=HomeFix%20App&language=ar"
        // $c = curl_init("https://dashboard.mobile-sms.com/api/sms/send?api_key=N1kxRFJiaUhQQWtnekxwUGt6RGxwWFh0dVlXTjNZUWVPeEtYREhLdE5SbDVhRkhJUVJGRVdnSVBTWTVx5eb3d8805bcc8&name=HomeFix&message=".$message."&numbers=".$phone."&sender=HomeFix%20App&language=ar");
-        $ch = curl_init("https://dashboard.mobile-sms.com/api/sms/send?api_key=dkVlUUJHRlBCZGlZdWhOZ1NieEduYVo3eGd6R0ozTW0xbEl2aEJRNmZkZENJWTZxNnFGelZJQ3MzWGcy5f62148cec25a&name=HomeFix&message=You%20have%20been%20accepted$20by$20the$20administrator$20تم%20قبولك%20من$20المسؤل".$message."&numbers=".$phone."&sender=HomeFix%20App&language=en");
+        $ch = curl_init("https://dashboard.mobile-sms.com/api/sms/send?api_key=dkVlUUJHRlBCZGlZdWhOZ1NieEduYVo3eGd6R0ozTW0xbEl2aEJRNmZkZENJWTZxNnFGelZJQ3MzWGcy5f62148cec25a&name=HomeFix&message=Your%20Activation%20Key%20Is%20".$message."&numbers=".$phone."&sender=HomeFix%20App&language=en");
+
 
 
 
