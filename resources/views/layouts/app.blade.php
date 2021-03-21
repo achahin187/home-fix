@@ -230,6 +230,7 @@
                                     @endif
                                     @endforeach
                                     @foreach($readNotifications as $notification)
+    
                                     @if ( isset($notification->data['type']) && $notification->data['type'] === 'worker')
                                     <a href="{{ route('offers.show',$notification->data['orderId'])}}"
                                         onclick="changeNotificationStatus()"
@@ -247,6 +248,7 @@
                                             </div>
                                         </div>
                                     </a>
+                               
                                     @elseif( isset($notification->data['type']) && $notification->data['type'] === 'new_worker')
                                     <a href="{{ route('workers.show',$notification->data['id'])}}"
                                         onclick="changeNotificationStatus()"
