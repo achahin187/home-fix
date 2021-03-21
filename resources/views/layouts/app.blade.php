@@ -255,7 +255,7 @@
                                         class="box overlay skyblue notification-item">
                                         <div class="media row">
                                             <div class="col-sm col-md-3 media-left align-self-center">
-                                                <img class="height-60" style="width:70px" src="/{{ count($notification->data['avatar']) > 0 : $notification->data['avatar'] ? ''}}"  alt="worker image" >
+                                                <img class="height-60" style="width:70px" src="/{{ count($notification->data['avatar']) > 0 ? $notification->data['avatar'] : ''}}"  alt="worker image" >
                                                 
                                              </div>
                                             <div class="col-sm col-md-6 media-body">
