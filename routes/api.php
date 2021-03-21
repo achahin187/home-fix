@@ -143,6 +143,7 @@ Route::group([
     Route::post('set/identity', 'ProfileController@setIdentityFromWeb');
     Route::post('set/cv', 'ProfileController@setCVFromWeb');
     Route::post('order/cancel', 'OrderController@cancelOrderFromWeb');
+    Route::post('worker', 'AuthController@WorkerRegisterNotification');
 
     
     
