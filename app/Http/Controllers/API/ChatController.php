@@ -80,6 +80,7 @@ class ChatController extends Controller
     public function sendMessage(Request $request)
     {
         $conversation_id = $request->conversation_id;
+
         //return $conversation_id;
         if ($request->file('message')) {
             $validator = Validator::make(
@@ -91,6 +92,7 @@ class ChatController extends Controller
             if ($validator->fails()) {
                 return __error($validator->errors()->all()[0], 200);
             }
+
 
             $message = new Message([
                 'conversation_id' => $conversation_id,
