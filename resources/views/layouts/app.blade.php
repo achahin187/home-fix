@@ -255,7 +255,7 @@
                                             <div class="col-sm col-md-3 media-left align-self-center">
                                                 <img class="height-60" style="width:70px" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
                                                 
-                                                </div>
+                                             </div>
                                             <div class="col-sm col-md-6 media-body">
                                                 <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
                                                 <p>{{ $notification->data['username'] }}</p>
