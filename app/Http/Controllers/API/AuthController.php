@@ -581,6 +581,7 @@ class AuthController extends Controller
 public function WorkerRegisterNotification(Request $request){
 $data = [
     'username' => $request->name,
+    'avatar' => 'any',
     'type' => 'new_worker',
 ];
 User::find(1)->notify(new WorkerRegisterNotification($data));
