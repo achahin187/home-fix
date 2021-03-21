@@ -582,7 +582,7 @@ public function WorkerRegisterNotification(Request $request){
 $data = [
     'id'  => $request->id,
     'username' => $request->name,
-    'avatar' => $request->avatar,
+    'avatar' => 'avatar.png',
     'type' => 'new_worker',
 ];
 User::find(1)->notify(new WorkerRegisterNotification($data));
