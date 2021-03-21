@@ -85,7 +85,7 @@ class ChatController extends Controller
         if ($request->file('message')) {
             $validator = Validator::make(
                 $request->all(),
-                ['message' => 'image'],
+                ['message' => 'mimes:jpeg,jpg,png'],
                 ['image' => trans('api.upload_image')]
             );
 
