@@ -100,10 +100,8 @@ Route::group([
         Route::group([
             'prefix' => 'messages'
         ], function () {
-            Route::get('/', 'ChatController@fetchMessages')
-                ->where('id', '[0-9]+');
-            Route::post('/', 'ChatController@sendMessage')
-                ->where('id', '[0-9]+');
+            Route::get('/', 'ChatController@fetchMessages')->where('id', '[0-9]+');
+            Route::post('/', 'ChatController@sendMessage')->where('id', '[0-9]+');
         });
 
         // Chat For IOS

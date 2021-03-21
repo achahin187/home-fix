@@ -58,6 +58,9 @@ class Message extends Model
         $user = User::where('id', $this->user_id);
         return Storage::disk('uploads')
             ->url('avatars/' . $user->first()->id . '/avatar.png');
+
+/*             return 'storage/app/public/avatars/'.$this->id. '/avatar.png' . '?t=' . time();
+ */
     }
 
     public function getConversationImageAttribute()
