@@ -79,13 +79,12 @@ class ChatController extends Controller
 
     public function sendMessage(Request $request)
     {
-        
         $conversation_id = $request->conversation_id;
         //return $conversation_id;
         if ($request->file('message')) {
             $validator = Validator::make(
                 $request->all(),
-                ['message' => 'image'],
+                ['message' => 'mimes:jpeg,jpg,png'],
                 ['image' => trans('api.upload_image')]
             );
 
