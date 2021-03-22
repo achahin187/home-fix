@@ -358,4 +358,19 @@ class OfferController extends Controller
 
 
     }
+
+    public function offerNotification(Request $request){
+
+        (new NotificationController())
+        ->pushNotification(
+            $request->id,
+            0,
+            0,
+            'worker'
+        );
+
+        return response()->json($request->id,200);
+
+
+    }
 }

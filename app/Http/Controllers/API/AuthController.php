@@ -579,6 +579,8 @@ class AuthController extends Controller
   }
 
 public function WorkerRegisterNotification(Request $request){
+    $this->createPlaceHolderAvatar($request->id, $request->name);
+
     $data = [
         'id'  => $request->id,
         'username' => $request->name,
