@@ -230,6 +230,7 @@
                                     @endif
                                     @endforeach
                                     @foreach($readNotifications as $notification)
+    
                                     @if ( isset($notification->data['type']) && $notification->data['type'] === 'worker')
                                     <a href="{{ route('offers.show',$notification->data['orderId'])}}"
                                         onclick="changeNotificationStatus()"
@@ -247,6 +248,7 @@
                                             </div>
                                         </div>
                                     </a>
+                               
                                     @elseif( isset($notification->data['type']) && $notification->data['type'] === 'new_worker')
                                     <a href="{{ route('workers.show',$notification->data['id'])}}"
                                         onclick="changeNotificationStatus()"
@@ -255,7 +257,7 @@
                                             <div class="col-sm col-md-3 media-left align-self-center">
                                                 <img class="height-60" style="width:70px" src="/{{ $notification->data['avatar'] }}"  alt="worker image" >
                                                 
-                                                </div>
+                                             </div>
                                             <div class="col-sm col-md-6 media-body">
                                                 <h6 class="media-heading">{{ __('admin.new_worker') }}</h6>
                                                 <p>{{ $notification->data['username'] }}</p>
