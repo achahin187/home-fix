@@ -728,6 +728,9 @@ class OrderController extends Controller
     public function cancelOrderFromWeb(Request $request){
         $order = Order::where('id',$request->order_id)->first();
 
+       
+       
+
         DB::table('excluded_workers')->insert([
             'order_id'  => $order->id,
             'worker_id' => $order->worker_id,
@@ -829,6 +832,11 @@ class OrderController extends Controller
             pushNotification($order->worker_id, $order->client_id, $message);
             pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
         }
+
+        Validator::make($request->all(), [
+            'cancellation_note' => 'required|string',
+        ]);
+
 
         $newState = new OrderTracking([
             'status'   => self::CANCELED,

@@ -44,8 +44,8 @@
                                 <div class="card-title text-center">
                                     <a class="navbar-brand" href="{{ env("APP_URL") }}">
                                         <img class="brand-logo" alt="modern admin logo"
-                                             style="width: 50%;" src="{{ asset('images/logo/logo.png') }}">
-                                        <h3 class="brand-text">Home Fix</h3>
+                                             style="width: 20%;" src="{{ asset('images/logo/logo.png') }}">
+                                        <h3 class="brand-text">Home Care</h3>
                                     </a>
                                 </div>
                                 <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">

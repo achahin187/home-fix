@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>{{ config('app.name') }} | @yield('title')</title>
+    <title>Home Care | @yield('title')</title>
     <!-- Favicons Impelementation -->
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('images/ico/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/ico/favicon-32x32.png') }}">
@@ -78,7 +78,7 @@
                     <li class="nav-item">
                         <a class="navbar-brand" href="{{ route('admin') }}">
                             <img class="brand-logo" alt="modern admin logo" src="{{ asset('images/logo/logo.png') }}">
-                            <h3 class="brand-text">{{ config('app.name') }}</h3>
+                            <h3 class="brand-text">Home Care</h3>
                         </a>
                     </li>
                     <li class="nav-item d-md-none">
