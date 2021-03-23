@@ -50,7 +50,7 @@
                         <div class="card-body">
                             <div class="media d-flex">
                                 <div class="media-body text-left">
-                                    <h3 class="warning data_to_fit">{{ $totalOrdersPrice }}</h3>
+                                    <h3 class="warning">{{ $totalOrdersPrice }}</h3>
                                     <h6>@lang('admin.total_paid_orders')</h6>
                                 </div>
                                 <div>
