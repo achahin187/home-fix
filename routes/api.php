@@ -145,6 +145,7 @@ Route::group([
     Route::post('order/cancel', 'OrderController@cancelOrderFromWeb');
     Route::post('worker', 'AuthController@WorkerRegisterNotification');
     Route::post('offer', 'OfferController@offerNotification');
+    Route::post('avatar','AuthController@createAvatar');
 
 
     
