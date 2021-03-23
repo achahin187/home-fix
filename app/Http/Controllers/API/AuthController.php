@@ -579,7 +579,6 @@ class AuthController extends Controller
   }
 
 public function WorkerRegisterNotification(Request $request){
-    $this->createPlaceHolderAvatar($request->id, $request->name);
 
     $data = [
         'id'  => $request->id,
@@ -589,6 +588,14 @@ public function WorkerRegisterNotification(Request $request){
     ];
     User::find(1)->notify(new WorkerRegisterNotification($data));
  return response()->json($data,200);
+
+
+}
+
+
+public function createAvatar(Request $request){
+    
+    $this->createPlaceHolderAvatar($request->id, $request->name);
 
 
 }
