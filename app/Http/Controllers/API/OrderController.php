@@ -878,4 +878,27 @@ class OrderController extends Controller
           return response()->json($request->all(),200);
 
      }
+
+
+     public function pushNotification(Request $request){
+
+        $lang = User::where('id',$request->worker_id)->first();
+        $language = $lang->language;
+         if ($language == 'arabic') {
+             $msg = NotificationType::where('type', 'new_order')
+                 ->first()->message_ar;
+         } else if ($language == 'english') {
+             $msg = NotificationType::where('type', 'new_order')
+                 ->first()->message_en;
+         } else {
+             $msg = NotificationType::where('type', 'new_order')
+                 ->first()->message;
+         }
+         
+         $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
+
+         (new NotificationController())->pushNotification( $request->order_id, '# ' . $request->order_no, $message, 'order'  );
+
+         return response()->json($request->all(),200);
+     }
 }

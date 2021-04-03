@@ -147,7 +147,7 @@ Route::group([
     Route::post('offer', 'OfferController@offerNotification');
     Route::post('avatar','AuthController@createAvatar');
     Route::post('pushNotificationFromWeb','OrderController@pushNotificationFromWeb');
-
+    Route::post('pushNotification','OrderController@pushNotification');
 
 
     
