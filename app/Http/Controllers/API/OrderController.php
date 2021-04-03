@@ -873,7 +873,7 @@ class OrderController extends Controller
           
           $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
 
-          (new NotificationController())->pushNotification( $request->order_id,0, $message, 'order'  );
+          (new NotificationController())->pushNotification( $request->order_id, '# ' . $request->order_no, 0, 'order'  );
 
           return response()->json($request->all(),200);
 
