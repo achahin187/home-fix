@@ -859,7 +859,6 @@ class OrderController extends Controller
      public function pushNotificationFromWeb(Request $request){
 
 
-         //$language = Auth::user()->language;
          $lang = User::where('id',$request->worker_id)->first();
          $language = $lang->language;
           if ($language == 'arabic') {
