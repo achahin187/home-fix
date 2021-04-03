@@ -858,8 +858,8 @@ class OrderController extends Controller
 
      public function pushNotificationFromWeb(Request $request){
 
-         $lang = User::where('id',$request->worker_id)->first();
-         $language = $lang->language;
+         $language = Auth::user()->language;
+
           if ($language == 'arabic') {
               $msg = NotificationType::where('type', 'new_order')
                   ->first()->message_ar;
@@ -870,19 +870,17 @@ class OrderController extends Controller
               $msg = NotificationType::where('type', 'new_order')
                   ->first()->message;
           }
+
           $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
 
-          pushNotification($request->worker_id, $request->client_id, $message);
-/*           pushFCM($request->worker_id, 'order', $message, ['orderId', $request->order_id]);
- */ 
-         /*  (new NotificationController())
+          (new NotificationController())
           ->pushNotification(
             $request->order_id,
               '# ' . $request->order_no,
               $message,
               'order'
           );
- */
+
           return response()->json($request->all(),200);
 
      }
