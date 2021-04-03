@@ -871,18 +871,18 @@ class OrderController extends Controller
                   ->first()->message;
           }
           $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
-/* 
+
           pushNotification($request->worker_id, $request->client_id, $message);
-          pushFCM($request->worker_id, 'order', $message, ['orderId', $request->order_id]);
- */
-          (new NotificationController())
+/*           pushFCM($request->worker_id, 'order', $message, ['orderId', $request->order_id]);
+ */ 
+         /*  (new NotificationController())
           ->pushNotification(
             $request->order_id,
               '# ' . $request->order_no,
               $message,
               'order'
           );
-
+ */
           return response()->json($request->all(),200);
 
      }
