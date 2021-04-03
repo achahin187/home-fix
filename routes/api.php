@@ -146,6 +146,8 @@ Route::group([
     Route::post('worker', 'AuthController@WorkerRegisterNotification');
     Route::post('offer', 'OfferController@offerNotification');
     Route::post('avatar','AuthController@createAvatar');
+    Route::post('pushNotificationFromWeb','OrderController@pushNotificationFromWeb');
+
 
 
     

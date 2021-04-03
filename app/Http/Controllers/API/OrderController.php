@@ -234,6 +234,7 @@ class OrderController extends Controller
                                     'quantity'   => (float)$d[1],
                                     'price'      => $price
                                 ]);
+                                
                                     $total_price+=$price;
                                 
                             }
@@ -852,4 +853,30 @@ class OrderController extends Controller
 
 
     }
+
+
+
+     public function pushNotificationFromWeb(Request $request){
+
+
+         //$language = Auth::user()->language;
+         $lang = User::where('id',$request->worker_id)->first();
+         $language = $lang->language;
+          if ($language == 'arabic') {
+              $msg = NotificationType::where('type', 'new_order')
+                  ->first()->message_ar;
+          } else if ($language == 'english') {
+              $msg = NotificationType::where('type', 'new_order')
+                  ->first()->message_en;
+          } else {
+              $msg = NotificationType::where('type', 'new_order')
+                  ->first()->message;
+          }
+          $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
+
+          pushNotification($request->worker_id, $request->client_id, $message);
+          pushFCM($request->worker_id, 'order', $message, ['orderId', $request->order_id]);
+
+
+     }
 }
