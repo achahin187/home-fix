@@ -7,7 +7,7 @@ use App\Category;
 use App\UserAddress;
 use App\worker_category;
 use App\Country;
-use App\city;
+use App\City;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
