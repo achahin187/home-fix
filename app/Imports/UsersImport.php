@@ -33,6 +33,8 @@ class UsersImport implements ToModel, WithHeadingRow
         if (!isset($row['name'])) {
             return null;
         }
+    
+      
         
 
        //check if worker exists 
@@ -83,6 +85,8 @@ class UsersImport implements ToModel, WithHeadingRow
             
             
         }else{
+
+        
             $user->name     = ($row['name']) ?: $user->name;
             $user->email    = ($row['email']) ?: $user->email;
             $user->phone     = ($row['phone']) ?: $user->phone;

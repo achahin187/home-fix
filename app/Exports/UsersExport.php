@@ -18,12 +18,12 @@ class UsersExport implements FromCollection,WithMapping,WithHeadings
 
     }
     public function map($registration) : array {
-           
 	    return [
 	            $registration->id,
 	            $registration->name,
 	            $registration->email,
                 $registration->phone,
+                $registration->password,
                 $registration->WorkerCategory['category'] ,
                 $registration->user_address['country'],
                 $registration->user_address['city'],
@@ -40,6 +40,7 @@ class UsersExport implements FromCollection,WithMapping,WithHeadings
           'name',
           'email',
           'phone',
+          'password',
           'category',
           'country',
           'city',
