@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 use Carbon\Carbon;
+use Exception;
 
 HeadingRowFormatter::default('none');
 
@@ -28,10 +29,12 @@ class UsersImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
 
+      
         if (!isset($row['name'])) {
             return null;
         }
-             
+        
+
        //check if worker exists 
         $user=User::where('id',$row['id'] )
         ->where('role','worker')
