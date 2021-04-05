@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use App\User;
-use Illuminate\Contracts\Encryption\DecryptException;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -21,7 +20,6 @@ class UsersExport implements FromCollection,WithMapping,WithHeadings
               
 
     }
-
     public function map($registration) : array {
 
 
