@@ -13,7 +13,11 @@ use Avatar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Imports\UsersImport;
 use Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
+
 
 class WorkerController extends Controller
 {
@@ -27,6 +31,31 @@ class WorkerController extends Controller
 
         $this->mainTitle = trans('admin.worker_management');
     }
+
+
+///import workers 
+public function import(Request $request) 
+{
+    $request->validate([
+        'file' => 'required|mimes:xlsx,xls,csv',
+    ]);
+
+    $path = $request->file('file')->getRealPath();
+        Excel::import(new UsersImport,$path); 
+
+    $request->session()->flash('success',trans('admin.workers_Import'));
+    return redirect()->route('workers.index');
+
+
+}
+
+public function export() 
+{
+    return Excel::download(new UsersExport, 'workers.xlsx');
+}
+
+
+
 
     /**
      * Display a listing of the worker.

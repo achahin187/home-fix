@@ -186,6 +186,8 @@ return [
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Kawankoding\Fcm\FcmServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
 
     ],
 
@@ -240,6 +242,8 @@ return [
         'PayPal'       => Srmklive\PayPal\Facades\PayPal::class,
         'Fcm'          => Kawankoding\Fcm\FcmFacade::class,
         'Datatables'   => Yajra\DataTables\Facades\DataTables::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
 
     ],
 

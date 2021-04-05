@@ -41,6 +41,9 @@ Route::get('u/{id}/orders', 'OrderController@orders')
 
 // Workers
 Route::resource('workers', 'WorkerController');
+Route::post('workers/import_workers','workerController@import')->name('import');
+Route::get('export/', 'workerController@export')->name('export');
+
 
 // Countries
 Route::resource('countries', 'CountryController');

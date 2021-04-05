@@ -13,6 +13,9 @@ return [
      * Global
      */
     'Your Message'=>'الرساله',
+    'import_workers' =>' استيراد عمال',
+    'workers_Import'  => 'تم الاستيراد بنجاح',
+    'Export' => 'تصدير',
 
     'Information' => 'المعلومات',
 
@@ -24,6 +27,7 @@ return [
 
     'send activation_key' => 'أرسال مفتاح التنشيط',
     'the_country'             =>'الدولة',
+    'the_city'                   => 'المدينه',
     'control_panel'           => 'لوحة التحكم',
     'greeting'                => 'مرحباً، ',
     'or_upload'               => 'أو رفع ',
