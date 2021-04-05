@@ -41,7 +41,8 @@ public function import(Request $request)
         'file' => 'required|mimes:xlsx,xls,csv',
     ]);
 
-    $path = $request->file('file')->getRealPath();
+    $path = $request->file('file')->store('temp');
+    $path=storage_path('app').'/'.$path;  
         Excel::import(new UsersImport,$path); 
 
     $request->session()->flash('success',trans('admin.workers_Import'));
