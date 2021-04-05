@@ -92,7 +92,6 @@ pre[class*=language-] {
 }
 
 @media print {
-
     code[class*=language-],
     pre[class*=language-] {
         text-shadow: none
@@ -186,4 +185,8 @@ html body .content .content-wrapper {
 .card-header .heading-elements a,
 .card-header .heading-elements-toggle a {
     padding: 1rem 0
+}
+
+.btn-non .btn-group {
+    display: none !important;
 }

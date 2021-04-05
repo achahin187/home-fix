@@ -13,8 +13,11 @@ return [
      * Global
      */
     'Your Message'=>'Your Message',
-
+      'import_workers' =>'import workers',
     'Information' => 'Information',
+    'workers_Import'  => 'file Import Successfully',
+    'Export' =>'Export',
+
 
     'Email'=>'Email',
     'contactus' => 'contactus management',
@@ -27,6 +30,7 @@ return [
     'send activation_key'       =>     'send activation_key',
 
     'the_country'             =>  'the_country',
+    'the_city'=>'the_city',
     'control_panel'           => 'Control Panel',
     'greeting'                => 'Hello',
     'or_upload'               => 'Or Upload',
