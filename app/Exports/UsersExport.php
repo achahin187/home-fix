@@ -26,8 +26,8 @@ class UsersExport implements FromCollection,WithMapping,WithHeadings
 	            $registration->email,
                 $registration->phone,
                 $registration->category->pluck('name'),
-                $registration->country->pluck('name'),
-                $registration->city->pluck('name'),
+                $registration->user_address['country'],
+                $registration->user_address['city'],
                 $registration->user_address['area'],
                ];
 
