@@ -90,7 +90,10 @@ class UsersImport implements ToModel, WithHeadingRow
             $user->name     = ($row['name']) ?: $user->name;
             $user->email    = ($row['email']) ?: $user->email;
             $user->phone     = ($row['phone']) ?: $user->phone;
-            $user->password     = (Hash::make($row['password']) ) ?: $user->password;
+          
+          $user->password     = ($row['password'])  ?: $user->password;
+
+            
             $user->activation_key    = random_int(10000, 99999)?: $user->activation_key;
             $user->phone_verified_at  = Carbon::now()?: $user->phone_verified_at ;
             $user->role              = 'worker' ?: $user->role ;
@@ -134,7 +137,7 @@ class UsersImport implements ToModel, WithHeadingRow
     } 
     public function headingRow(): int
     {
-        return 2;
+        return 1;
     }
 
 
