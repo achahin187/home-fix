@@ -51,7 +51,7 @@ public function import(Request $request)
 
     } catch (\Exception $e) {
 
-        $request->session()->flash('error','something went wrong when upload');
+        $request->session()->flash('error','Password Is Required when upload first One');
         return redirect()->route('workers.index');   
     
     }
@@ -64,6 +64,21 @@ public function export()
 {
     return Excel::download(new UsersExport, 'workers.xlsx');
 }
+
+public function export_model() 
+
+{
+    $file_name='workers_model.xlsx';
+    $path = storage_path().'/'.'app'.'/temp/'.$file_name;
+    
+    if (file_exists($path)) {
+       
+        return response()->download($path);
+    }else{
+        return redirect()->back();
+    }
+/*     return Storage::download(storage_path().'/'.'app'.,'workers_model.xlsx');
+ */}
 
 
 

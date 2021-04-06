@@ -37,6 +37,11 @@
                 <i class="fas fa-file-import"></i> @lang('admin.import_workers')
             </button>
         </div>
+        <div class="btn-group float-md-right" style="color:white" role="group" aria-label="Button group with nested dropdown">
+            <a href="{{ route('export_model') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
+                <i class="fas fa-file-download"></i> @lang('admin.download_model')
+            </a>
+        </div>
     </div>
 @endsection
 

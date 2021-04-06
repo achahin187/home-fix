@@ -16,6 +16,8 @@ return [
     'import_workers' =>' استيراد عمال',
     'workers_Import'  => 'تم الاستيراد بنجاح',
     'Export' => 'تصدير',
+    'download_model'=>'تحميل نموزج',
+    'Password Is Required when upload first One'=>'الرقم السري مطلوب في المره الاولي',
 
     'Information' => 'المعلومات',
 
