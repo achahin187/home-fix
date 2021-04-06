@@ -24,20 +24,20 @@
     </div>
 
     <div class="content-header-right col-md-6 col-12">
-        <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
+        <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown" style="margin:5px">
             <a href="{{ route('workers.create') }}">
                 <button class="btn btn-info round box-shadow-2 px-2" type="button"><i
                         class="ft-edit icon-left"></i>@lang('admin.add_worker')
                 </button>
             </a>
         </div>
-        <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
+        <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown" style="margin:5px">
             <button type="button" class="btn btn-info round box-shadow-2 px-2" data-toggle="modal"
                 data-target="#exampleModal">
                 <i class="fas fa-file-import"></i> @lang('admin.import_workers')
             </button>
         </div>
-        <div class="btn-group float-md-right" style="color:white" role="group" aria-label="Button group with nested dropdown">
+        <div class="btn-group float-md-right" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
             <a href="{{ route('export_model') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
                 <i class="fas fa-file-download"></i> @lang('admin.download_model')
             </a>

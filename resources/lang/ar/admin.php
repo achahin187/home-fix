@@ -13,10 +13,10 @@ return [
      * Global
      */
     'Your Message'=>'الرساله',
-    'import_workers' =>' استيراد عمال',
+    'import_workers' =>' استيراد ',
     'workers_Import'  => 'تم الاستيراد بنجاح',
     'Export' => 'تصدير',
-    'download_model'=>'تحميل نموزج',
+    'download_model'=>'تحميل نموذج',
     'Password Is Required when upload first One'=>'الرقم السري مطلوب في المره الاولي',
 
     'Information' => 'المعلومات',
