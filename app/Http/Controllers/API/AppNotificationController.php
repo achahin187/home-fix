@@ -97,32 +97,58 @@ class AppNotificationController extends Controller
 
         $user = User::where('id', $id)->first();
         if ($user->notifications_key !== null) {
-            $recipients = [
-                $user->notifications_key
-            ];
-
             $data = [
-                'type'                => $type,
-                $notification_data[0] => $notification_data[1]
-            ];
+                "to"=> $user->notifications_key,
+                   "notification" =>
+                       [
+                           "title" => env('APP_NAME'),
+                           "body" => $text,
+                           'sound'=> 'true',
+                           'icon' => 'logo'
+                       ],
+               ];
+               $dataString = json_encode($data);
+         
+               $headers = [
+                   'Authorization: key=AAAA954nDeU:APA91bHHeNm23rm8tfcrLc3U0V37ZSzqqHRHW3VWBts5WBGavSoHbes7VYUblxX5kqL31eU4CmxIM0PGBdDGi8ZJ7eWiFEBbmNhdu8OqtClDTQGN4IWwJdKNweesBe45ruTAW-N3yAZ1',
+                   'Content-Type: application/json',
+               ];
+         
+               $ch = curl_init();
+         
+               curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+               curl_setopt($ch, CURLOPT_POST, true);
+               curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+               curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+               curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+         
+               $result = curl_exec($ch);
+            // $recipients = [
+            //     $user->notifications_key
+            // ];
 
-            $notification = [
-                'title'        => env('APP_NAME'),
-                'text'         => $text,
-                'click_action' => 'MainActivity',
-                'sound'        => 'true',
-                'icon'         => 'logo'
-            ];
+            // $data = [
+            //     'type'                => $type,
+            //     $notification_data[0] => $notification_data[1]
+            // ];
 
-            try {
-                fcm()->to($recipients)
-                    ->priority('normal')
-                    ->data($data)
-                    ->notification($notification)
-                    ->send();
-            } catch (\Exception $e) {
-                return null;
-            }
+            // $notification = [
+            //     'title'        => env('APP_NAME'),
+            //     'text'         => $text,
+            //     'click_action' => 'MainActivity',
+            //     'sound'        => 'true',
+            //     'icon'         => 'logo'
+            // ];
+
+            // try {
+            //     fcm()->to($recipients)
+            //         ->priority('normal')
+            //         ->data($data)
+            //         ->notification($notification)
+            //         ->send();
+            // } catch (\Exception $e) {
+            //     return null;
+            // }
         }
     }
 }
