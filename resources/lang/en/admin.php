@@ -17,6 +17,8 @@ return [
     'Information' => 'Information',
     'workers_Import'  => 'file Import Successfully',
     'Export' =>'Export',
+    'download_model'=>'Download Model',
+    'Password Is Required when upload first One'=>'Password Is Required when upload first One',
 
 
     'Email'=>'Email',
