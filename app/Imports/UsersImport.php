@@ -67,7 +67,7 @@ class UsersImport implements ToModel, WithHeadingRow
             ->orWhere('name_ar', $row['category'])
             ->first();
             worker_category::create([
-                'category_id'=>$category->id,
+                'category_id'=>$category['id'],
                 'user_id' => $worker->id,
                 
             ]); 
@@ -76,13 +76,13 @@ class UsersImport implements ToModel, WithHeadingRow
             ///add user_address
             $country = Country::where('name', $row['country'])->first();
             $city= City::where('name', $row['city'])
-            ->where('country_id',$country->id)
+            ->where('country_id',$country['id'])
             ->first();
 
              UserAddress::create([
                 'user_id'    => $worker->id,
-                'country_id' => $country->id,
-                 'city_id'    => $city->id,
+                'country_id' => $country['id'],
+                 'city_id'    => $city['id'],
                 'area'       => $row['area'], 
             ]);
 
@@ -111,7 +111,6 @@ class UsersImport implements ToModel, WithHeadingRow
             ->orWhere('name_ar', $row['category'])
             ->orWhere('name_tr', $row['category'])
             ->first();
-            
              worker_category::where('user_id',$row['id'])->update([
                 'category_id'=>$category['id'],
 
@@ -123,8 +122,8 @@ class UsersImport implements ToModel, WithHeadingRow
             $city= City::where('name', $row['city'])->first();
 
              UserAddress::where('user_id',$row['id'])->update([
-                'country_id' => $country->id,
-                 'city_id'    => $city->id,
+                'country_id' => $country['id'],
+                 'city_id'    => $city['id'],
                 'area'       => $row['area'], 
             ]);
 
