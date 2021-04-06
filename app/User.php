@@ -255,6 +255,18 @@ class User extends Authenticatable
           
         ];
     }
+    public function getUserReviewAttribute()
+    {
+        $review = $this->review()->first();
+        return $review->review ?? '';
+    }
+    public function getReviewsAttribute()
+    {
+        return [
+            'review'   => $this->getUserReviewAttribute(),
+          
+        ];
+    }
     
 
  

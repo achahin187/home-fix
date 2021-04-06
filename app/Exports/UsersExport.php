@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\User;
-
+use App\reviews;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -18,12 +18,15 @@ class UsersExport implements FromCollection,WithMapping,WithHeadings
 
     }
     public function map($registration) : array {
+        
 	    return [
 	            $registration->id,
 	            $registration->name,
 	            $registration->email,
                 $registration->phone,
-                $registration->password,
+                $registration->verified,
+                $registration->review,
+                $registration->workerOrders->count(),
                 $registration->WorkerCategory['category'] ,
                 $registration->user_address['country'],
                 $registration->user_address['city'],
@@ -40,7 +43,9 @@ class UsersExport implements FromCollection,WithMapping,WithHeadings
           'name',
           'email',
           'phone',
-          'password',
+          'verified',
+          'review',
+          'workerOrders',
           'category',
           'country',
           'city',
