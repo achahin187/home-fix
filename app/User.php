@@ -191,7 +191,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(City::class, 'user_addresses');
     }
-
+  
     public function getUserCountryAttribute()
     {
         $_country = $this->country()->first();
@@ -242,6 +242,34 @@ class User extends Authenticatable
         ];
     }
 
+    public function getUserCategoryAttribute()
+    {
+        $category = $this->category()->first();
+        return $category->name ?? '';
+    }
+
+    public function getWorkerCategoryAttribute()
+    {
+        return [
+            'category'   => $this->getUserCategoryAttribute(),
+          
+        ];
+    }
+    public function getUserReviewAttribute()
+    {
+        $review = $this->review()->first();
+        return $review->review ?? '';
+    }
+    public function getReviewsAttribute()
+    {
+        return [
+            'review'   => $this->getUserReviewAttribute(),
+          
+        ];
+    }
+    
+
+ 
     /**
      * Send the password reset notification.
      *

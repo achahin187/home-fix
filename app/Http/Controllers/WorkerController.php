@@ -36,15 +36,26 @@ class WorkerController extends Controller
 ///import workers 
 public function import(Request $request) 
 {
-    $request->validate([
-        'file' => 'required|mimes:xlsx,xls,csv',
-    ]);
+     try { 
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+    
+        $path = $request->file('file')->store('temp');
+        $path=storage_path('app').'/'.$path;  
+            Excel::import(new UsersImport,$path); 
+    
+        $request->session()->flash('success',trans('admin.workers_Import'));
+        return redirect()->route('workers.index');
+    
 
-    $path = $request->file('file')->getRealPath();
-        Excel::import(new UsersImport,$path); 
+     } catch (\Exception $e) {
 
-    $request->session()->flash('success',trans('admin.workers_Import'));
-    return redirect()->route('workers.index');
+        $request->session()->flash('error','Something Went Wrong when uplode File');
+        return redirect()->route('workers.index');   
+    
+    } 
+ 
 
 
 }
@@ -53,6 +64,21 @@ public function export()
 {
     return Excel::download(new UsersExport, 'workers.xlsx');
 }
+
+public function export_model() 
+
+{
+    $file_name='workers_model.xlsx';
+    $path = storage_path().'/'.'app'.'/temp/'.$file_name;
+    
+    if (file_exists($path)) {
+       
+        return response()->download($path);
+    }else{
+        return redirect()->back();
+    }
+/*     return Storage::download(storage_path().'/'.'app'.,'workers_model.xlsx');
+ */}
 
 
 

@@ -1,3 +1,4 @@
 *
 !public/
 !.gitignore
+!workers_model.xlsx'
