@@ -36,7 +36,7 @@ class WorkerController extends Controller
 ///import workers 
 public function import(Request $request) 
 {
-    try {
+    /* try { */
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv',
         ]);
@@ -49,13 +49,13 @@ public function import(Request $request)
         return redirect()->route('workers.index');
     
 
-    } catch (\Exception $e) {
+   /*  } catch (\Exception $e) {
 
         $request->session()->flash('error','Password Is Required when upload first One');
         return redirect()->route('workers.index');   
     
     }
-
+ */
 
 
 }

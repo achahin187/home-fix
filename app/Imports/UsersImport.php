@@ -111,8 +111,9 @@ class UsersImport implements ToModel, WithHeadingRow
             ->orWhere('name_ar', $row['category'])
             ->orWhere('name_tr', $row['category'])
             ->first();
+            
              worker_category::where('user_id',$row['id'])->update([
-                'category_id'=>$category->id,
+                'category_id'=>$category['id'],
 
             ]); 
             ///update user_address
