@@ -13,12 +13,19 @@ return [
      * Global
      */
     'Your Message'=>'Your Message',
+    'currency' =>'currency',
+    'cities'=>'cities',
+
     'Information' => 'Information',
     'Email'=>'Email',
     'contactus' => 'contactus management',
     'minutes' =>'minutes',
     'new_worker'=>'A new technician has been added',
     'country_management' => 'country management',
+    'add_new_city' =>'add_new_city',
+    'currency_en' =>'currency in english',
+    'currency_tr' =>'currency in turkish',
+    'currency_ar' =>'currency in arabic',
 
     'send activation_key'       =>     'send activation_key',
 

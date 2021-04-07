@@ -9,7 +9,14 @@ class City extends Model
     protected $table = 'cities';
 
     protected $fillable = [
-        'name', 'country_id',
+        'name_en','name_tr','name_ar', 'country_id',
         'status',
     ];
+
+
+    public function getNameAttribute()
+    {
+        $name = 'name_' . app()->getLocale();
+        return $this->$name;
+    }
 }

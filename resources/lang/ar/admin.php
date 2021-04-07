@@ -18,7 +18,12 @@ return [
     'Export' => 'تصدير',
     'download_model'=>'تحميل نموذج',
     'Password Is Required when upload first One'=>'الرقم السري مطلوب في المره الاولي',
-
+    'currency' =>'العمله',
+    'cities'=>'المدن',
+    'currency_en' =>'العمله بالانجليزيه',
+    'currency_tr' =>'العمله بالتركي',
+    'currency_ar' =>'العمله بالعربية',
+    'add_new_city' =>'اضافه مدينه جديده',
     'Information' => 'المعلومات',
 
     'Email' =>'البريد الالكتروني',
