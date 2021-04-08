@@ -12,6 +12,11 @@ return [
     /**
      * Global
      */
+    'export_countries'=>'تحميل بيانات الدول',
+    'export_for_subcategories' =>' تحميل بيانات تصنيفات فرعيه',
+    'samples' =>'نماذج',
+    'export_for_categories' =>'تحميل بيانات التصنيفات',
+    'download_model_for_workers'=>'تحميل نموذج للفنيين',
     'Your Message'=>'الرساله',
     'import_workers' =>' استيراد ',
     'workers_Import'  => 'تم الاستيراد بنجاح',

@@ -12,6 +12,11 @@ return [
     /**
      * Global
      */
+    'export_for_subcategories' =>'export for Subcategories',
+    'export_countries'=>'export countries',
+    'export_for_categories' =>'export for categories',
+    'download_model_for_workers'=> 'download model for workers',
+    'samples' =>'Samples',
     'Your Message'=>'Your Message',
       'import_workers' =>'import workers',
     'Information' => 'Information',
