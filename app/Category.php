@@ -27,6 +27,7 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id')
             ->with('checkup', 'services');
     }
+   
 
     public function offers()
     {

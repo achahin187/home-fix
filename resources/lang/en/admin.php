@@ -12,6 +12,11 @@ return [
     /**
      * Global
      */
+    'export_for_subcategories' =>'export for Subcategories',
+    'export_countries'=>'export countries',
+    'export_for_categories' =>'export for categories',
+    'download_model_for_workers'=> 'download model for workers',
+    'samples' =>'Samples',
     'Your Message'=>'Your Message',
       'import_workers' =>'import workers',
     'Information' => 'Information',
@@ -19,7 +24,12 @@ return [
     'Export' =>'Export',
     'download_model'=>'Download Model',
     'Password Is Required when upload first One'=>'Password Is Required when upload first One',
+        'currency_en' =>'currency in english',
+        'currency_tr' =>'currency in turkish',
+        'currency_ar' =>'currency in arabic',
 
+        'cities'=>'cities',
+        'add_new_city'=>'add_new_city',
 
     'Email'=>'Email',
     'contactus' => 'contactus management',

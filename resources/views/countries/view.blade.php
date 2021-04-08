@@ -208,7 +208,7 @@
                                                                                     <div class="col-md-12">
                                                                                         <div class="form-group row">
                                                                                             <label class="col-md-3 label-control" for="name"
-                                                                                                   style="padding: 0.75rem 1rem;">@lang('admin.name')</label>
+                                                                                                   style="padding: 0.75rem 1rem;">@lang('admin.name_en')</label>
                                                                                             <div class="col-md-9">
                                                                                                 <fieldset>
                                                                                                     <div class="input-group">
@@ -217,10 +217,56 @@
                                                                                                                 class="ft-map"></i></span>
                                                                                                         </div>
                                                                                                         <input id="name" type="text"
-                                                                                                               class="form-control @error('name') is-invalid @enderror"
-                                                                                                               name="name" value="@if (old('name')){{old('name')}}@else{{$city->name}}@endif" required
-                                                                                                               autocomplete="name">
-                                                                                                        @error('name')
+                                                                                                               class="form-control @error('name_en') is-invalid @enderror"
+                                                                                                               name="name_en" value="@if (old('name_en')){{old('name_en')}}@else{{$city->name_en}}@endif" required
+                                                                                                               autocomplete="name_en">
+                                                                                                        @error('name_en')
+                                                                                                        <span class="invalid-feedback" role="alert">
+                                                                                                            <strong>{{ $message }}</strong>
+                                                                                                        </span>
+                                                                                                        @enderror
+                                                                                                    </div>
+                                                                                                </fieldset>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group row">
+                                                                                            <label class="col-md-3 label-control" for="name"
+                                                                                                   style="padding: 0.75rem 1rem;">@lang('admin.name_tr')</label>
+                                                                                            <div class="col-md-9">
+                                                                                                <fieldset>
+                                                                                                    <div class="input-group">
+                                                                                                        <div class="input-group-prepend">
+                                                                                                        <span class="input-group-text" id="basic-addon3"><i
+                                                                                                                class="ft-map"></i></span>
+                                                                                                        </div>
+                                                                                                        <input id="name" type="text"
+                                                                                                               class="form-control @error('name_tr') is-invalid @enderror"
+                                                                                                               name="name_tr" value="@if (old('name_tr')){{old('name_tr')}}@else{{$city->name_tr}}@endif" required
+                                                                                                               autocomplete="name_tr">
+                                                                                                        @error('name_tr')
+                                                                                                        <span class="invalid-feedback" role="alert">
+                                                                                                            <strong>{{ $message }}</strong>
+                                                                                                        </span>
+                                                                                                        @enderror
+                                                                                                    </div>
+                                                                                                </fieldset>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group row">
+                                                                                            <label class="col-md-3 label-control" for="name"
+                                                                                                   style="padding: 0.75rem 1rem;">@lang('admin.name_ar')</label>
+                                                                                            <div class="col-md-9">
+                                                                                                <fieldset>
+                                                                                                    <div class="input-group">
+                                                                                                        <div class="input-group-prepend">
+                                                                                                        <span class="input-group-text" id="basic-addon3"><i
+                                                                                                                class="ft-map"></i></span>
+                                                                                                        </div>
+                                                                                                        <input id="name" type="text"
+                                                                                                               class="form-control @error('name_ar') is-invalid @enderror"
+                                                                                                               name="name_ar" value="@if (old('name_ar')){{old('name_ar')}}@else{{$city->name_ar}}@endif" required
+                                                                                                               autocomplete="name_ar">
+                                                                                                        @error('name_ar')
                                                                                                         <span class="invalid-feedback" role="alert">
                                                                                                             <strong>{{ $message }}</strong>
                                                                                                         </span>
@@ -296,7 +342,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group row">
                                         <label class="col-md-3 label-control" for="name"
-                                               style="padding: 0.75rem 1rem;">@lang('admin.name')</label>
+                                               style="padding: 0.75rem 1rem;">@lang('admin.name_en')</label>
                                         <div class="col-md-9">
                                             <fieldset>
                                                 <div class="input-group">
@@ -305,10 +351,54 @@
                                                             class="ft-map"></i></span>
                                                     </div>
                                                     <input id="name" type="text"
-                                                           class="form-control @error('name') is-invalid @enderror"
-                                                           name="name" value="{{ old('name') }}" required
-                                                           autocomplete="name">
-                                                    @error('name')
+                                                           class="form-control @error('name_en') is-invalid @enderror"
+                                                           name="name_en" value="{{ old('name_en') }}" required
+                                                           autocomplete="name_en">
+                                                    @error('name_en')
+                                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="name"
+                                               style="padding: 0.75rem 1rem;">@lang('admin.name_tr')</label>
+                                        <div class="col-md-9">
+                                            <fieldset>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon3"><i
+                                                            class="ft-map"></i></span>
+                                                    </div>
+                                                    <input id="name" type="text"
+                                                           class="form-control @error('name_tr') is-invalid @enderror"
+                                                           name="name_tr" value="{{ old('name_tr') }}" required
+                                                           autocomplete="name_tr">
+                                                    @error('name_tr')
+                                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-3 label-control" for="name"
+                                               style="padding: 0.75rem 1rem;">@lang('admin.name_ar')</label>
+                                        <div class="col-md-9">
+                                            <fieldset>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon3"><i
+                                                            class="ft-map"></i></span>
+                                                    </div>
+                                                    <input id="name" type="text"
+                                                           class="form-control @error('name_ar') is-invalid @enderror"
+                                                           name="name_ar" value="{{ old('name_ar') }}" required
+                                                           autocomplete="name_ar">
+                                                    @error('name_ar')
                                                     <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong></span>
                                                     @enderror

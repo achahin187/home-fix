@@ -12,13 +12,29 @@ return [
     /**
      * Global
      */
+    'export_for_subcategories' =>'export for Subcategories',
+
+    'export_countries'=>'export countries',
+
+    'export_for_categories'=>'export for categories',
+    'download_model_for_workers'=> 'download model for workers',
+
+    'samples' =>'Samples',
+
     'Your Message'=>'Your Message',
+    'currency' =>'currency',
+    'cities'=>'cities',
+
     'Information' => 'Information',
     'Email'=>'Email',
     'contactus' => 'contactus management',
     'minutes' =>'minutes',
     'new_worker'=>'A new technician has been added',
     'country_management' => 'country management',
+    'add_new_city' =>'add_new_city',
+    'currency_en' =>'currency in english',
+    'currency_tr' =>'currency in turkish',
+    'currency_ar' =>'currency in arabic',
 
     'send activation_key'       =>     'send activation_key',
 

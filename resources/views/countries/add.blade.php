@@ -49,7 +49,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="name"
-                                                       style="padding: 0.75rem 1rem;">@lang('admin.name')</label>
+                                                       style="padding: 0.75rem 1rem;">@lang('admin.name_en')</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -59,22 +59,75 @@
                                                             </div>
                                                             <input id="name" type="text"
                                                                    class="form-control @error('name') is-invalid @enderror"
-                                                                   name="name" value="{{ old('name') }}" required
+                                                                   name="name_en" value="{{ old('name') }}" required
                                                                    autocomplete="name">
                                                             @error('name')
                                                             <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
+                                                            
                                                         </div>
+                                                        
                                                     </fieldset>
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="name"
+                                                       style="padding: 0.75rem 1rem;">@lang('admin.name_tr')</label>
+                                                <div class="col-md-9">
+                                                    <fieldset>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon3"><i
+                                                                        class="ft-map"></i></span>
+                                                            </div>
+                                                            <input id="name" type="text"
+                                                                   class="form-control @error('name') is-invalid @enderror"
+                                                                   name="name_tr" value="{{ old('name') }}" required
+                                                                   autocomplete="name">
+                                                            @error('name')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                            
+                                                        </div>
+                                                        
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="name"
+                                                       style="padding: 0.75rem 1rem;">@lang('admin.name_ar')</label>
+                                                <div class="col-md-9">
+                                                    <fieldset>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon3"><i
+                                                                        class="ft-map"></i></span>
+                                                            </div>
+                                                            <input id="name" type="text"
+                                                                   class="form-control @error('name') is-invalid @enderror"
+                                                                   name="name_ar" value="{{ old('name') }}" required
+                                                                   autocomplete="name">
+                                                            @error('name')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                            
+                                                        </div>
+                                                        
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label class="col-md-3 label-control" for="name"
-                                                       style="padding: 0.75rem 1rem;">@lang('admin.currency')</label>
+                                                       style="padding: 0.75rem 1rem;">@lang('admin.currency_en')</label>
                                                 <div class="col-md-9">
                                                     <fieldset>
                                                         <div class="input-group">
@@ -83,7 +136,51 @@
                                                             </div>
                                                             <input id="currency" type="text"
                                                                    class="form-control @error('currency') is-invalid @enderror"
-                                                                   name="currency" value="{{ old('currency') }}" required
+                                                                   name="currency_en" value="{{ old('currency') }}" required
+                                                                   autocomplete="currency">
+                                                            @error('currency')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="name"
+                                                       style="padding: 0.75rem 1rem;">@lang('admin.currency_tr')</label>
+                                                <div class="col-md-9">
+                                                    <fieldset>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon3"><i class="la la-money"></i></span>
+                                                            </div>
+                                                            <input id="currency" type="text"
+                                                                   class="form-control @error('currency') is-invalid @enderror"
+                                                                   name="currency_tr" value="{{ old('currency') }}" required
+                                                                   autocomplete="currency">
+                                                            @error('currency')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="name"
+                                                       style="padding: 0.75rem 1rem;">@lang('admin.currency_ar')</label>
+                                                <div class="col-md-9">
+                                                    <fieldset>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon3"><i class="la la-money"></i></span>
+                                                            </div>
+                                                            <input id="currency" type="text"
+                                                                   class="form-control @error('currency') is-invalid @enderror"
+                                                                   name="currency_ar" value="{{ old('currency') }}" required
                                                                    autocomplete="currency">
                                                             @error('currency')
                                                             <span class="invalid-feedback" role="alert">

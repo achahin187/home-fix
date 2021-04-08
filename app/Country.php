@@ -9,7 +9,7 @@ class Country extends Model
     protected $table = 'countries';
 
     protected $fillable = [
-        'name', 'currency','max_length',
+        'name_en', 'name_tr','name_ar','currency_en','currency_tr','currency_ar','max_length',
         'status',
     ];
 
@@ -21,6 +21,18 @@ class Country extends Model
     public function offer()
     {
         return $this->hasOne(Offer::class, 'country_id');
+    }
+
+
+    public function getNameAttribute()
+    {
+        $name = 'name_' . app()->getLocale();
+        return $this->$name;
+    }
+    public function getcurrencyAttribute()
+    {
+        $currency = 'currency_' . app()->getLocale();
+        return $this->$currency;
     }
 
 

@@ -12,13 +12,24 @@ return [
     /**
      * Global
      */
+    
+    'export_countries'=>'تحميل بيانات الدول',
+    'export_for_subcategories' =>' تحميل بيانات تصنيفات فرعيه',
+    'samples' =>'نماذج',
+    'export_for_categories' =>'تحميل بيانات التصنيفات',
+    'download_model_for_workers'=>'تحميل نموذج للفنيين',
     'Your Message'=>'الرساله',
     'import_workers' =>' استيراد ',
     'workers_Import'  => 'تم الاستيراد بنجاح',
     'Export' => 'تصدير',
     'download_model'=>'تحميل نموذج',
     'Password Is Required when upload first One'=>'الرقم السري مطلوب في المره الاولي',
-
+    'currency' =>'العمله',
+    'cities'=>'المدن',
+    'currency_en' =>'العمله بالانجليزيه',
+    'currency_tr' =>'العمله بالتركي',
+    'currency_ar' =>'العمله بالعربية',
+    'add_new_city' =>'اضافه مدينه جديده',
     'Information' => 'المعلومات',
 
     'Email' =>'البريد الالكتروني',

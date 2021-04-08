@@ -61,14 +61,22 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
-            'currency' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'name_en'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'name_tr'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'name_ar'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency_en' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency_tr' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency_ar' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
             'max_length' => 'required|integer|min:1|max:100',
         ]);
 
         $country = new Country([
-            'name'     => $request->name,
-            'currency' => $request->currency,
+            'name_en'     => $request->name_en,
+            'name_tr'     => $request->name_tr,
+            'name_ar'     => $request->name_ar,
+            'currency_en' => $request->currency_en,
+            'currency_tr' => $request->currency_tr,
+            'currency_ar' => $request->currency_ar,
             'max_length' => $request->max_length, 
         ]);
 
@@ -138,13 +146,21 @@ class CountryController extends Controller
 
 
         $request->validate([
-            'name'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
-            'currency' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'name_en'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'name_tr'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'name_ar'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency_en' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency_tr' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'currency_ar' => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
             'max_length' => 'required|integer|min:1|max:100',
         ]);
 
-        $country->name     = $request->name;
-        $country->currency = $request->currency;
+        $country->name_en     = $request->name_en;
+        $country->name_tr     = $request->name_tr;
+        $country->name_ar    = $request->name_ar;
+        $country->currency_en = $request->currency_en;
+        $country->currency_tr = $request->currency_tr;
+        $country->currency_ar = $request->currency_ar;
         $country->max_length = $request->max_length;
         $country->save();
 
@@ -172,10 +188,16 @@ class CountryController extends Controller
         $city = City::find($id);
 
         $request->validate([
-            'name' => 'required',
+            'name_en' => 'required',
+            'name_tr' => 'required',
+            'name_ar' => 'required',
+
         ]);
 
-        $city->name = $request->name;
+        $city->name_en = $request->name_en;
+        $city->name_tr = $request->name_tr;
+        $city->name_ar = $request->name_ar;
+
         $city->save();
 
         $request->session()->flash(
@@ -227,7 +249,9 @@ class CountryController extends Controller
     public function addNewCity(Request $request, $id)
     {
         $city = new City([
-            'name'       => $request->name,
+            'name_en'       => $request->name_en,
+            'name_tr'       => $request->name_tr,
+            'name_ar'       => $request->name_ar,
             'country_id' => $id
         ]);
         $city->save();
