@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Exports;
-use App\category;
+use App\Category;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -13,7 +13,7 @@ class subcategoryExport implements FromCollection,WithMapping,WithHeadings
     */
     public function collection()
     {
-        return category::where('parent_id','!=',null)->get();
+        return Category::where('parent_id','!=',null)->get();
 
     }
 

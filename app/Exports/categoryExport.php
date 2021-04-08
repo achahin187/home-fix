@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\category;
+use App\Category;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -14,7 +14,7 @@ class categoryExport implements FromCollection,WithMapping,WithHeadings
     */
     public function collection()
     {
-        return category::where('parent_id', null)
+        return Category::where('parent_id', null)
         ->with('subCategories', 'quick')
         ->get();
     }
