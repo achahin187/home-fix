@@ -38,7 +38,7 @@ class subcategoryExport implements FromCollection,WithMapping,WithHeadings
     public function headings() : array {
         
         return [
-            'id',
+            'Subcategory_id',
           'SubCategory_english',
           'SubCategory_Turkey',
           'SubCategory_arabic',

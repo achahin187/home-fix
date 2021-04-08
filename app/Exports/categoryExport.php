@@ -46,7 +46,7 @@ class categoryExport implements FromCollection,WithMapping,WithHeadings
     public function headings() : array {
         
         return [
-            'id',
+            'category_id',
           'Category_english',
           'Category_Turkey',
           'Category_arabic',

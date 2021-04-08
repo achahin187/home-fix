@@ -81,12 +81,15 @@
                                 <th scope="row">4</th>
                                 <td>
                                     <div class="btn-group float-md" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
-                                        <a href="{{ route('export_model') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
-                                            <i class="fas fa-file-download"></i> @lang('admin.export_countries')
-                                        </a>
+                                        <button type="button" class="btn btn-info round box-shadow-2 px-2" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                        <i class="fas fa-file-import"></i> @lang('admin.export_countries')
+                                    </button>
                                     </div>
                                 </td>
                               </tr>
+
+        
                             
                             </tbody>
                           </table>
@@ -94,5 +97,43 @@
                 </div>
             </div>
         </div>
+
+
+
+            <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">@lang('admin.export_countries')</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                             @foreach ($countries as $country)
+                             <li class="list-group-item d-flex justify-content-between align-items-center">
+                                 {{ $country->name }}
+
+                                <div class="btn-group" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
+                                  <a href="{{ route('export_country', $country->id ) }}" type="button" class="btn btn-info round box-shadow-2 px-2">
+                                      <i class="fas fa-file-download"></i> @lang('admin.Export')
+                                  </a>  
+                                </div>             
+                              </li>
+                             @endforeach
+                     
+                        
+                           
+                          </ul>
+
+
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <!-------------------->
     </section>
 @endsection
