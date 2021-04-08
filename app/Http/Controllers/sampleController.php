@@ -29,17 +29,17 @@ class sampleController extends Controller
        $country=Country::where('id', '=', $request->id)->first();
 
 
-        return Excel::download(new countryExport($request->id), $country->name_en.'.csv');
+        return Excel::download(new countryExport($request->id), $country->name_en.'.xlsx');
     }
 
 
     public function category()
     {
-        return Excel::download(new categoryExport, 'categories.csv');
+        return Excel::download(new categoryExport, 'categories.xlsx');
     }
 
     public function subcategory()
     {
-        return Excel::download(new subcategoryExport, 'subcategories.csv');
+        return Excel::download(new subcategoryExport, 'subcategories.xlsx');
     }
 }
