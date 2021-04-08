@@ -174,6 +174,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('index_sample') }}">
+                    <i class="ft-map"></i>
+                    <span class="menu-title">
+                        @lang('admin.samples')
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.settings') }}">
                     <i class="ft-settings"></i>
                     <span class="menu-title">

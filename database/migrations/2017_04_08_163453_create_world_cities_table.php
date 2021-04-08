@@ -16,7 +16,11 @@ class CreateWorldCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name')
+            $table->string('name_en')
+                ->default('');
+                $table->string('name_tr')
+                ->default('');
+                $table->string('name_ar')
                 ->default('');
 
             $table->integer('country_id')

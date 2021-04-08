@@ -60,13 +60,9 @@ class UsersImport implements ToModel, WithHeadingRow
 
             ]);
 
-
             ///add category
-            $category = Category::where('name_en', $row['category'])
-            ->orWhere('name_tr', $row['category'])
-            ->orWhere('name_ar', $row['category'])
-            ->first();
-            worker_category::create([
+            $category = Category::where('id', $row['category_id'])->first();
+           worker_category::create([
                 'category_id'=>$category['id'],
                 'user_id' => $worker->id,
                 
@@ -74,11 +70,8 @@ class UsersImport implements ToModel, WithHeadingRow
 
 
             ///add user_address
-            $country = Country::where('name', $row['country'])->first();
-            $city= City::where('name', $row['city'])
-            ->where('country_id',$country['id'])
-            ->first();
-
+            $country = Country::where('id', $row['country_id'])->first();
+            $city= City::where('id', $row['city_id'])->first();
              UserAddress::create([
                 'user_id'    => $worker->id,
                 'country_id' => $country['id'],
@@ -107,10 +100,7 @@ class UsersImport implements ToModel, WithHeadingRow
 
             ///update category 
 
-            $category = Category::where('name_en', $row['category'])
-            ->orWhere('name_ar', $row['category'])
-            ->orWhere('name_tr', $row['category'])
-            ->first();
+            $category = Category::where('id', $row['category_id'])->first();
              worker_category::where('user_id',$row['id'])->update([
                 'category_id'=>$category['id'],
 
@@ -118,8 +108,8 @@ class UsersImport implements ToModel, WithHeadingRow
             ///update user_address
             
             ///add user_address
-            $country = Country::where('name', $row['country'])->first();
-            $city= City::where('name', $row['city'])->first();
+            $country = Country::where('id', $row['country_id'])->first();
+            $city= City::where('id', $row['city_id'])->first();
 
              UserAddress::where('user_id',$row['id'])->update([
                 'country_id' => $country['id'],

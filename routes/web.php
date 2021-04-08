@@ -165,3 +165,10 @@ Route::resource('partners', 'PartnersController');
 ///contact-Users
 Route::resource('contactUs', 'contactUsController');
 
+Route::get('samples','sampleController@index')->name('index_sample');
+Route::get('samples/category','sampleController@category')->name('category');
+Route::get('samples/subcategory','sampleController@subcategory')->name('subcategory');
+Route::get('samples/country/{id}','sampleController@export_country')->name('export_country');
+
+
+

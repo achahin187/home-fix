@@ -16,10 +16,18 @@ class CreateWorldCountriesTable extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name')
+            $table->string('name_en')
+                ->default('');
+                $table->string('name_tr')
+                ->default('');
+                 $table->string('name_ar')
                 ->default('');
 
-            $table->string('currency')
+             $table->string('currency_en')
+                ->default('');
+                $table->string('currency_tr')
+                ->default('');
+                $table->string('currency_ar')
                 ->default('');
 
             $table->boolean('status')
