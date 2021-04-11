@@ -98,6 +98,7 @@ class AuthController extends Controller
                 'password'       => bcrypt($request->password),
                 'activation_key' => random_int(10000, 99999),
                 'role'           => $role,
+                'status_image' => 1,
             ]);
     
             $user->notifications_key = $request->notifications_key;
