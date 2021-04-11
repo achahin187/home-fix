@@ -361,6 +361,7 @@ class AuthController extends Controller
                     'activation_key' => Auth::user()->activation_key,
                     'role'  =>Auth::user()->role,
                     'verified'=> Auth::user()->verified,
+                    'status_image' => Auth::user()->status_image,
                     'status' =>'not Active',
     
                  ], 200);
