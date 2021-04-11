@@ -98,6 +98,7 @@ class AuthController extends Controller
                 'password'       => bcrypt($request->password),
                 'activation_key' => random_int(10000, 99999),
                 'role'           => $role,
+                'status_image' => 1,
             ]);
     
             $user->notifications_key = $request->notifications_key;
@@ -360,6 +361,7 @@ class AuthController extends Controller
                     'activation_key' => Auth::user()->activation_key,
                     'role'  =>Auth::user()->role,
                     'verified'=> Auth::user()->verified,
+                    'status_image' => Auth::user()->status_image,
                     'status' =>'not Active',
     
                  ], 200);

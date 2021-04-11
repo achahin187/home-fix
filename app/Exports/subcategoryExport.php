@@ -21,14 +21,15 @@ class subcategoryExport implements FromCollection,WithMapping,WithHeadings
 
     public function map($registration) : array {
 	    return [
+            $registration->parent_id,
+            $registration->parent['name_en'],
+            $registration->parent['name_tr'],
+            $registration->parent['name_ar'],
 	            $registration->id,
 	            $registration->name_en,
                 $registration->name_tr,
 	            $registration->name_ar,
-                $registration->parent_id,
-                $registration->parent['name_en'],
-                $registration->parent['name_tr'],
-                $registration->parent['name_ar'],
+              
             
                ];
 
@@ -38,14 +39,15 @@ class subcategoryExport implements FromCollection,WithMapping,WithHeadings
     public function headings() : array {
         
         return [
+            'category_id',
+            'category_english',
+            'category_Turkey',
+            'category_arabic',
             'Subcategory_id',
           'SubCategory_english',
           'SubCategory_Turkey',
           'SubCategory_arabic',
-         'category_id',
-         'category_english',
-         'category_Turkey',
-         'category_arabic',
+        
 
 
         
