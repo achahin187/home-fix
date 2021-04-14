@@ -60,6 +60,16 @@
                               <tr>
                                 <th scope="row">2</th>
                                 <td>
+                                    <div class="btn-group float-md" style="color:white;margint:5px" role="group" aria-label="Button group with nested dropdown">
+                                        <a href="{{ route('export_model_service') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
+                                            <i class="fas fa-file-download"></i> @lang('admin.download_model_services')
+                                        </a>
+                                    </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>
                                     <div class="btn-group float-md" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
                                         <a href="{{ route('category') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
                                             <i class="fas fa-file-download"></i> @lang('admin.export_for_categories')
@@ -68,7 +78,7 @@
                                 </td>
                               </tr>
                               <tr>
-                                <th scope="row">3</th>
+                                <th scope="row">4</th>
                                 <td>
                                     <div class="btn-group float-md" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
                                         <a href="{{ route('subcategory') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
@@ -78,13 +88,23 @@
                                 </td>
                               </tr>
                               <tr>
-                                <th scope="row">4</th>
+                                <th scope="row">5</th>
                                 <td>
                                     <div class="btn-group float-md" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
                                         <button type="button" class="btn btn-info round box-shadow-2 px-2" data-toggle="modal"
                                         data-target="#exampleModal">
                                         <i class="fas fa-file-import"></i> @lang('admin.export_countries')
                                     </button>
+                                    </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">6</th>
+                                <td>
+                                    <div class="btn-group float-md" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
+                                        <a href="{{ route('export_services') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
+                                            <i class="fas fa-file-download"></i> @lang('admin.export_services')
+                                        </a>
                                     </div>
                                 </td>
                               </tr>

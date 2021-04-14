@@ -54,6 +54,8 @@ Route::put('countries/active/{id}', 'CountryController@active')
     ->name('active.country');
 Route::get('countries/cities/{id}', 'CountryController@getCitiesByCountry')
     ->name('country.cities');
+    ///export_country
+Route::get('samples/country/{id}','sampleController@export_country')->name('export_country');
 
 // Cities
 Route::post('cities/{id}', 'CountryController@addNewCity')
@@ -91,7 +93,10 @@ Route::put('user/verify/{id}', 'UserController@verify')
 Route::resource('categories', 'CategoryController');
 Route::put('categories/active/{id}', 'CategoryController@active')
     ->name('active.category');
-
+///export category
+Route::get('samples/category','sampleController@category')->name('category');
+///export for subcategory
+Route::get('samples/subcategory','sampleController@subcategory')->name('subcategory');
 // Sub Categories
 Route::resource('categories/sub', 'SubCategoryController');
 
@@ -99,6 +104,15 @@ Route::resource('categories/sub', 'SubCategoryController');
 Route::resource('services', 'ServiceController');
 Route::put('services/active/{id}', 'ServiceController@active')
     ->name('active.service');
+    ///export for services
+Route::get('samples/services','sampleController@export_services')->name('export_services');
+///import for services
+Route::post('service/import_services','ServiceController@import_services')->name('import_services');
+//export for model for services
+Route::get('samples/services_model','ServiceController@export_model_service')->name('export_model_service');
+
+
+
 
 // Offers
 Route::resource('offers', 'OfferController');
@@ -164,11 +178,12 @@ Route::resource('slider', 'SliderController');
 Route::resource('partners', 'PartnersController');
 ///contact-Users
 Route::resource('contactUs', 'contactUsController');
-
+//sample page for samples
 Route::get('samples','sampleController@index')->name('index_sample');
-Route::get('samples/category','sampleController@category')->name('category');
-Route::get('samples/subcategory','sampleController@subcategory')->name('subcategory');
-Route::get('samples/country/{id}','sampleController@export_country')->name('export_country');
+
+
+
+
 
 
 

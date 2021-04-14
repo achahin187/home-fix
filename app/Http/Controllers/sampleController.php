@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\categoryExport;
 use App\Exports\subcategoryExport;
 use App\Exports\countryExport;
+use App\Exports\ServicesExport;
 use App\Country;
 use Illuminate\Http\Request;
 
@@ -41,5 +42,11 @@ class sampleController extends Controller
     public function subcategory()
     {
         return Excel::download(new subcategoryExport, 'subcategories.xlsx');
+    }
+
+    public function export_services()
+    {
+        return Excel::download(new ServicesExport, 'services.xlsx');
+
     }
 }

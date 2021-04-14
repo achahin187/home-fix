@@ -11,8 +11,12 @@ return [
 
     /**
      * Global
+     * 
      */
-    
+    'download_model_services'=>'تحميل نموذج للخدمات',
+    'export_services'=>'تحميل بيانات الخدمات',
+    'export_services_succes' =>'تم الاستيراد بنجاح',
+    'import_services' =>'استيراد خدامات',
     'export_countries'=>'تحميل بيانات الدول',
     'export_for_subcategories' =>' تحميل بيانات تصنيفات فرعيه',
     'samples' =>'نماذج',

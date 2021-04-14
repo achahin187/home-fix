@@ -8,6 +8,8 @@ use App\Service;
 use App\ServicePrice;
 use Avatar;
 use File;
+use App\Imports\serviceImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Storage;
@@ -45,7 +47,43 @@ class ServiceController extends Controller
             ])->with('category')->get(),
         ]);
     }
+ ///import services 
+ public function import_services(Request $request){
+     try { 
 
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+    
+        $path = $request->file('file')->store('temp');
+        $path=storage_path('app').'/'.$path;  
+         Excel::import(new serviceImport,$path); 
+        $request->session()->flash('success',trans('admin.export_services_succes'));
+        return redirect()->route('services.index');
+    
+
+    } catch (\Exception $e) {
+
+        $request->session()->flash('error','Something Went Wrong when uplode File');
+        return redirect()->route('services.index');   
+    
+    }  
+
+ }
+ public function export_model_service() 
+
+{
+    $file_name='services.xlsx';
+    $path = storage_path().'/'.'app'.'/temp/'.$file_name;
+    
+    if (file_exists($path)) {
+       
+        return response()->download($path);
+    }else{
+        return redirect()->back();
+    }
+/*     return Storage::download(storage_path().'/'.'app'.,'workers_model.xlsx');
+ */}
     /**
      * Show the form for creating a new service.
      *

@@ -23,6 +23,11 @@ class Country extends Model
         return $this->hasOne(Offer::class, 'country_id');
     }
 
+    public function servicePrice()
+    {
+        return $this->hasOne(ServicePrice::class,'country_id');
+    }
+
 
     public function getNameAttribute()
     {
