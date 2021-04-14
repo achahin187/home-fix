@@ -12,7 +12,9 @@ return [
     /**
      * Global
      * 
+     * 
      */
+    'Export_all_countries'=>'تحميل بيانات كل الدول',
     'download_model_services'=>'تحميل نموذج للخدمات',
     'export_services'=>'تحميل بيانات الخدمات',
     'export_services_succes' =>'تم الاستيراد بنجاح',

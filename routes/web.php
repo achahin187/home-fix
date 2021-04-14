@@ -56,6 +56,9 @@ Route::get('countries/cities/{id}', 'CountryController@getCitiesByCountry')
     ->name('country.cities');
     ///export_country
 Route::get('samples/country/{id}','sampleController@export_country')->name('export_country');
+/// export all countries 
+Route::get('export_all_countries/', 'CountryController@export_all_countries')->name('export_all_countries');
+
 
 // Cities
 Route::post('cities/{id}', 'CountryController@addNewCity')

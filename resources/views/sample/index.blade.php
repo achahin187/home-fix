@@ -143,8 +143,15 @@
                                 </div>             
                               </li>
                              @endforeach
-                     
-                        
+                             <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                             <div class="btn-group" style="color:white;margin:5px" role="group" aria-label="Button group with nested dropdown">
+                                <a href="{{ route('export_all_countries') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
+                                    <i class="fas fa-file-download"></i> @lang('admin.Export_all_countries')
+                                </a>  
+                              </div>
+                             </li>
+                                  
                            
                           </ul>
 

@@ -12,9 +12,10 @@ return [
     /**
      * Global
      */
-    'download_model_services' =>'download_model_services',
-    'import_services' =>'import_services',
-    'export_services'=>'export_services',
+    'Export_all_countries'=>'Export all countries',
+    'download_model_services' =>'download model services',
+    'import_services' =>'import services',
+    'export_services'=>'export services',
     'export_services_succes' =>'export services succes',
     'export_for_subcategories' =>'export for Subcategories',
     'export_countries'=>'export countries',
