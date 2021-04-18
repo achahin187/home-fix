@@ -58,6 +58,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'role'              => 'worker',
                 'verified'          => true,
                 'status_location'    => 0,
+            
 
             ]);
 
