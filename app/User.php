@@ -21,7 +21,7 @@ class User extends Authenticatable
         'activation_key', 'api_token', 'cc',
         'avatar', 'phone_verified_at',
         'notification_key', 'cv',
-        'identity', 'badge','language','status_image'
+        'identity', 'badge','language','status_image','status_location',
     ];
 
     protected $hidden = [

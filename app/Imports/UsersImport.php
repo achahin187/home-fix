@@ -57,8 +57,12 @@ class UsersImport implements ToModel, WithHeadingRow
                 'phone_verified_at' => Carbon::now(),
                 'role'              => 'worker',
                 'verified'          => true,
+                'status_location'    => 0,
 
             ]);
+
+
+            
 
             ///add category
             $category = Category::where('id', $row['category_id'])->first();
@@ -89,6 +93,7 @@ class UsersImport implements ToModel, WithHeadingRow
             $user->phone_verified_at  = Carbon::now() ?: $user->phone_verified_at;
             $user->role              = 'worker' ?: $user->role;
             $user->verified         = true ?:   $user->verified;
+            $user->status_location  = 0 ?: $user->status_location;
             $user->save();
 
 
