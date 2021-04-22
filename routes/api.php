@@ -9,7 +9,7 @@ Route::group([
     Route::group([
         'prefix' => 'auth'
     ], function () {
-        Route::get('register/get', 'AuthController@get');
+        Route::get('register/get', 'AuthController@register');
         Route::post('register/{role}', 'AuthController@register');
         Route::post('password/reset', 'AuthController@resetPassword');
         Route::get('register/category', 'AuthController@category');

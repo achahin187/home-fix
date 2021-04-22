@@ -40,17 +40,7 @@ class AuthController extends Controller
         $this->token = env('TWILIO_AUTH_TOKEN');
     }
 
-    public function get()
-    {
 
-          /*   $name = 'name_' . app()->getLocale();
-            return $this->$name */;
-
-
-        return __success(Country::where('status', true)->with('name')
-        ->with('cities')->where('status', true)
-        ->get(), 200);
-    }
 
     public function register(Request $request, $role = null)
     {
@@ -60,11 +50,11 @@ class AuthController extends Controller
             return $this->$name;
         } */
 
-        /*     if ($request->isMethod('get')) {
+             if ($request->isMethod('get')) {
                 return __success(Country::where('status', true)
                     ->with('cities')->where('status', true)
                     ->get(), 200);
-            } */
+            }
 
 
 
