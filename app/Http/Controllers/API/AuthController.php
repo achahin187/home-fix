@@ -54,6 +54,8 @@ class AuthController extends Controller
                 return __success(Country::where('status', true)
                     ->with('cities')->where('status', true)
                     ->get(), 200);
+
+                    @dd(app()->getLocale());
             }
 
 
