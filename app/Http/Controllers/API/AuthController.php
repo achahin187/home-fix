@@ -53,9 +53,8 @@ class AuthController extends Controller
              if ($request->isMethod('get')) {
 
 
-                return __success(Country::where('status', true)
+                return __success(Country::where('status', true)->select(['id', 'name_'. app()->getLocale().' as name'])
                 ->with('cities')->where('status', true)->get(), 200);
-
 
 
 
