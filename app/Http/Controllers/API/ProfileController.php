@@ -16,10 +16,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Storage;
+use App\Country;
 use Validator;
 
 class ProfileController extends Controller
 {
+public function get(){
+
+        return __success(Country::where('status', true)
+            ->with('cities')->where('status', true)
+            ->get(), 200);
+
+
+}
+
     public function getUserInformation(Request $request)
     {
         return __success(Auth::user(), 200);
@@ -141,11 +151,11 @@ class ProfileController extends Controller
         if ($validator->fails()) {
             if($request->role === 'worker'){
                 return redirect('https://homefix-website.za3bot.com/validation/message/worker');
-    
+
               }else{
                 return redirect('https://homefix-website.za3bot.com/validation/message');
             }
-            
+
         }
 
         $user = User::find($request->user_id);
@@ -161,7 +171,7 @@ class ProfileController extends Controller
                 'status_image' => 1
             ]);
         }
-      
+
           if($request->role === 'worker'){
             return redirect('https://homefix-website.za3bot.com/test/worker');
 
@@ -201,7 +211,7 @@ class ProfileController extends Controller
             $user->save();
         }
 
-     
+
       // return redirect('https://homefix-website.za3bot.com/dashboard')->withSuccessMessage("CV ploaded successfully !");
         return redirect('https://homefix-website.za3bot.com/test/worker');
     }

@@ -50,13 +50,13 @@ class AuthController extends Controller
             return $this->$name;
         } */
 
-             if ($request->isMethod('get')) {
+         /*     if ($request->isMethod('get')) {
 
                 return __success(Country::where('status', true)
                     ->with('cities')->where('status', true)
                     ->get(), 200);
 
-            }
+            } */
 
 
 
