@@ -53,7 +53,7 @@ class AuthController extends Controller
              if ($request->isMethod('get')) {
 
 
-                return __success(Country::where('status', true)->select(['id', 'name_ar as name'])
+                return __success(Country::where('status', true)
                 ->with('cities')->where('status', true)->get(), 200);
 
 
