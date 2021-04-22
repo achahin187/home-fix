@@ -56,11 +56,11 @@ class AuthController extends Controller
                     ->with('cities')->where('status', true)
                     ->get(), 200);
             } elseif (app()->getLocale() === 'ar') {
-                return __success(Country::where('status', true)
+                return __success(Country::where('status', true)->select('name_ar')
                     ->with('cities')->where('status', true)
                     ->get(), 200);
             } else {
-                return __success(Country::where('status', true)
+                return __success(Country::where('status', true)->select('name_tr')
                     ->with('cities')->where('status', true)
                     ->get(), 200);
             }
