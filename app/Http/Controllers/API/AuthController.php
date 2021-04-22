@@ -42,7 +42,12 @@ class AuthController extends Controller
 
     public function get()
     {
-        return __success(Country::where('status', true)->where('name')
+
+          /*   $name = 'name_' . app()->getLocale();
+            return $this->$name */;
+
+
+        return __success(Country::where('status', true)
         ->with('cities')->where('status', true)
         ->get(), 200);
     }
