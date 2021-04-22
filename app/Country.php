@@ -30,7 +30,7 @@ class Country extends Model
     }
 
 
-    public function getNameAttribute()
+ /*    public function getNameAttribute()
     {
         $name = 'name_' . app()->getLocale();
         return $this->$name;
@@ -39,7 +39,7 @@ class Country extends Model
     {
         $currency = 'currency_' . app()->getLocale();
         return $this->$currency;
-    }
+    } */
 
 
 }

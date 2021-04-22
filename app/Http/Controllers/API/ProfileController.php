@@ -21,14 +21,7 @@ use Validator;
 
 class ProfileController extends Controller
 {
-public function get(){
 
-        return __success(Country::where('status', true)
-            ->with('cities')->where('status', true)
-            ->get(), 200);
-
-
-}
 
     public function getUserInformation(Request $request)
     {
