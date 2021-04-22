@@ -47,7 +47,7 @@ class AuthController extends Controller
             return $this->$name */;
 
 
-        return __success(Country::where('status', true)
+        return __success(Country::where('status', true)->with('name')
         ->with('cities')->where('status', true)
         ->get(), 200);
     }
@@ -61,7 +61,7 @@ class AuthController extends Controller
         } */
 
         /*     if ($request->isMethod('get')) {
-                return __success(Country::where('status', true)->where('name')
+                return __success(Country::where('status', true)
                     ->with('cities')->where('status', true)
                     ->get(), 200);
             } */
