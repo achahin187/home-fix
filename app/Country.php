@@ -35,7 +35,7 @@ class Country extends Model
         $name = 'name_' . app()->getLocale();
         return $this->$name;
     }
-    public function getcurrencyAttribute()
+    public function getCurrencyAttribute()
     {
         $currency = 'currency_' . app()->getLocale();
         return $this->$currency;
