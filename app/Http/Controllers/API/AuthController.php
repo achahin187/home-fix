@@ -26,6 +26,7 @@ use Twilio\Rest\Client;
 use Validator;
 use App\Notifications\WorkerRegisterNotification;
 use Notification;
+use DB;
 
 
 class AuthController extends Controller
@@ -53,8 +54,14 @@ class AuthController extends Controller
              if ($request->isMethod('get')) {
 
 
-                return __success(Country::where('status', true)
-                ->with('cities')->where('status', true)->get(), 200);
+
+$country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','currency_'.app()->getLocale().' as Currency','max_length','status'])
+->with(['cities' => function($q){
+    $q->select(['id','name_'.app()->getLocale().' as CityName', 'country_id'] );
+ }])->get();
+
+ return __success($country,200);
+
 
 
 
