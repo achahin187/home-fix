@@ -55,7 +55,7 @@ class AuthController extends Controller
 
 
 
-$country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','currency_'.app()->getLocale().' as Currency','max_length','status'])
+$country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','currency_'.app()->getLocale().' as currency','max_length','status'])
 ->with(['cities' => function($q){
     $q->select(['id','name_'.app()->getLocale().' as CityName', 'country_id'] );
  }])->get();
