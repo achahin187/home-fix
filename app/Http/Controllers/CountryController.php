@@ -10,6 +10,9 @@ use App\CountryTracking;
 use Avatar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Exports\allCountriesExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Storage;
 
 class CountryController extends Controller
@@ -308,5 +311,10 @@ class CountryController extends Controller
             : [];
 
         return response()->json($cities, 200);
+    }
+
+    public function export_all_countries(){
+        return Excel::download(new allCountriesExport, 'Countries.xlsx');
+
     }
 }

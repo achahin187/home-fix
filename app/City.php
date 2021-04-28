@@ -13,6 +13,10 @@ class City extends Model
         'status',
     ];
 
+    public function country()
+{
+    return $this->belongsTo('App\Country');
+}
 
     public function getNameAttribute()
     {

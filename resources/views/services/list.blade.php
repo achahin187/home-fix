@@ -29,6 +29,17 @@
                 </button>
             </a>
         </div>
+        <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown" style="margin-left:5px">
+            <button type="button" class="btn btn-info round box-shadow-2 px-2" data-toggle="modal"
+                data-target="#exampleModal">
+                <i class="fas fa-file-import"></i> @lang('admin.import_services')
+            </button>
+        </div>
+        <div class="btn-group float-md-right" style="color:white;margin-left:5px" role="group" aria-label="Button group with nested dropdown">
+            <a href="{{ route('export_model_service') }}" type="button" class="btn btn-info round box-shadow-2 px-2">
+                <i class="fas fa-file-download"></i> @lang('admin.download_model')
+            </a>
+        </div>
     </div>
 @endsection
 
@@ -36,7 +47,7 @@
     <section id="file-export">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card btn-non">
                     <div class="card-header" style="padding: 0;">
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
@@ -46,6 +57,11 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
+                        <div class="float-md-left m-2" style="color:white">
+                            <a href="{{ route('export_services') }}" class="btn btn-info round box-shadow-2">
+                                <i class="fas fa-file-export"></i> @lang('admin.Export')
+                            </a>
+                        </div>
                         <div class="card-body card-dashboard">
                             <table style="width:100%"
                                    class="table table-striped table-bordered file-export table-responsive-1y1">
@@ -195,5 +211,41 @@
                 </div>
             </div>
         </div>
+
+        
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">@lang('admin.import_services')</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{{ route('import_services') }}" enctype='multipart/form-data'>
+                            {{ csrf_field() }}
+
+                            <input type="file" name="file" id="customFile" class="custom-File" required="required">
+                            <div>
+                                {{ $errors->first('file') }}
+
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">@lang('admin.import_services')</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-------------------->
     </section>
+
 @endsection

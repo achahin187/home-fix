@@ -13,6 +13,7 @@ class Country extends Model
         'status',
     ];
 
+
     public function cities()
     {
         return $this->hasMany(City::class, 'country_id');
@@ -23,13 +24,18 @@ class Country extends Model
         return $this->hasOne(Offer::class, 'country_id');
     }
 
+    public function servicePrice()
+    {
+        return $this->hasOne(ServicePrice::class,'country_id');
+    }
+
 
     public function getNameAttribute()
     {
         $name = 'name_' . app()->getLocale();
         return $this->$name;
     }
-    public function getcurrencyAttribute()
+    public function getCurrencyAttribute()
     {
         $currency = 'currency_' . app()->getLocale();
         return $this->$currency;
