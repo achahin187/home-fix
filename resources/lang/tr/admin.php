@@ -12,6 +12,9 @@ return [
     /**
      * Global
      */
+    'import_services' =>'import_services',
+    'export_services'=>'export_services',
+
     'export_for_subcategories' =>'export for Subcategories',
 
     'export_countries'=>'export countries',
