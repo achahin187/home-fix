@@ -96,7 +96,8 @@ class Order extends Model
             }
 
             $category = $service->category()->first();
-            return $category;
+            //return $category;
+            return ($category !== null) ? $category->image : '';
             
         } else {
             $service = $this->services()->first();
