@@ -16,7 +16,7 @@ class Offer extends Model
     ];
 
     protected $hidden = [
-        'name_en', 'name_ar', 'name_tr', 'category_id',
+        'name_en', 'name_ar', 'name_tr',
         'description_en', 'description_ar', 'description_tr',
         'end_at', 'created_at', 'updated_at',
     ];
