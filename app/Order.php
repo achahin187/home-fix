@@ -96,7 +96,7 @@ class Order extends Model
             }
 
             $category = $service->category()->first();
-            //return $category;
+            return $category;
             
         } else {
             $service = $this->services()->first();
