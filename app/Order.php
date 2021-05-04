@@ -88,11 +88,16 @@ class Order extends Model
     {
         if ($this->offer_id !== null) {
             $service = $this->offer()->first();
+            
             if ($service !== null) {
                 $service = Offer::where(
                     'id', $service->id
                 )->first();
             }
+
+            $category = $service->category()->first();
+            //return $category;
+            
         } else {
             $service = $this->services()->first();
             if ($service !== null) {
@@ -104,6 +109,7 @@ class Order extends Model
 
         if ($service !== null) {
             $category = $service->category();
+            //return $category;
             if(isset($category->first()->parent_id)){
                 if ($category->first()->parent_id > 0) {
                     $category = $category->first()

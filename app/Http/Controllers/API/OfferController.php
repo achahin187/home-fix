@@ -98,8 +98,8 @@ class OfferController extends Controller
 
     public function orderAnOffer(Request $request)
     {
+        
         $offer = Offer::find($request->offer_id);
-
         $validator = Validator::make($request->all(), [
             'issue'          => 'string',
             'address'        => 'required|string',
