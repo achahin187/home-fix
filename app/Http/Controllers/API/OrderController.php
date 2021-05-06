@@ -81,12 +81,12 @@ class OrderController extends Controller
 
         return __success($orders, 200);
     }
-       
+
     public function getOrderInformation(Request $request, $type = '')
     {
-       // return $request->id;
+        // return $request->id;
         $role  = Auth::user()->role;
-        $other = ($role === "worker") ? 'client': 'worker';
+        $other = ($role === "worker") ? 'client' : 'worker';
 
         $relashions = [$other, 'notes'];
         if ($type !== '') {
@@ -98,11 +98,11 @@ class OrderController extends Controller
 
         return __success($order, 200);
     }
-    
+
     public function getOrderDetails($id, $type = '')
     {
         $role  = Auth::user()->role;
-        $other = ($role === "worker") ? 'client': 'worker';
+        $other = ($role === "worker") ? 'client' : 'worker';
 
         $relashions = [$other, 'notes'];
         if ($type !== '') {
@@ -114,7 +114,7 @@ class OrderController extends Controller
 
         return __success($order, 200);
     }
-    
+
 
     public function generateOrderNo()
     {
@@ -145,31 +145,29 @@ class OrderController extends Controller
         if ($validator->fails()) {
             return __error($validator->errors()->all()[0], 200);
         }
-        
-        if(Auth::user()->verified == 1){
 
-        $services = preg_split('/(\+)/', $request->services);
-        
-            $orders=[];
+        if (Auth::user()->verified == 1) {
+
+            $services = preg_split('/(\+)/', $request->services);
+
+            $orders = [];
             foreach ($services as $service) {
                 # Worker selector for order
                 try {
                     $category = preg_split('/(:{)/', $service)[0];
                     $category = Category::find($category);
-    
+
                     if ($category !== null) {
-                       // $category = $category->first();
-    
+                        // $category = $category->first();
+
                         if ($category->parent_id > 0) {
                             $workers = $category->parent()->first()
                                 ->workers()->get();
-
-                            
                         } else {
                             $workers = $category->workers()->get();
                         }
                     }
-    
+
                     if (count($workers) > 0) {
                         $distances = [];
                         foreach ($workers as $k => $v) {
@@ -178,14 +176,12 @@ class OrderController extends Controller
                                 $y                 = (float)$v->longitude - (float)$request->longitude;
                                 $distance          = sqrt(($x ** 2) + ($y ** 2));
                                 $distances[$v->id] = $distance;
-                            }else {
+                            } else {
                                 $worker_id = null;
-
                             }
-                           
                         }
                         asort($distances);
-    
+
                         $workers   = array_values(array_keys($distances));
                         $worker_id = $workers[0];
                     } else {
@@ -194,84 +190,72 @@ class OrderController extends Controller
                 } catch (\Exception $e) {
                     //
                 }
-    
+
                 $settings = Setting::orderBy('id', 'desc')->first()->settings;
-                
+
                 $settings         = json_decode($settings);
                 $automatic_worker = $settings->automatic_worker;
                 if ((bool)$automatic_worker === false) {
                     $worker_id = null;
                 }
-    
+
                 # Add New Order!
-                    $order_id = $this->addNewOrder($request, $worker_id);
+                $order_id = $this->addNewOrder($request, $worker_id);
                 //////////////////////
-               
-    
+
+
                 # Add services related to order!
                 $_services = preg_match('/{(.*?)}/', $service, $matches);
                 $servs     = $matches[1];
-                $total_price = 0; 
+                $total_price = 0;
                 $_services   = explode(',', $servs);
-                
-                    
-                        foreach ($_services as $k => $v) {
-    
-                            $d = explode(':', $v);
-                            
-                            $s = Service::find($d[0]);
-                            if($s !== null) {
-                                foreach($s->prices as $p)
-                                {
-                                    if ($p->country_id == Auth::user()->country_id) {
-                                        $price = (float)$p->price * (float)$d[1];
-                                    }
-                                }
-            
-                                DB::table('order_services')->insert([
-                                    'order_id'   => $order_id,
-                                    'service_id' => (int)$d[0],
-                                    'quantity'   => (float)$d[1],
-                                    'price'      => $price
-                                ]);
-                                
-                                    $total_price+=$price;
-                                
+
+
+                foreach ($_services as $k => $v) {
+
+                    $d = explode(':', $v);
+
+                    $s = Service::find($d[0]);
+                    if ($s !== null) {
+                        foreach ($s->prices as $p) {
+                            if ($p->country_id == Auth::user()->country_id) {
+                                $price = (float)$p->price * (float)$d[1];
                             }
-                                
-                                     
                         }
-                                    
-                    
-                            
-                        $this->changeOrderTotalPrice($order_id, $total_price);
-                        $orders[] = $order_id;
-                    
-    
-                    
-     
-                            
-    
-            
+
+                        DB::table('order_services')->insert([
+                            'order_id'   => $order_id,
+                            'service_id' => (int)$d[0],
+                            'quantity'   => (float)$d[1],
+                            'price'      => $price
+                        ]);
+
+                        $total_price += $price;
+                    }
+                }
+
+
+
+                $this->changeOrderTotalPrice($order_id, $total_price);
+                $orders[] = $order_id;
             }
             // Return Created Orders!
             $orders = Order::whereIn('id', $orders)->get();
-        
 
-    
-    
 
-        return __success($orders, 200);
-    }else{
-        return __error(trans('api.unauthorized'), 200);
 
-    }
+
+
+            return __success($orders, 200);
+        } else {
+            return __error(trans('api.unauthorized'), 200);
+        }
     }
 
 
     protected function changeOrderTotalPrice($order_id, $total_price)
     {
-        $order = Order::where( 'id',$order_id )->first();
+        $order = Order::where('id', $order_id)->first();
 
         $order->total_price = round($total_price, 2);
         $order->save();
@@ -288,26 +272,26 @@ class OrderController extends Controller
     protected function addNewOrder($request, $worker_id)
     {
         $cod = ($request->payment_method === 'cod') ? true : false;
-            $country_id = Auth::user()->country()->first()->id;
-            $order      = new Order([
-                'issue'       => $request->issue ?: '',
-                'address'     => $request->address,
-                'latitude'    => $request->latitude,
-                'longitude'   => $request->longitude,
-                'day'         => $request->day,
-                'time'        => $request->time,
-                'client_id'   => Auth::id(),
-                'worker_id'   => $worker_id,
-                'total_price' => 0,
-                'cod'         => $cod,
-                'order_no'    => $this->generateOrderNo(),
-                'country_id'  => $country_id,
-            ]);
-    
-            $order->save();
-        
+        $country_id = Auth::user()->country()->first()->id;
+        $order      = new Order([
+            'issue'       => $request->issue ?: '',
+            'address'     => $request->address,
+            'latitude'    => $request->latitude,
+            'longitude'   => $request->longitude,
+            'day'         => $request->day,
+            'time'        => $request->time,
+            'client_id'   => Auth::id(),
+            'worker_id'   => $worker_id,
+            'total_price' => 0,
+            'cod'         => $cod,
+            'order_no'    => $this->generateOrderNo(),
+            'country_id'  => $country_id,
+        ]);
 
- 
+        $order->save();
+
+
+
 
         if ($request->file('attachment')) {
             $attachment          = $request->file('attachment');
@@ -328,13 +312,15 @@ class OrderController extends Controller
 
         if ($order->worker_id !== null) {
             $this->startNewConversation(
-                $order->client_id, $order->worker_id, $order->id
+                $order->client_id,
+                $order->worker_id,
+                $order->id
             );
-            
 
-           //$language = Auth::user()->language;
-           $lang = User::where('id',$order->worker_id)->first();
-           $language = $lang->language;
+
+            //$language = Auth::user()->language;
+            $lang = User::where('id', $order->worker_id)->first();
+            $language = $lang->language;
             if ($language == 'arabic') {
                 $msg = NotificationType::where('type', 'new_order')
                     ->first()->message_ar;
@@ -348,16 +334,33 @@ class OrderController extends Controller
             $message = str_replace('{order_no}', '#' . $order->order_no, $msg);
 
             pushNotification($order->worker_id, $order->client_id, $message);
-            pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
-           
+            /*             pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+ */
+
+            $language = Auth::user()->language;
+            if ($language == 'arabic') {
+                $message = NotificationType::where('type', 'new_order')
+                    ->first()->message_ar;
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+            } else if ($language == 'english') {
+                $message  = NotificationType::where('type', 'new_order')
+                    ->first()->message_en;
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+            } else {
+                $message  = NotificationType::where('type', 'new_order')
+                    ->first()->message;
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+            }
         }
-        
+
         return $order->id;
     }
 
     public function startNewConversation(
-        $user_one, $user_two, $order_id)
-    {
+        $user_one,
+        $user_two,
+        $order_id
+    ) {
         $conversation = new Conversation([
             'user_one' => $user_one,
             'user_two' => $user_two,
@@ -370,7 +373,8 @@ class OrderController extends Controller
     {
         $id    = $request->order_id;
         $order = Order::where(
-            'id', $id
+            'id',
+            $id
         )->first();
 
         $notes = $order->notes()
@@ -428,7 +432,7 @@ class OrderController extends Controller
             //     self::COMPLETED,
             //     self::CANCELED,
             // ];
-             $state_arr = [
+            $state_arr = [
                 self::ACCEPTED,
                 self::ARRIVED,
                 self::PRICE_VALIDATION,
@@ -438,22 +442,28 @@ class OrderController extends Controller
                 self::CANCELED,
             ];
 
-            if ($order->client_id !== null
-                && in_array($order->status,
-                    $state_arr, false)) {
-                        
-                        
-                         $language = Auth::user()->language;
-                        if ($language == 'arabic') {
-                            $message = NotificationType::where('type',  'order_' . $status)
-                                ->first()->message_ar;
-                        } else if ($language == 'english') {
-                            $message  = NotificationType::where('type',  'order_' . $status)
-                                ->first()->message_en;
-                        } else {
-                            $message  = NotificationType::where('type',  'order_' . $status)
-                                ->first()->message;
-                        }
+            if (
+                $order->client_id !== null
+                && in_array(
+                    $order->status,
+                    $state_arr,
+                    false )
+            ) {
+
+
+
+                $lang = User::where('id', $order->client_id)->first();
+                $language = $lang->language;
+                if ($language == 'arabic') {
+                    $message = NotificationType::where('type',  'order_' . $status)
+                        ->first()->message_ar;
+                } else if ($language == 'english') {
+                    $message  = NotificationType::where('type',  'order_' . $status)
+                        ->first()->message_en;
+                } else {
+                    $message  = NotificationType::where('type',  'order_' . $status)
+                        ->first()->message;
+                }
                 $message = str_replace('{order_no}', '#' . $order->order_no, $message);
 
 
@@ -487,14 +497,14 @@ class OrderController extends Controller
     }
 
     public function cancelOrder(Request $request)
-    {  
-        $order = Order::where('id',$request->order_id)->first();
+    {
+        $order = Order::where('id', $request->order_id)->first();
 
         DB::table('excluded_workers')->insert([
             'order_id'  => $order->id,
             'worker_id' => $order->worker_id,
         ]);
-          
+
         if ($order->offer_id !== null) {
             $service = $order->offer()->first();
             $service = Offer::where(
@@ -512,12 +522,12 @@ class OrderController extends Controller
         $excluded_workers = DB::table('excluded_workers')
             ->where('order_id', $request->order_id)
             ->first();
-        
+
         // $excluded_workers = (count($excluded_workers) > 0)
         //     ? $excluded_workers = array_column($excluded_workers, 'worker_id')
         //     : [0];
 
-            
+
 
 
 
@@ -526,66 +536,64 @@ class OrderController extends Controller
             $workers = $category->first()
                 ->parent()->first()
                 ->workers()
-                ->where('id', '!=',$excluded_workers->worker_id)
+                ->where('id', '!=', $excluded_workers->worker_id)
                 ->get();
-
         } else {
-          
+
             $workers = $category->first()
                 ->workers()
-                ->where('id', '!=',$excluded_workers->worker_id)
+                ->where('id', '!=', $excluded_workers->worker_id)
                 ->get();
-                
-            }
-            
-            $latitude  = $order->latitude;
-            $longitude = $order->longitude;
-            
-            $distances = [];
-            foreach ($workers as $k => $v) {
-                $x                 = (float)$v->latitude - (float)$latitude;
-                $y                 = (float)$v->longitude - (float)$longitude;
-                $distance          = sqrt(($x ** 2) + ($y ** 2));
-                $distances[$v->id] = $distance;
-                
-            }
-            
-            asort($distances);
-            $workers = array_values(array_keys($distances));
-            
-            if (isset($workers[0])) {
-                $worker_id = $workers[0];
-            } else {
-                $worker_id = null;
-            }
-            //$order->worker_id = null;
-            $order->status    = self::PENDING;
-            
-            /*      if ($worker_id !== null) {
+        }
+
+        $latitude  = $order->latitude;
+        $longitude = $order->longitude;
+
+        $distances = [];
+        foreach ($workers as $k => $v) {
+            $x                 = (float)$v->latitude - (float)$latitude;
+            $y                 = (float)$v->longitude - (float)$longitude;
+            $distance          = sqrt(($x ** 2) + ($y ** 2));
+            $distances[$v->id] = $distance;
+        }
+
+        asort($distances);
+        $workers = array_values(array_keys($distances));
+
+        if (isset($workers[0])) {
+            $worker_id = $workers[0];
+        } else {
+            $worker_id = null;
+        }
+        //$order->worker_id = null;
+        $order->status    = self::PENDING;
+
+        /*      if ($worker_id !== null) {
             } */
-            
-            $order->update(['worker_id' => $worker_id,
-            'status' => 0 ,
-            
-            
-            ]);
-            
-           
+
+        $order->update([
+            'worker_id' => $worker_id,
+            'status' => 0,
+
+
+        ]);
+
+
 
         if ($order->worker_id !== null) {
-                //$language = Auth::user()->language;
-                $lang = User::where('id',$order->worker_id)->first();
-                $language = $lang->language;
-                if ($language == 'arabic') {
-                    $message = NotificationType::where('type',  'new_order')
-                        ->first()->message_ar;
-                } else if ($language == 'english') {
-                    $message  = NotificationType::where('type',  'new_order')
-                        ->first()->message_en;
-                } else {
-                    $message  = NotificationType::where('type',  'new_order')
-                        ->first()->message;
-                }
+            //$language = Auth::user()->language;
+            $lang = User::where('id', $order->worker_id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic') {
+                $message = NotificationType::where('type',  'new_order')
+                    ->first()->message_ar;
+            } else if ($language == 'english') {
+                $message  = NotificationType::where('type',  'new_order')
+                    ->first()->message_en;
+            } else {
+                $message  = NotificationType::where('type',  'new_order')
+                    ->first()->message;
+            }
             $message = str_replace('{order_no}', '#' . $order->order_no, $message);
 
             pushNotification($order->worker_id, $order->client_id, $message);
@@ -631,7 +639,7 @@ class OrderController extends Controller
         $order = Order::where('id', $id)->first();
         if ($order->client_id !== null) {
             //$language = Auth::user()->language;
-            $lang = User::where('id',$order->client_id)->first();
+            $lang = User::where('id', $order->client_id)->first();
             $language = $lang->language;
             if ($language == 'arabic') {
                 $message = NotificationType::where('type', 'order_note')
@@ -700,20 +708,20 @@ class OrderController extends Controller
         if ($order->worker_id !== null) {
             $type = ((int)$state === 1)
                 ? 'accept_order_note'
-                : 'decline_order_note'; 
-                //$language = Auth::user()->language;
-                $lang = User::where('id',$order->worker_id)->first();
-                $language = $lang->language;
-                if ($language == 'arabic') {
-                    $message = NotificationType::where('type', $type)
-                        ->first()->message_ar;
-                } else if ($language == 'english') {
-                    $message  = NotificationType::where('type', $type)
-                        ->first()->message_en;
-                } else {
-                    $message  = NotificationType::where('type', $type)
-                        ->first()->message;
-                }
+                : 'decline_order_note';
+            //$language = Auth::user()->language;
+            $lang = User::where('id', $order->worker_id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic') {
+                $message = NotificationType::where('type', $type)
+                    ->first()->message_ar;
+            } else if ($language == 'english') {
+                $message  = NotificationType::where('type', $type)
+                    ->first()->message_en;
+            } else {
+                $message  = NotificationType::where('type', $type)
+                    ->first()->message;
+            }
 
             $message = str_replace('{order_no}', '#' . $order->order_no, $message);
 
@@ -726,17 +734,18 @@ class OrderController extends Controller
 
 
 
-    public function cancelOrderFromWeb(Request $request){
-        $order = Order::where('id',$request->order_id)->first();
+    public function cancelOrderFromWeb(Request $request)
+    {
+        $order = Order::where('id', $request->order_id)->first();
 
-       
-       
+
+
 
         DB::table('excluded_workers')->insert([
             'order_id'  => $order->id,
             'worker_id' => $order->worker_id,
         ]);
-          
+
         if ($order->offer_id !== null) {
             $service = $order->offer()->first();
             $service = Offer::where(
@@ -754,12 +763,12 @@ class OrderController extends Controller
         $excluded_workers = DB::table('excluded_workers')
             ->where('order_id', $request->order_id)
             ->first();
-        
+
         // $excluded_workers = (count($excluded_workers) > 0)
         //     ? $excluded_workers = array_column($excluded_workers, 'worker_id')
         //     : [0];
 
-            
+
 
 
 
@@ -768,66 +777,64 @@ class OrderController extends Controller
             $workers = $category->first()
                 ->parent()->first()
                 ->workers()
-                ->where('id', '!=',$excluded_workers->worker_id)
+                ->where('id', '!=', $excluded_workers->worker_id)
                 ->get();
-
         } else {
-          
+
             $workers = $category->first()
                 ->workers()
-                ->where('id', '!=',$excluded_workers->worker_id)
+                ->where('id', '!=', $excluded_workers->worker_id)
                 ->get();
-                
-            }
-            
-            $latitude  = $order->latitude;
-            $longitude = $order->longitude;
-            
-            $distances = [];
-            foreach ($workers as $k => $v) {
-                $x                 = (float)$v->latitude - (float)$latitude;
-                $y                 = (float)$v->longitude - (float)$longitude;
-                $distance          = sqrt(($x ** 2) + ($y ** 2));
-                $distances[$v->id] = $distance;
-                
-            }
-            
-            asort($distances);
-            $workers = array_values(array_keys($distances));
-            
-            if (isset($workers[0])) {
-                $worker_id = $workers[0];
-            } else {
-                $worker_id = null;
-            }
-            //$order->worker_id = null;
-            $order->status    = self::PENDING;
-            
-            /*      if ($worker_id !== null) {
+        }
+
+        $latitude  = $order->latitude;
+        $longitude = $order->longitude;
+
+        $distances = [];
+        foreach ($workers as $k => $v) {
+            $x                 = (float)$v->latitude - (float)$latitude;
+            $y                 = (float)$v->longitude - (float)$longitude;
+            $distance          = sqrt(($x ** 2) + ($y ** 2));
+            $distances[$v->id] = $distance;
+        }
+
+        asort($distances);
+        $workers = array_values(array_keys($distances));
+
+        if (isset($workers[0])) {
+            $worker_id = $workers[0];
+        } else {
+            $worker_id = null;
+        }
+        //$order->worker_id = null;
+        $order->status    = self::PENDING;
+
+        /*      if ($worker_id !== null) {
             } */
-            
-            $order->update(['worker_id' => $worker_id,
-            'status' => 0 ,
-            
-            
-            ]);
-            
-           
+
+        $order->update([
+            'worker_id' => $worker_id,
+            'status' => 0,
+
+
+        ]);
+
+
 
         if ($order->worker_id !== null) {
-                //$language = Auth::user()->language;
-                $lang = User::where('id',$order->worker_id)->first();
-                $language = $lang->language;
-                if ($language == 'arabic') {
-                    $message = NotificationType::where('type',  'new_order')
-                        ->first()->message_ar;
-                } else if ($language == 'english') {
-                    $message  = NotificationType::where('type',  'new_order')
-                        ->first()->message_en;
-                } else {
-                    $message  = NotificationType::where('type',  'new_order')
-                        ->first()->message;
-                }
+            //$language = Auth::user()->language;
+            $lang = User::where('id', $order->worker_id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic') {
+                $message = NotificationType::where('type',  'new_order')
+                    ->first()->message_ar;
+            } else if ($language == 'english') {
+                $message  = NotificationType::where('type',  'new_order')
+                    ->first()->message_en;
+            } else {
+                $message  = NotificationType::where('type',  'new_order')
+                    ->first()->message;
+            }
             $message = str_replace('{order_no}', '#' . $order->order_no, $message);
 
             pushNotification($order->worker_id, $order->client_id, $message);
@@ -848,57 +855,56 @@ class OrderController extends Controller
 
         $newState->save();
 
-      
+
         return redirect('https://homefix-website.za3bot.com/dashboard');
-
-
     }
 
 
 
-     public function pushNotificationFromWeb(Request $request){
+    public function pushNotificationFromWeb(Request $request)
+    {
 
-         $lang = User::where('id',$request->worker_id)->first();
-         $language = $lang->language;
-          if ($language == 'arabic') {
-              $msg = NotificationType::where('type', 'new_order')
-                  ->first()->message_ar;
-          } else if ($language == 'english') {
-              $msg = NotificationType::where('type', 'new_order')
-                  ->first()->message_en;
-          } else {
-              $msg = NotificationType::where('type', 'new_order')
-                  ->first()->message;
-          }
-          
-          $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
-
-          (new NotificationController())->pushNotification( $request->order_id, '# ' . $request->order_no, $message, 'order'  );
-
-          return response()->json($request->all(),200);
-
-     }
-
-
-     public function pushNotification(Request $request){
-
-        $lang = User::where('id',$request->worker_id)->first();
+        $lang = User::where('id', $request->worker_id)->first();
         $language = $lang->language;
-         if ($language == 'arabic') {
-             $msg = NotificationType::where('type', 'new_order')
-                 ->first()->message_ar;
-         } else if ($language == 'english') {
-             $msg = NotificationType::where('type', 'new_order')
-                 ->first()->message_en;
-         } else {
-             $msg = NotificationType::where('type', 'new_order')
-                 ->first()->message;
-         }
-         
-         $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
+        if ($language == 'arabic') {
+            $msg = NotificationType::where('type', 'new_order')
+                ->first()->message_ar;
+        } else if ($language == 'english') {
+            $msg = NotificationType::where('type', 'new_order')
+                ->first()->message_en;
+        } else {
+            $msg = NotificationType::where('type', 'new_order')
+                ->first()->message;
+        }
 
-         (new NotificationController())->pushNotification( $request->order_id, '# ' . $request->order_no, $message, 'order'  );
+        $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
 
-         return response()->json($request->all(),200);
-     }
+        (new NotificationController())->pushNotification($request->order_id, '# ' . $request->order_no, $message, 'order');
+
+        return response()->json($request->all(), 200);
+    }
+
+
+    public function pushNotification(Request $request)
+    {
+
+        $lang = User::where('id', $request->worker_id)->first();
+        $language = $lang->language;
+        if ($language == 'arabic') {
+            $msg = NotificationType::where('type', 'new_order')
+                ->first()->message_ar;
+        } else if ($language == 'english') {
+            $msg = NotificationType::where('type', 'new_order')
+                ->first()->message_en;
+        } else {
+            $msg = NotificationType::where('type', 'new_order')
+                ->first()->message;
+        }
+
+        $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
+
+        (new NotificationController())->pushNotification($request->order_id, '# ' . $request->order_no, $message, 'order');
+
+        return response()->json($request->all(), 200);
+    }
 }

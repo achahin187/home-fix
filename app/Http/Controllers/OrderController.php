@@ -39,7 +39,7 @@ class OrderController extends Controller
             trans('app.PENDING'), trans('app.ACCEPTED'),
             trans('app.ARRIVED'), trans('app.PRICE_VALIDATION'),
             trans('app.STARTED'), trans('app.CHECKING'),
-            trans('app.COMPLETED'), trans('app.CANCELED'),trans('app.CLIENT_ACCEPT') ,trans('app.CLIENT_APPROVE')
+            trans('app.COMPLETED'), trans('app.CANCELED'), trans('app.CLIENT_ACCEPT'), trans('app.CLIENT_APPROVE')
         ];
 
         $workers = User::where([
@@ -106,7 +106,7 @@ class OrderController extends Controller
             trans('app.PENDING'), trans('app.ACCEPTED'),
             trans('app.ARRIVED'), trans('app.PRICE_VALIDATION'),
             trans('app.STARTED'), trans('app.CHECKING'),
-            trans('app.COMPLETED'), trans('app.CANCELED'),trans('app.CLIENT_ACCEPT') ,trans('app.CLIENT_APPROVE')
+            trans('app.COMPLETED'), trans('app.CANCELED'), trans('app.CLIENT_ACCEPT'), trans('app.CLIENT_APPROVE')
         ];
 
         $workers = User::where([
@@ -116,10 +116,12 @@ class OrderController extends Controller
         ])->get();
 
         $orders = Order::whereHas('services')
-            ->with(['worker', 'client',
-                    'services' => function ($q) {
-                        $q->where('quick', true);
-                    }])->get()->toArray();
+            ->with([
+                'worker', 'client',
+                'services' => function ($q) {
+                    $q->where('quick', true);
+                }
+            ])->get()->toArray();
         $orders = array_filter($orders, function ($order) {
             if (count($order['services']) > 0) {
                 return $order;
@@ -183,7 +185,7 @@ class OrderController extends Controller
             trans('app.PENDING'), trans('app.ACCEPTED'),
             trans('app.ARRIVED'), trans('app.PRICE_VALIDATION'),
             trans('app.STARTED'), trans('app.CHECKING'),
-            trans('app.COMPLETED'), trans('app.CANCELED'),trans('app.CLIENT_ACCEPT') ,trans('app.CLIENT_APPROVE')
+            trans('app.COMPLETED'), trans('app.CANCELED'), trans('app.CLIENT_ACCEPT'), trans('app.CLIENT_APPROVE')
         ];
 
         $order = Order::where('id', $id)
@@ -196,13 +198,13 @@ class OrderController extends Controller
                 'servicesDetails'
             )->first();
         if (!$order) {
-            return $this->_404( 
+            return $this->_404(
                 trans('admin.order_notfound'),
                 $this->mainTitle,
                 'orders.index'
             );
         }
-        
+
 
         $workers = User::where([
             ['role', 'worker'],
@@ -311,11 +313,45 @@ class OrderController extends Controller
         }
 
         if ($order->worker_id !== null) {
-            $message = NotificationType::where('type', 'new_order')->first()->message;
+            /*  $message = NotificationType::where('type', 'new_order')->first()->message;
             $message = str_replace('{order_no}', '#' . $order->order_no, $message);
 
             pushNotification($order->worker_id, Auth::id(), $message);
-            pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+            pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]); */
+
+
+            $lang = User::where('id', $order->worker_id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic') {
+                $msg = NotificationType::where('type', 'new_order')
+                    ->first()->message_ar;
+            } else if ($language == 'english') {
+                $msg = NotificationType::where('type', 'new_order')
+                    ->first()->message_en;
+            } else {
+                $msg = NotificationType::where('type', 'new_order')
+                    ->first()->message;
+            }
+            $message = str_replace('{order_no}', '#' . $order->order_no, $msg);
+
+            pushNotification($order->worker_id, $order->client_id, $message);
+            /*             pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+ */
+
+            $language = Auth::user()->language;
+            if ($language == 'arabic') {
+                $message = NotificationType::where('type', 'new_order')
+                    ->first()->message_ar;
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+            } else if ($language == 'english') {
+                $message  = NotificationType::where('type', 'new_order')
+                    ->first()->message_en;
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+            } else {
+                $message  = NotificationType::where('type', 'new_order')
+                    ->first()->message;
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
+            }
         }
 
         $state = [
@@ -324,18 +360,39 @@ class OrderController extends Controller
             self::CANCELED,
         ];
 
-        if ($order->client_id !== null
-            && in_array($order->status, $state, false)) {
+        if (
+            $order->client_id !== null
+            && in_array($order->status, $state, false)
+        ) {
             $state = [
                 self::ACCEPTED  => 'accept',
                 self::COMPLETED => 'complete',
                 self::CANCELED  => 'cancel',
             ];
 
-            $message = NotificationType::where('type', 'order_' . $state[$order->status])->first()->message;
+            /*    $message = NotificationType::where('type', 'order_' . $state[$order->status])->first()->message;
             $message = str_replace('{order_no}', '#' . $order->order_no, $message);
 
             pushNotification($order->client_id, $order->worker_id, $message);
+            pushFCM($order->client_id, 'order', $message, ['orderId', $order->id]);
+ */
+
+            $lang = User::where('id', $order->client_id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic') {
+                $message = NotificationType::where('type',  'order_' . $state[$order->status])
+                    ->first()->message_ar;
+            } else if ($language == 'english') {
+                $message  = NotificationType::where('type',  'order_' . $state[$order->status])
+                    ->first()->message_en;
+            } else {
+                $message  = NotificationType::where('type',  'order_' . $state[$order->status])
+                    ->first()->message;
+            }
+            $message = str_replace('{order_no}', '#' . $order->order_no, $message);
+            pushNotification($order->client_id, $order->worker_id, $message);
+
+
             pushFCM($order->client_id, 'order', $message, ['orderId', $order->id]);
         }
 
