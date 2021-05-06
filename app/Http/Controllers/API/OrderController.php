@@ -81,7 +81,7 @@ class OrderController extends Controller
 
         return __success($orders, 200);
     }
-       
+
     public function getOrderInformation(Request $request, $type = '')
     {
        // return $request->id;
@@ -98,7 +98,7 @@ class OrderController extends Controller
 
         return __success($order, 200);
     }
-    
+
     public function getOrderDetails($id, $type = '')
     {
         $role  = Auth::user()->role;
@@ -114,7 +114,7 @@ class OrderController extends Controller
 
         return __success($order, 200);
     }
-    
+
 
     public function generateOrderNo()
     {
@@ -145,31 +145,31 @@ class OrderController extends Controller
         if ($validator->fails()) {
             return __error($validator->errors()->all()[0], 200);
         }
-        
+
         if(Auth::user()->verified == 1){
 
         $services = preg_split('/(\+)/', $request->services);
-        
+
             $orders=[];
             foreach ($services as $service) {
                 # Worker selector for order
                 try {
                     $category = preg_split('/(:{)/', $service)[0];
                     $category = Category::find($category);
-    
+
                     if ($category !== null) {
                        // $category = $category->first();
-    
+
                         if ($category->parent_id > 0) {
                             $workers = $category->parent()->first()
                                 ->workers()->get();
 
-                            
+
                         } else {
                             $workers = $category->workers()->get();
                         }
                     }
-    
+
                     if (count($workers) > 0) {
                         $distances = [];
                         foreach ($workers as $k => $v) {
@@ -182,10 +182,10 @@ class OrderController extends Controller
                                 $worker_id = null;
 
                             }
-                           
+
                         }
                         asort($distances);
-    
+
                         $workers   = array_values(array_keys($distances));
                         $worker_id = $workers[0];
                     } else {
@@ -194,31 +194,31 @@ class OrderController extends Controller
                 } catch (\Exception $e) {
                     //
                 }
-    
+
                 $settings = Setting::orderBy('id', 'desc')->first()->settings;
-                
+
                 $settings         = json_decode($settings);
                 $automatic_worker = $settings->automatic_worker;
                 if ((bool)$automatic_worker === false) {
                     $worker_id = null;
                 }
-    
+
                 # Add New Order!
                     $order_id = $this->addNewOrder($request, $worker_id);
                 //////////////////////
-               
-    
+
+
                 # Add services related to order!
                 $_services = preg_match('/{(.*?)}/', $service, $matches);
                 $servs     = $matches[1];
-                $total_price = 0; 
+                $total_price = 0;
                 $_services   = explode(',', $servs);
-                
-                    
+
+
                         foreach ($_services as $k => $v) {
-    
+
                             $d = explode(':', $v);
-                            
+
                             $s = Service::find($d[0]);
                             if($s !== null) {
                                 foreach($s->prices as $p)
@@ -227,39 +227,39 @@ class OrderController extends Controller
                                         $price = (float)$p->price * (float)$d[1];
                                     }
                                 }
-            
+
                                 DB::table('order_services')->insert([
                                     'order_id'   => $order_id,
                                     'service_id' => (int)$d[0],
                                     'quantity'   => (float)$d[1],
                                     'price'      => $price
                                 ]);
-                                
+
                                     $total_price+=$price;
-                                
+
                             }
-                                
-                                     
+
+
                         }
-                                    
-                    
-                            
+
+
+
                         $this->changeOrderTotalPrice($order_id, $total_price);
                         $orders[] = $order_id;
-                    
-    
-                    
-     
-                            
-    
-            
+
+
+
+
+
+
+
             }
             // Return Created Orders!
             $orders = Order::whereIn('id', $orders)->get();
-        
 
-    
-    
+
+
+
 
         return __success($orders, 200);
     }else{
@@ -303,11 +303,11 @@ class OrderController extends Controller
                 'order_no'    => $this->generateOrderNo(),
                 'country_id'  => $country_id,
             ]);
-    
-            $order->save();
-        
 
- 
+            $order->save();
+
+
+
 
         if ($request->file('attachment')) {
             $attachment          = $request->file('attachment');
@@ -330,7 +330,7 @@ class OrderController extends Controller
             $this->startNewConversation(
                 $order->client_id, $order->worker_id, $order->id
             );
-            
+
 
            //$language = Auth::user()->language;
            $lang = User::where('id',$order->worker_id)->first();
@@ -348,10 +348,10 @@ class OrderController extends Controller
             $message = str_replace('{order_no}', '#' . $order->order_no, $msg);
 
             pushNotification($order->worker_id, $order->client_id, $message);
-            pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
-           
+            pushFCM($order->worker_id, 'order', $msg, ['orderId', $order->id]);
+
         }
-        
+
         return $order->id;
     }
 
@@ -441,8 +441,8 @@ class OrderController extends Controller
             if ($order->client_id !== null
                 && in_array($order->status,
                     $state_arr, false)) {
-                        
-                        
+
+
                          $language = Auth::user()->language;
                         if ($language == 'arabic') {
                             $message = NotificationType::where('type',  'order_' . $status)
@@ -487,14 +487,14 @@ class OrderController extends Controller
     }
 
     public function cancelOrder(Request $request)
-    {  
+    {
         $order = Order::where('id',$request->order_id)->first();
 
         DB::table('excluded_workers')->insert([
             'order_id'  => $order->id,
             'worker_id' => $order->worker_id,
         ]);
-          
+
         if ($order->offer_id !== null) {
             $service = $order->offer()->first();
             $service = Offer::where(
@@ -512,12 +512,12 @@ class OrderController extends Controller
         $excluded_workers = DB::table('excluded_workers')
             ->where('order_id', $request->order_id)
             ->first();
-        
+
         // $excluded_workers = (count($excluded_workers) > 0)
         //     ? $excluded_workers = array_column($excluded_workers, 'worker_id')
         //     : [0];
 
-            
+
 
 
 
@@ -530,29 +530,29 @@ class OrderController extends Controller
                 ->get();
 
         } else {
-          
+
             $workers = $category->first()
                 ->workers()
                 ->where('id', '!=',$excluded_workers->worker_id)
                 ->get();
-                
+
             }
-            
+
             $latitude  = $order->latitude;
             $longitude = $order->longitude;
-            
+
             $distances = [];
             foreach ($workers as $k => $v) {
                 $x                 = (float)$v->latitude - (float)$latitude;
                 $y                 = (float)$v->longitude - (float)$longitude;
                 $distance          = sqrt(($x ** 2) + ($y ** 2));
                 $distances[$v->id] = $distance;
-                
+
             }
-            
+
             asort($distances);
             $workers = array_values(array_keys($distances));
-            
+
             if (isset($workers[0])) {
                 $worker_id = $workers[0];
             } else {
@@ -560,17 +560,17 @@ class OrderController extends Controller
             }
             //$order->worker_id = null;
             $order->status    = self::PENDING;
-            
+
             /*      if ($worker_id !== null) {
             } */
-            
+
             $order->update(['worker_id' => $worker_id,
             'status' => 0 ,
-            
-            
+
+
             ]);
-            
-           
+
+
 
         if ($order->worker_id !== null) {
                 //$language = Auth::user()->language;
@@ -700,7 +700,7 @@ class OrderController extends Controller
         if ($order->worker_id !== null) {
             $type = ((int)$state === 1)
                 ? 'accept_order_note'
-                : 'decline_order_note'; 
+                : 'decline_order_note';
                 //$language = Auth::user()->language;
                 $lang = User::where('id',$order->worker_id)->first();
                 $language = $lang->language;
@@ -729,14 +729,14 @@ class OrderController extends Controller
     public function cancelOrderFromWeb(Request $request){
         $order = Order::where('id',$request->order_id)->first();
 
-       
-       
+
+
 
         DB::table('excluded_workers')->insert([
             'order_id'  => $order->id,
             'worker_id' => $order->worker_id,
         ]);
-          
+
         if ($order->offer_id !== null) {
             $service = $order->offer()->first();
             $service = Offer::where(
@@ -754,12 +754,12 @@ class OrderController extends Controller
         $excluded_workers = DB::table('excluded_workers')
             ->where('order_id', $request->order_id)
             ->first();
-        
+
         // $excluded_workers = (count($excluded_workers) > 0)
         //     ? $excluded_workers = array_column($excluded_workers, 'worker_id')
         //     : [0];
 
-            
+
 
 
 
@@ -772,29 +772,29 @@ class OrderController extends Controller
                 ->get();
 
         } else {
-          
+
             $workers = $category->first()
                 ->workers()
                 ->where('id', '!=',$excluded_workers->worker_id)
                 ->get();
-                
+
             }
-            
+
             $latitude  = $order->latitude;
             $longitude = $order->longitude;
-            
+
             $distances = [];
             foreach ($workers as $k => $v) {
                 $x                 = (float)$v->latitude - (float)$latitude;
                 $y                 = (float)$v->longitude - (float)$longitude;
                 $distance          = sqrt(($x ** 2) + ($y ** 2));
                 $distances[$v->id] = $distance;
-                
+
             }
-            
+
             asort($distances);
             $workers = array_values(array_keys($distances));
-            
+
             if (isset($workers[0])) {
                 $worker_id = $workers[0];
             } else {
@@ -802,17 +802,17 @@ class OrderController extends Controller
             }
             //$order->worker_id = null;
             $order->status    = self::PENDING;
-            
+
             /*      if ($worker_id !== null) {
             } */
-            
+
             $order->update(['worker_id' => $worker_id,
             'status' => 0 ,
-            
-            
+
+
             ]);
-            
-           
+
+
 
         if ($order->worker_id !== null) {
                 //$language = Auth::user()->language;
@@ -848,7 +848,7 @@ class OrderController extends Controller
 
         $newState->save();
 
-      
+
         return redirect('https://homefix-website.za3bot.com/dashboard');
 
 
@@ -870,7 +870,7 @@ class OrderController extends Controller
               $msg = NotificationType::where('type', 'new_order')
                   ->first()->message;
           }
-          
+
           $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
 
           (new NotificationController())->pushNotification( $request->order_id, '# ' . $request->order_no, $message, 'order'  );
@@ -894,7 +894,7 @@ class OrderController extends Controller
              $msg = NotificationType::where('type', 'new_order')
                  ->first()->message;
          }
-         
+
          $message = str_replace('{order_no}', '#' . $request->order_no, $msg);
 
          (new NotificationController())->pushNotification( $request->order_id, '# ' . $request->order_no, $message, 'order'  );
