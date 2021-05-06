@@ -117,8 +117,7 @@ class OfferController extends Controller
 
         $cod = ($request->payment_method === 'cod') ? true : false;
 
-        if(DB::table('offer_workers')->where('status','=',1)->first())
-        {
+
             try {
                 $worker_id = $this->workerSelector(
                     $request->offer_id,
@@ -130,7 +129,7 @@ class OfferController extends Controller
             }
 
 
-        }
+
 
         $settings = DB::table('settings')
             ->first()->settings;
@@ -224,21 +223,26 @@ class OfferController extends Controller
 
     public function workerSelector($offer_id, $lat, $lon)
     {
-        $workers = Offer::find($offer_id)
-            ->workers()->get();
+        $workers = Offer::find($offer_id)->workers()->get();
 
-        if (count($workers) > 0) {
-            foreach ($workers as $k => $v) {
-                $x                 = (float) $v->latitude - (float) $lat;
-                $y                 = (float) $v->longitude - (float) $lon;
-                $distance          = sqrt(($x ** 2) + ($y ** 2));
-                $distances[$v->id] = $distance;
+            if(DB::table('offer_workers')->where('status','=',1)->first())
+            {
+                if (count($workers) > 0) {
+                    foreach ($workers as $k => $v) {
+                        $x                 = (float) $v->latitude - (float) $lat;
+                        $y                 = (float) $v->longitude - (float) $lon;
+                        $distance          = sqrt(($x ** 2) + ($y ** 2));
+                        $distances[$v->id] = $distance;
+                    }
+                    asort($distances);
+                    return array_keys($distances)[0];
+                }
+
+                return null;
             }
-            asort($distances);
-            return array_keys($distances)[0];
-        }
+            return null;
 
-        return null;
+
     }
 
     public function joinAnOffer(Request $request)
