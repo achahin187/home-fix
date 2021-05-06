@@ -341,20 +341,16 @@ class OrderController extends Controller
             if ($language == 'arabic') {
                 $message = NotificationType::where('type', 'new_order')
                     ->first()->message_ar;
-                    pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
-
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
             } else if ($language == 'english') {
-                $message  =NotificationType::where('type', 'new_order')
+                $message  = NotificationType::where('type', 'new_order')
                     ->first()->message_en;
-                    pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
-
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
             } else {
                 $message  = NotificationType::where('type', 'new_order')
                     ->first()->message;
-                    pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
-
+                pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
             }
-
         }
 
         return $order->id;
@@ -456,7 +452,8 @@ class OrderController extends Controller
             ) {
 
 
-                $language = Auth::user()->language;
+                $lang = User::where('id', $order->client_id)->first();
+                $language = $lang->language;
                 if ($language == 'arabic') {
                     $message = NotificationType::where('type',  'order_' . $status)
                         ->first()->message_ar;
