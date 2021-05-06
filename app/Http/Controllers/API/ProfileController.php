@@ -40,7 +40,7 @@ class ProfileController extends Controller
             $phone[] = 'unique:users';
         }
         $validator = Validator::make($request->all(), [
-            'name'     => ['required','unique:users', 'min:2', 'max:60', 'not_regex:([0-9])'],
+            'name'     => ['required', 'min:2', 'max:60', 'not_regex:([0-9])'],
             'email'    => $email,
             'phone'    => $phone,
             'address'  => 'string',
