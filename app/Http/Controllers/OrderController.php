@@ -373,7 +373,6 @@ class OrderController extends Controller
             pushFCM($order->client_id, 'order', $message, ['orderId', $order->id]);
  */
 
- dd(Auth::user()->language);
             $language = Auth::user()->language;
             if ($language == 'arabic') {
                 $message = NotificationType::where('type',  'order_' . $state[$order->status])
