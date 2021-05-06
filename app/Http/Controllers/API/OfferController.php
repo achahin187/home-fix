@@ -224,8 +224,8 @@ class OfferController extends Controller
     public function workerSelector($offer_id, $lat, $lon)
     {
         $workers = Offer::find($offer_id)->workers()->get();
-dd(DB::table('offer_workers')->where('offer_id','=',$offer_id)->where('status','=',1)->first());
-            if(DB::table('offer_workers')->where('offer_id','=',$offer_id)->where('status','=',1)->first())
+$worker_active=DB::table('offer_workers')->where('offer_id','=',$offer_id)->where('status','=',1)->first();
+            if($worker_active->status == 1)
             {
                 if (count($workers) > 0) {
                     foreach ($workers as $k => $v) {
