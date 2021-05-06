@@ -117,7 +117,7 @@ class OfferController extends Controller
 
         $cod = ($request->payment_method === 'cod') ? true : false;
 
-        if(DB::table('offer_workers')->where('status',1))
+        if(DB::table('offer_workers')->where('status','=',1))
         {
             try {
                 $worker_id = $this->workerSelector(
