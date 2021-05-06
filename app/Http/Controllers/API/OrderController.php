@@ -450,22 +450,18 @@ class OrderController extends Controller
                     false )
             ) {
 
-                $state = [
-                    self::ACCEPTED  => 'accept',
-                    self::COMPLETED => 'complete',
-                    self::CANCELED  => 'cancel',
-                ];
+
 
                 $lang = User::where('id', $order->client_id)->first();
                 $language = $lang->language;
                 if ($language == 'arabic') {
-                    $message = NotificationType::where('type',  'order_' . $state[$order->status])
+                    $message = NotificationType::where('type',  'order_' . $status)
                         ->first()->message_ar;
                 } else if ($language == 'english') {
-                    $message  = NotificationType::where('type',  'order_' . $state[$order->status])
+                    $message  = NotificationType::where('type',  'order_' . $status)
                         ->first()->message_en;
                 } else {
-                    $message  = NotificationType::where('type',  'order_' .  $state[$order->status])
+                    $message  = NotificationType::where('type',  'order_' . $status)
                         ->first()->message;
                 }
                 $message = str_replace('{order_no}', '#' . $order->order_no, $message);
