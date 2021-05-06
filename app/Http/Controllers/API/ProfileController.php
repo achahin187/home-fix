@@ -111,7 +111,7 @@ class ProfileController extends Controller
     public function setUserAvatar(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'avatar' => 'mimes:jpeg,jpg,png',
+            'avatar' => 'mimes:jpeg,jpg,png,PNG,JPG,JPEG',
         ]);
 
         if ($validator->fails()) {
