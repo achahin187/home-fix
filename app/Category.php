@@ -80,9 +80,7 @@ class Category extends Model
 
     public function getImageAttribute()
     {
-        return Storage::disk('uploads')
-            ->url('images/categories/' . $this->id .
-                '/icon.png') . '?t=' . time();
+        return Storage::disk('uploads')->url('images/categories/' . $this->id .'/icon.png') .'?t=' . time();
     }
 
     public function getNameAttribute()
