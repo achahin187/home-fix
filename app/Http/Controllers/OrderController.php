@@ -366,14 +366,14 @@ class OrderController extends Controller
                 self::CANCELED  => 'cancel',
             ];
 
-             $message = NotificationType::where('type', 'order_' . $state[$order->status])->first()->message;
+          /*    $message = NotificationType::where('type', 'order_' . $state[$order->status])->first()->message;
             $message = str_replace('{order_no}', '#' . $order->order_no, $message);
 
             pushNotification($order->client_id, $order->worker_id, $message);
             pushFCM($order->client_id, 'order', $message, ['orderId', $order->id]);
+ */
 
-/*
-
+ dd(Auth::user()->language);
             $language = Auth::user()->language;
             if ($language == 'arabic') {
                 $message = NotificationType::where('type',  'order_' . $state[$order->status])
@@ -389,7 +389,7 @@ class OrderController extends Controller
 
 
             pushNotification($order->client_id, $order->worker_id, $message);
-            pushFCM($order->client_id, 'order', $message, ['orderId', $order->id]); */
+            pushFCM($order->client_id, 'order', $message, ['orderId', $order->id]);
         }
 
         (new API\OrderController())
