@@ -75,10 +75,8 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
-    public function quickService()
-    {
-        return $this->belongsTo(Service::class, 'category_id');
-    }
+
+
 
     public function getImageAttribute()
     {
