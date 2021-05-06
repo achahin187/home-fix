@@ -10,7 +10,7 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $fillable = [
-        'name_en', 'name_ar','name_tr', 'parent_id'
+        'name_en', 'name_ar', 'name_tr', 'parent_id'
     ];
 
     protected $hidden = [
@@ -27,7 +27,7 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id')
             ->with('checkup', 'services');
     }
-   
+
 
     public function offers()
     {
@@ -66,9 +66,9 @@ class Category extends Model
     public function quick()
     {
         return $this->hasOne(Service::class, 'category_id')
-            ->where('quick', true)->withDefault(function () {
-                return new Service();
-            });
+        ->where('quick', true)->withDefault(function () {
+            return new Service();
+        });
     }
 
     public function parent()
@@ -76,11 +76,11 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+
+
     public function getImageAttribute()
     {
-        return Storage::disk('uploads')
-            ->url('images/categories/' . $this->id .
-                '/icon.png') . '?t=' . time();
+        return Storage::disk('uploads')->url('images/categories/' . $this->id .'/icon.png') .'?t=' . time();
     }
 
     public function getNameAttribute()

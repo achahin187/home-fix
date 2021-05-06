@@ -109,18 +109,21 @@ class Order extends Model
         }
 
         if ($service !== null) {
-            $category = $service->category();
-            //return $category;
-            if(isset($category->first()->parent_id)){
-                if ($category->first()->parent_id > 0) {
-                    $category = $category->first()
-                        ->parent()->first();
-                } else {
-                    $category = $category->first();
-                }
-                return ($category !== null) ? $category->image : '';
 
-            }
+           // $category = $service->category();
+            $category = $service->category()->first();
+            return ($category !== null) ? $category->image : '';
+           // return $category;
+            // if(isset($category->first()->parent_id)){
+            //     if ($category->first()->parent_id > 0) {
+            //         $category = $category->first()
+            //             ->parent()->first();
+            //     } else {
+            //         $category = $category->first();
+            //     }
+            //     return ($category !== null) ? $category->image : '';
+
+            // }
       
         } else {
             return '';

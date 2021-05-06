@@ -26,19 +26,19 @@ class OfferController extends Controller
 
    public function getAllOffers()
     {
-        
+
        try {
             if (Auth::user()->role == 'worker') {
                 $currency = Auth::user();
 
                 $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id]);
-          
-               
+
+
                 foreach ($offers->get() as $offer) {
                     $workers = $offer->workers()
                       ->where('user_id', Auth::id())
                   ->withPivot('status');
-                   
+
                     @$worker = $workers->first()->pivot->status;
                 //   //  dd($workers);
                 if(isset($worker)) {
@@ -56,23 +56,23 @@ class OfferController extends Controller
                  }
 
                  $data=[];
-                 foreach($_offers as $offer){  
-                    $offer->setAttribute('pricebycountry',$offer->price); 
-                    unset($offer->price);                 
+                 foreach($_offers as $offer){
+                    $offer->setAttribute('pricebycountry',$offer->price);
+                    unset($offer->price);
                      $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
                  }
-               
+
             } else {
                 $currency = Auth::user();
-                    
-             
+
+
                 $_offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
                 $data=[];
                 foreach($_offers as $offer){
-                    $offer->setAttribute('pricebycountry',$offer->price); 
-                    unset($offer->price); 
+                    $offer->setAttribute('pricebycountry',$offer->price);
+                    unset($offer->price);
                     $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
-                  
+
                 }
 
             }
@@ -98,7 +98,7 @@ class OfferController extends Controller
 
     public function orderAnOffer(Request $request)
     {
-        
+
         $offer = Offer::find($request->offer_id);
         $validator = Validator::make($request->all(), [
             'issue'          => 'string',
@@ -109,7 +109,7 @@ class OfferController extends Controller
             'time'           => 'required|string',
             'payment_method' => 'required|string',
         ]);
-      
+
 
         if ($validator->fails()) {
             return __error($validator->errors()->all()[0], 200);
@@ -117,15 +117,19 @@ class OfferController extends Controller
 
         $cod = ($request->payment_method === 'cod') ? true : false;
 
-        try {
-            $worker_id = $this->workerSelector(
-                $request->offer_id,
-                $request->latitude,
-                $request->longitude
-            );
-        } catch (Exception $e) {
-            $worker_id = NULL;
-        }
+
+            try {
+                $worker_id = $this->workerSelector(
+                    $request->offer_id,
+                    $request->latitude,
+                    $request->longitude
+                );
+            } catch (Exception $e) {
+                $worker_id = NULL;
+            }
+
+
+
 
         $settings = DB::table('settings')
             ->first()->settings;
@@ -134,15 +138,15 @@ class OfferController extends Controller
         if ((bool) $automatic_worker === false) {
             $worker_id = null;
         }
- 
+
 
      ///check client take this offer before
 
         $order= order::where('client_id',auth::id())->where('offer_id',$request->offer_id)->exists();
         if($order) {
- 
+
          return __error(trans('api.This offer was taken before'),200);
- 
+
         }else{
             ///store offer
 
@@ -161,16 +165,16 @@ class OfferController extends Controller
                 'order_no'    => $this->generateOrderNo(),
                 'country_id' => $offer->country_id,
             ]);
-    
+
             $order->save();
 
         }
 
- 
 
 
 
-     
+
+
 
         $newState = new OrderTracking([
             'status'   => self::BOUGHT,
@@ -219,21 +223,26 @@ class OfferController extends Controller
 
     public function workerSelector($offer_id, $lat, $lon)
     {
-        $workers = Offer::find($offer_id)
-            ->workers()->get();
+        $workers = Offer::find($offer_id)->workers()->get();
+$worker_active=DB::table('offer_workers')->where('offer_id','=',$offer_id)->where('status','=',1)->first();
+            if($worker_active->status == 1)
+            {
+                if (count($workers) > 0) {
+                    foreach ($workers as $k => $v) {
+                        $x                 = (float) $v->latitude - (float) $lat;
+                        $y                 = (float) $v->longitude - (float) $lon;
+                        $distance          = sqrt(($x ** 2) + ($y ** 2));
+                        $distances[$v->id] = $distance;
+                    }
+                    asort($distances);
+                    return array_keys($distances)[0];
+                }
 
-        if (count($workers) > 0) {
-            foreach ($workers as $k => $v) {
-                $x                 = (float) $v->latitude - (float) $lat;
-                $y                 = (float) $v->longitude - (float) $lon;
-                $distance          = sqrt(($x ** 2) + ($y ** 2));
-                $distances[$v->id] = $distance;
+                return null;
             }
-            asort($distances);
-            return array_keys($distances)[0];
-        }
+            return null;
 
-        return null;
+
     }
 
     public function joinAnOffer(Request $request)
@@ -299,10 +308,10 @@ class OfferController extends Controller
      */
     protected function changeEndedOffersStatus()
     {
-        
-        
+
+
            $offers = Offer::where('end_at','<=',\Carbon\Carbon::now())->get();
-        
+
         if($offers){
             foreach($offers as $offer){
                 $offer->update(["status"=>0]);
@@ -314,7 +323,7 @@ class OfferController extends Controller
             $offer->status = false;
             $offer->save();
         }*/
-        
+
     }
 
 
@@ -327,27 +336,27 @@ class OfferController extends Controller
             $validator = Validator::make($request->all(), [
                 'offer_id' => 'required|string',
             ]);
-    
+
             if ($validator->fails()) {
                 return __error($validator->errors()->all()[0], 200);
             }
-        
+
             $offer = Offer::where('id', $request->offer_id)->first();
 
-    
+
                 $currency = Auth::user();
-                    
-             
+
+
                 $_offer = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
                 $data=[];
-               
-                    $offer->setAttribute('pricebycountry',$offer->price); 
-                    unset($offer->price); 
-                    $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
-                  
-                
 
-            
+                    $offer->setAttribute('pricebycountry',$offer->price);
+                    unset($offer->price);
+                    $data[]=  array_merge([ 'currency'=>$currency->user_address['currency']], $offer->toArray());
+
+
+
+
 
             return __success( $data, 200);
          } catch (Exception $e) {
