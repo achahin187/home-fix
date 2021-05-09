@@ -50,13 +50,13 @@ class ChatController extends Controller
                     $service = $ord->offer()->first();
                     $service = Offer::where(
                         'id',
-                        $service->id
+                        $service->id ?? ''
                     )->first();
                 } else {
                     $service = $ord->services()->first();
                     $service = Service::where(
                         'id',
-                        $service->id
+                        $service->id ?? ''
                     )->first();
                 }
 
