@@ -41,6 +41,9 @@ class ChatController extends Controller
                 }, 'client', 'worker'
             ])->get();
 
+
+            dd($conversations);
+
             $_conversations = [];
             foreach ($conversations as $conversation) {
                 $ord = $conversation
@@ -50,13 +53,13 @@ class ChatController extends Controller
                     $service = $ord->offer()->first();
                     $service = Offer::where(
                         'id',
-                        $service->id ?? ''
+                        $service->id
                     )->first();
                 } else {
                     $service = $ord->services()->first();
                     $service = Service::where(
                         'id',
-                        $service->id ?? ''
+                        $service->id
                     )->first();
                 }
 
