@@ -118,11 +118,11 @@ class OfferController extends Controller
 
 
 
-        $users   = User::whereIn('role', ['worker', 'client'])
+        $users   = User::where('role', 'worker')
         ->whereIn('language', ['english', 'arabic','turkish'])
         ->get();
-        
-        
+
+
       foreach ($users as $user) {
         $lang = User::where('id',$user->id)->first();
         $language = $lang->language;
@@ -153,21 +153,12 @@ class OfferController extends Controller
             }
 
         }
-        
 
 
-         
 
-                 
-                
-    
-              
-
-           
         }
 
-        $request->session()->flash('success',
-            trans('admin.offer_added'));
+        $request->session()->flash('success', trans('admin.offer_added'));
         return redirect()->route('offers.index');
     }
 
@@ -193,7 +184,7 @@ class OfferController extends Controller
         $workers = $_offer->first()
             ->category()->first()
             ->workers()->get();
-            
+
 
 
         return view('offers.view', [
@@ -259,7 +250,7 @@ class OfferController extends Controller
             'end_at_date'    => 'required',
             'end_at_time'    => 'required',
             'country_id' => 'required',
-            
+
         ]);
 
         $time   = strtotime($request->end_at_date . $request->end_at_time);

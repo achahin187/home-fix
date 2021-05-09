@@ -47,10 +47,10 @@ class ChatController extends Controller
 
                 if ($ord->offer_id !== null) {
                     $service = $ord->offer()->first();
-                    $service = Offer::where( 'id',   $service->id )->first();
+                    $service = Offer::where( 'id',   $service->id ?? '' )->first();
                 } else {
                     $service = $ord->services()->first();
-                    $service = Service::where( 'id',  $service->id)->first();
+                    $service = Service::where( 'id',  $service->id ?? '')->first();
                 }
 
                 $category = $service->category()->first();
@@ -134,7 +134,7 @@ class ChatController extends Controller
             ? $order->worker_id
             : $order->client_id;
         if ($order !== null) {
-            //$language = Auth::user()->language ; 
+            //$language = Auth::user()->language ;
             $lang = User::where('id',$user)->first();
             $language = $lang->language;
             if ($language == 'arabic'){
@@ -355,7 +355,7 @@ class ChatController extends Controller
             ? $order->worker_id
             : $order->client_id;
         if ($order !== null) {
-            //$language = Auth::user()->language ; 
+            //$language = Auth::user()->language ;
             $lang = User::where('id',$user)->first();
             $language = $lang->language;
             if ($language == 'arabic'){
