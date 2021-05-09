@@ -86,7 +86,6 @@ class ChatController extends Controller
                 $_conversations[] = $conversation;
             }
 
-            dd($conversations);
 
         } catch (Exception $e) {
             $_conversations = [];
