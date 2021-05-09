@@ -118,7 +118,7 @@ class OfferController extends Controller
 
 
 
-        $users   = User::where('role', 'worker')
+        $users   = User::whereIn('role', ['worker', 'client'])
         ->whereIn('language', ['english', 'arabic','turkish'])
         ->get();
 
