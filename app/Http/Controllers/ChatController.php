@@ -42,7 +42,6 @@ class ChatController extends Controller
             ])->get();
 
 
-            dd($conversations);
 
             $_conversations = [];
             foreach ($conversations as $conversation) {
@@ -86,6 +85,9 @@ class ChatController extends Controller
 
                 $_conversations[] = $conversation;
             }
+
+            dd($conversations);
+
         } catch (Exception $e) {
             $_conversations = [];
         }
