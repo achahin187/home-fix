@@ -94,7 +94,6 @@ class Order extends Model
                     'id', $service->id
                 )->first();
             }
-            dd($service->category()->first());
 
             $category = $service->category()->first();
             //return $category;
