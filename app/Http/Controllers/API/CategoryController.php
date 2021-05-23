@@ -63,6 +63,7 @@ class CategoryController extends Controller
                 'subCategories'
             )->get();
         }
+        dd(auth()->user()->country_id);
 
         return __success([
             'services' => $category,
