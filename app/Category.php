@@ -38,11 +38,12 @@ class Category extends Model
                 ['status',1]
                 ,['country_id' ,'=',auth()->user()->country_id]
                 ]);
+                dd( dd(auth()->user()->country_id));
+
 
 
 
     }
-
 
 
     public function workers()
