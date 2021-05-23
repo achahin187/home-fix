@@ -29,10 +29,19 @@ class Category extends Model
     }
 
 
+
     public function offers()
     {
-        return $this->hasMany(Offer::class, 'category_id');
+        $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id]);
+        if($offers){
+
+            return $this->hasMany(Offer::class, 'category_id');
+
+
+        }
     }
+
+
 
     public function workers()
     {
