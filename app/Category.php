@@ -34,7 +34,8 @@ class Category extends Model
     public function offers()
     {
 
-            return $this->hasMany(Offer::class, 'category_id');
+            return $this->hasMany(Offer::class, 'category_id')->where('status', true)->where('country_id',auth()->user()->country_id);
+
 
 
 
