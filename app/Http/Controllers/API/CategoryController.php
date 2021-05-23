@@ -52,6 +52,7 @@ class CategoryController extends Controller
             ['parent_id', null]
         ]);
 
+        dd(auth()->user()->user_country_id);
 
 
         if (!$category) {
