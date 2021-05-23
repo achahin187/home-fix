@@ -52,6 +52,7 @@ class CategoryController extends Controller
             ['parent_id', null]
         ]);
 
+        $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id]);
 
 
         if (!$category) {
@@ -59,13 +60,14 @@ class CategoryController extends Controller
         } else {
             $category = $category->with(
                 'quick',
-                'offers',
-                'subCategories'
+/*                 'offers',
+ */                'subCategories'
             )->get();
         }
 
         return __success([
             'services' => $category,
+            'offers' =>$offers,
             'phones'   => $phones
         ], 200);
     }
