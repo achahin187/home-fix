@@ -36,7 +36,7 @@ class Category extends Model
 
             return $this->hasMany(Offer::class, 'category_id')->where([
                 ['status', true],
-                ,['country_id',auth()->user()->country_id]
+                ['country_id',auth()->user()->country_id]
                 ]);
 
 
