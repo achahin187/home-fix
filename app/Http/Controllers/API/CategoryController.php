@@ -54,7 +54,7 @@ class CategoryController extends Controller
 
         $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id]);
 
-
+dd(auth()->user()->user_country_id);
         if (!$category) {
             $category = new Category();
         } else {
