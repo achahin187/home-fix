@@ -52,7 +52,7 @@ class CategoryController extends Controller
             ['parent_id', null]
         ]);
 
-        $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id]);
+        $offers = Offer::where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
 
 
         if (!$category) {
