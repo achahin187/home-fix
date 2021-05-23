@@ -440,30 +440,36 @@ class OfferController extends Controller
         ])->update([
             'status' => $status
         ]);
-
         if ($status === true) {
 
-            $lang = User::where('id', $worker->id)->first();
+            $lang = User::where('id', $worker)->first();
             $language = $lang->language;
             if ($language == 'arabic') {
                 $message = NotificationType::where('type',  'accept_offer')
                     ->first()->message_ar;
                     $_offer  = Offer::where('id', $offer)->first();
                     $message = str_replace('{offer_name}', '( ' . $_offer->name_ar . ' )', $message);
+                    pushNotification($worker, Auth::id(), $message);
+                    pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
+
             } else if ($language == 'english') {
                 $message  = NotificationType::where('type',  'accept_offer')
                     ->first()->message_en;
                     $_offer  = Offer::where('id', $offer)->first();
                     $message = str_replace('{offer_name}', '( ' . $_offer->name_en . ' )', $message);
+                    pushNotification($worker, Auth::id(), $message);
+                    pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
+
             } else {
                 $message  = NotificationType::where('type',  'accept_offer')
                     ->first()->message;
                     $_offer  = Offer::where('id', $offer)->first();
                     $message = str_replace('{offer_name}', '( ' . $_offer->name_tr . ' )', $message);
+                    pushNotification($worker, Auth::id(), $message);
+                    pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
+
             }
 
-            pushNotification($worker, Auth::id(), $message);
-            pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
 
 
 
