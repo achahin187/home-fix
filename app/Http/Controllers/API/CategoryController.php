@@ -59,7 +59,7 @@ class CategoryController extends Controller
         } else {
             $category = $category->with(
                 'quick',
-                'offers',
+                'offers_country',
                 'subCategories'
             )->get();
         }
