@@ -29,18 +29,12 @@ class Category extends Model
     }
 
 
-    public function  offers_country(){
-
-        return $this->hasMany(Offer::class, 'category_id')->where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
-
-
-    }
 
 
     public function offers()
     {
 
-            return $this->hasMany(Offer::class, 'category_id');
+            return $this->hasMany(Offer::class, 'category_id')->where(['status'=>1,'country_id'=>auth()->user()->user_country_id])->get();
 
 
 
