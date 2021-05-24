@@ -385,7 +385,6 @@ class ChatController extends Controller
     public function pushNotification_chat(Request $request)
     {
 
- dd($request->message);
 
           $lang = User::where('id',$request->id)->first();
             $language = $lang->language;
@@ -402,7 +401,7 @@ class ChatController extends Controller
             $msg = str_replace('{message}', ($request->message->attachment === true) ? 'Image' : $request->message->message, $msg);
 
                 pushNotification($request->id, $request->by, $msg);
-                pushFCM($request->id, 'message', $msg, ['messageId', $request->message->id]);
+                pushFCM($request->id, 'message', $msg, ['messageId', $request->message]);
 
 
 
