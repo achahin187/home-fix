@@ -402,8 +402,8 @@ class ChatController extends Controller
 
              pushNotification($request->id, $request->by, $message);
 
-           $fcm=pushFCM($request->id, 'message', $message, ['messageId', $request->message_id]);
-           dd($fcm);
+             pushFCM($request->id, 'message', $message, ['messageId', $request->message_id]);
+
 
         return response()->json($request->all(), 200);
     }
