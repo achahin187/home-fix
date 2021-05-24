@@ -401,7 +401,7 @@ class ChatController extends Controller
             $msg = str_replace('{message}', ($request->message->attachment === true) ? 'Image' : $request->message->message, $msg);
 
                 pushNotification($request->id, $request->by, $msg);
-                pushFCM($request->id, 'message', $msg, ['messageId', $request->message]);
+                pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
 
 
 
