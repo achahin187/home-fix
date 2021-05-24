@@ -378,4 +378,36 @@ class ChatController extends Controller
         return __success('success', 200);
     }
 
+
+
+
+
+    public function pushNotification_chat(Request $request)
+    {
+
+
+          $lang = User::where('id',$request->id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic'){
+                $msg = NotificationType::where('type', 'new_message')
+                ->first()->message_ar;
+            }else if ($language == 'english' ){
+                $msg = NotificationType::where('type', 'new_message')
+                ->first()->message_en;
+            }else{
+                $msg = NotificationType::where('type', 'new_message')
+                ->first()->message;
+            }
+            $msg = str_replace('{message}', ($request->message->attachment === true) ? 'Image' : $request->message->message, $msg);
+
+                pushNotification($request->id, $request->by, $msg);
+                pushFCM($request->id, 'message', $msg, ['messageId', $request->message->id]);
+
+
+
+
+
+        return response()->json($request->all(), 200);
+    }
+
 }

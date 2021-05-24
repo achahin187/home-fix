@@ -148,6 +148,8 @@ Route::group([
     Route::post('avatar','AuthController@createAvatar');
     Route::post('pushNotificationFromWeb','OrderController@pushNotificationFromWeb');
     Route::post('pushNotification','OrderController@pushNotification');
+    Route::post('chat_notification','ChatController@pushNotification_chat');
+
 
 
 
