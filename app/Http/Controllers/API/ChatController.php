@@ -385,6 +385,8 @@ class ChatController extends Controller
     public function pushNotification_chat(Request $request)
     {
 
+        dd($request->message->message);
+
 
           $lang = User::where('id',$request->id)->first();
             $language = $lang->language;
@@ -400,12 +402,9 @@ class ChatController extends Controller
             }
             $msg = str_replace('{message}', ($request->message->attachment === true) ? 'Image' : $request->message->message, $msg);
 
-            (new AppNotificationController())->pushNotification($request->id, $request->by, $msg);
+        /*     (new AppNotificationController())->pushNotification($request->id, $request->by, $msg);
             (new AppNotificationController())->pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
-
-
-
-
+ */
 
 
         return response()->json($request->all(), 200);
