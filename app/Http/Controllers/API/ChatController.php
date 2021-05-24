@@ -386,8 +386,6 @@ class ChatController extends Controller
     {
 
 
-        dd($request->all());
-
           $lang = User::where('id',$request->id)->first();
             $language = $lang->language;
             if ($language == 'arabic'){
