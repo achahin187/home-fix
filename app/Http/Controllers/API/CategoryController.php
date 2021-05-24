@@ -59,15 +59,15 @@ class CategoryController extends Controller
         } else {
             $category = $category->with(
                 'quick',
-/*                 'offers',
- */                'subCategories'
+               'offers',
+               'subCategories'
             )->get();
         }
 
         return __success([
             'services' => $category,
-            'offers' =>$offers,
-            'phones'   => $phones
+/*             'offers' =>$offers,
+ */            'phones'   => $phones
         ], 200);
     }
 
