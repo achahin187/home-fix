@@ -386,6 +386,8 @@ class ChatController extends Controller
     {
 
 
+        dd($request->all());
+
           $lang = User::where('id',$request->id)->first();
             $language = $lang->language;
             if ($language == 'arabic'){
@@ -400,8 +402,8 @@ class ChatController extends Controller
             }
             $msg = str_replace('{message}', ($request->attachment === true) ? 'Image' : $request->message, $msg);
 
-            pushNotification($request->id, $request->by, $msg);
-            pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
+            (new AppNotificationController())->pushNotification($request->id, $request->by, $msg);
+            (new AppNotificationController())->pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
 
 
 
