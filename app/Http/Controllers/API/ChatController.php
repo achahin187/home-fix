@@ -398,7 +398,7 @@ class ChatController extends Controller
                 $msg = NotificationType::where('type', 'new_message')
                 ->first()->message;
             }
-            $msg = str_replace('{message}', ($request->attachment === true) ? 'Image' : $request->message, $msg);
+            $msg = str_replace('{message}', $request->message, $msg);
 
              pushNotification($request->id, $request->by, $msg);
              pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
