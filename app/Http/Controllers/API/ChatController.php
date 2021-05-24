@@ -398,10 +398,10 @@ class ChatController extends Controller
                 $msg = NotificationType::where('type', 'new_message')
                 ->first()->message;
             }
-            $msg = str_replace('{message}', $request->message, $msg);
+            $message = str_replace('{message}', $request->message, $msg);
 
-             pushNotification($request->id, $request->by, $msg);
-             pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
+             pushNotification($request->id, $request->by, $message);
+             pushFCM($request->id, 'message', $message, ['messageId', $request->message_id]);
 
 
         return response()->json($request->all(), 200);
