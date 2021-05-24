@@ -384,7 +384,8 @@ class ChatController extends Controller
 
     public function pushNotification_chat(Request $request)
     {
- dd($request->user['id']);
+
+ dd($request->id);
 
           $lang = User::where('id',$request->id)->first();
             $language = $lang->language;
