@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
+use App\Http\Controllers\NotificationController;
 use App\Conversation;
 use App\Http\Controllers\Controller;
 use App\Message;
@@ -400,8 +400,9 @@ class ChatController extends Controller
             }
             $msg = str_replace('{message}', ($request->message->attachment === true) ? 'Image' : $request->message->message, $msg);
 
-                pushNotification($request->id, $request->by, $msg);
-                pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
+            (new AppNotificationController())->pushNotification($request->id, $request->by, $msg);
+            (new AppNotificationController())->pushFCM($request->id, 'message', $msg, ['messageId', $request->message_id]);
+
 
 
 
