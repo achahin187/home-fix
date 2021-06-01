@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Service;
+use App\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,19 +52,22 @@ class CategoryController extends Controller
             ['parent_id', null]
         ]);
 
+        $offers = Offer::where('status',1)->where('country_id',auth()->user()->user_country_id)->get();
+
         if (!$category) {
             $category = new Category();
         } else {
             $category = $category->with(
                 'quick',
-                'offers',
-                'subCategories'
+               'offers',
+               'subCategories'
             )->get();
         }
 
         return __success([
             'services' => $category,
-            'phones'   => $phones
+/*             'offers' =>$offers,
+ */            'phones'   => $phones
         ], 200);
     }
 
@@ -88,8 +92,8 @@ class CategoryController extends Controller
             return __success(new Service(), 200);
         }
     }
-    
-    
+
+
         public function getWorkerCategories(Request $request)
     {
 
