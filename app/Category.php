@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
 
@@ -29,10 +29,18 @@ class Category extends Model
     }
 
 
+
+
     public function offers()
     {
-        return $this->hasMany(Offer::class, 'category_id');
+
+            return $this->hasMany(Offer::class, 'category_id');
+
+
+
+
     }
+
 
     public function workers()
     {

@@ -341,14 +341,20 @@ class OrderController extends Controller
             if ($language == 'arabic') {
                 $message = NotificationType::where('type', 'new_order')
                     ->first()->message_ar;
+                    $message = str_replace('{order_no}', '#' . $order->order_no, $msg);
+
                 pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
             } else if ($language == 'english') {
                 $message  = NotificationType::where('type', 'new_order')
                     ->first()->message_en;
+                    $message = str_replace('{order_no}', '#' . $order->order_no, $msg);
+
                 pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
             } else {
                 $message  = NotificationType::where('type', 'new_order')
                     ->first()->message;
+                    $message = str_replace('{order_no}', '#' . $order->order_no, $msg);
+
                 pushFCM($order->worker_id, 'order', $message, ['orderId', $order->id]);
             }
         }

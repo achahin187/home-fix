@@ -162,14 +162,26 @@ class User extends Authenticatable
 
     public function getCvPathAttribute()
     {
-     
-        return 'storage/app/public/CVs/'. $this->id .'/' . $this->cv;
+        if($this->cv != null) {
+            return 'storage/app/public/CVs/'. $this->id .'/' . $this->cv;
+
+        }else{
+            return null;
+        }
+
     }
 
     public function getIdPathAttribute()
     {
-    
-        return 'storage/app/public/identities/'. $this->id .'/' . $this->identity;
+
+        if($this->identity != null) {
+            return 'storage/app/public/identities/'. $this->id .'/' . $this->identity;
+
+        }else{
+            return null;
+        }
+
+
     }
 
     /*public function getBadgePathAttribute()
@@ -191,7 +203,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(City::class, 'user_addresses');
     }
-  
+
     public function getUserCountryAttribute()
     {
         $_country = $this->country()->first();
@@ -208,7 +220,7 @@ class User extends Authenticatable
         $_country = $this->country()->first();
         return $_country->currency ?? '';
     }
-    
+
     public function getUserCountryIdAttribute()
     {
         $_country = $this->country()->first();
@@ -252,7 +264,7 @@ class User extends Authenticatable
     {
         return [
             'category'   => $this->getUserCategoryAttribute(),
-          
+
         ];
     }
     public function getUserReviewAttribute()
@@ -264,12 +276,12 @@ class User extends Authenticatable
     {
         return [
             'review'   => $this->getUserReviewAttribute(),
-          
+
         ];
     }
-    
 
- 
+
+
     /**
      * Send the password reset notification.
      *

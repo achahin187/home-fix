@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
+use App\Http\Controllers\NotificationController;
 use App\Conversation;
 use App\Http\Controllers\Controller;
 use App\Message;
@@ -134,7 +134,7 @@ class ChatController extends Controller
             ? $order->worker_id
             : $order->client_id;
         if ($order !== null) {
-            //$language = Auth::user()->language ; 
+            //$language = Auth::user()->language ;
             $lang = User::where('id',$user)->first();
             $language = $lang->language;
             if ($language == 'arabic'){
@@ -355,7 +355,7 @@ class ChatController extends Controller
             ? $order->worker_id
             : $order->client_id;
         if ($order !== null) {
-            //$language = Auth::user()->language ; 
+            //$language = Auth::user()->language ;
             $lang = User::where('id',$user)->first();
             $language = $lang->language;
             if ($language == 'arabic'){
@@ -376,6 +376,36 @@ class ChatController extends Controller
             }
         }
         return __success('success', 200);
+    }
+
+
+
+
+
+    public function pushNotification_chat(Request $request)
+    {
+
+
+          $lang = User::where('id',$request->id)->first();
+            $language = $lang->language;
+            if ($language == 'arabic'){
+                $msg = NotificationType::where('type', 'new_message')
+                ->first()->message_ar;
+            }else if ($language == 'english' ){
+                $msg = NotificationType::where('type', 'new_message')
+                ->first()->message_en;
+            }else{
+                $msg = NotificationType::where('type', 'new_message')
+                ->first()->message;
+            }
+            $message = str_replace('{message}', $request->message, $msg);
+
+             pushNotification($request->id, $request->by, $message);
+
+             pushFCM($request->id, 'message', $message, ['messageId', $request->message_id]);
+
+
+        return response()->json($request->all(), 200);
     }
 
 }

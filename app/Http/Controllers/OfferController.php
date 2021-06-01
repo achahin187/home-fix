@@ -121,8 +121,8 @@ class OfferController extends Controller
         $users   = User::whereIn('role', ['worker', 'client'])
         ->whereIn('language', ['english', 'arabic','turkish'])
         ->get();
-        
-        
+
+
       foreach ($users as $user) {
         $lang = User::where('id',$user->id)->first();
         $language = $lang->language;
@@ -153,21 +153,12 @@ class OfferController extends Controller
             }
 
         }
-        
 
 
-         
 
-                 
-                
-    
-              
-
-           
         }
 
-        $request->session()->flash('success',
-            trans('admin.offer_added'));
+        $request->session()->flash('success', trans('admin.offer_added'));
         return redirect()->route('offers.index');
     }
 
@@ -193,7 +184,7 @@ class OfferController extends Controller
         $workers = $_offer->first()
             ->category()->first()
             ->workers()->get();
-            
+
 
 
         return view('offers.view', [
@@ -259,7 +250,7 @@ class OfferController extends Controller
             'end_at_date'    => 'required',
             'end_at_time'    => 'required',
             'country_id' => 'required',
-            
+
         ]);
 
         $time   = strtotime($request->end_at_date . $request->end_at_time);
@@ -449,16 +440,43 @@ class OfferController extends Controller
         ])->update([
             'status' => $status
         ]);
-
         if ($status === true) {
-            $message = NotificationType::where('type', 'accept_offer')
-                ->first()->message;
 
-            $_offer  = Offer::where('id', $offer)->first();
-            $message = str_replace('{offer_name}', '( ' . $_offer->name_ar . ' )', $message);
+            $lang = User::where('id', $worker)->first();
+            $language = $lang->language;
+            if ($language == 'arabic') {
+                $message = NotificationType::where('type',  'accept_offer')
+                    ->first()->message_ar;
+                    $_offer  = Offer::where('id', $offer)->first();
+                    $message = str_replace('offer_name', '( ' . $_offer->name_ar . ' )', $message);
+                    pushNotification($worker, Auth::id(), $message);
+                    pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
 
-            pushNotification($worker, Auth::id(), $message);
-            pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
+
+
+
+            } else if ($language == 'english') {
+                $message  = NotificationType::where('type',  'accept_offer')
+                    ->first()->message_en;
+                    $_offer  = Offer::where('id', $offer)->first();
+                    $message = str_replace('offer_name', '( ' . $_offer->name_en . ' )', $message);
+                    pushNotification($worker, Auth::id(), $message);
+                    pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
+
+            } else {
+                $message  = NotificationType::where('type',  'accept_offer')
+                    ->first()->message;
+                    $_offer  = Offer::where('id', $offer)->first();
+                    $message = str_replace('offer_name', '( ' . $_offer->name_tr . ' )', $message);
+                    pushNotification($worker, Auth::id(), $message);
+                    pushFCM($worker, 'offer', $message, ['offerId', $_offer->id]);
+
+            }
+
+
+
+
+
         }
 
         return response()->json('success', 200);

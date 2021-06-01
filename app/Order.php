@@ -88,7 +88,7 @@ class Order extends Model
     {
         if ($this->offer_id !== null) {
             $service = $this->offer()->first();
-            
+
             if ($service !== null) {
                 $service = Offer::where(
                     'id', $service->id
@@ -98,7 +98,7 @@ class Order extends Model
             $category = $service->category()->first();
             //return $category;
             return ($category !== null) ? $category->image : '';
-            
+
         } else {
             $service = $this->services()->first();
             if ($service !== null) {
@@ -124,7 +124,7 @@ class Order extends Model
             //     return ($category !== null) ? $category->image : '';
 
             // }
-      
+
         } else {
             return '';
         }
