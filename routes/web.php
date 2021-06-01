@@ -184,7 +184,8 @@ Route::resource('contactUs', 'contactUsController');
 //sample page for samples
 Route::get('samples','sampleController@index')->name('index_sample');
 
-
+//features
+Route::resource('features', 'FeaturesController');
 
 
 

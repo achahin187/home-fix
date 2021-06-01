@@ -472,13 +472,13 @@ return [
 
 
     'Slider_text'          => 'Slider Text',
-    'title_ar'            => 'Slider Title In Arabic' , 
-    'title_en'            => 'Slider Title In English ' ,
-    'title_tr'            => 'Slider Title In Turkish ' ,
+    'title_ar'            => 'Title In Arabic' , 
+    'title_en'            => 'Title In English ' ,
+    'title_tr'            => 'Title In Turkish ' ,
 
-    'text_ar'            => 'Slider Text In Arabic' , 
-    'text_en'            => 'Slider Text In English ' ,
-    'text_tr'            => 'Slider Text In Turkish ' ,
+    'text_ar'            => 'Text In Arabic' , 
+    'text_en'            => 'Text In English ' ,
+    'text_tr'            => 'Text In Turkish ' ,
     'Slider_added'       =>   'You Add Slider Show Successfully ' ,
     'image must be 780 * 422' => 'image must be 780 * 422',
 
@@ -510,7 +510,12 @@ return [
     'complain_status_error'   => 'Can not change complain\'s status.',
     'complain_not_found'      => 'Sorry, This complain was not found.',
     'view_complain'           => 'View the complain',
-
+    'features_management'=>'Features Management',
+    'title'                   =>'title',
+    'text'                   =>'text',
+    'features'               =>'Features',
+    'edit_feature'           =>'edit feature',
+    'view_feature'           =>'view feature',
     /**
      * Footer
      */

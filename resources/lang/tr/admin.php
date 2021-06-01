@@ -486,7 +486,10 @@ return [
     'complain_status_error'   => 'Can not change complain\'s status.',
     'complain_not_found'      => 'Sorry, This complain was not found.',
     'view_complain'           => 'View the complain',
-
+    'features_management'=>'Features Management',
+    'features'               =>'Features',
+    'edit_feature'           =>'edit feature',
+    'view_feature'           =>'view feature',
     /**
      * Footer
      */
