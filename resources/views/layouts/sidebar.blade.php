@@ -182,6 +182,22 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('features.index') }}">
+                    <i class="ft-map"></i>
+                    <span class="menu-title">
+                        @lang('admin.features_management')
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('technicals.index') }}">
+                    <i class="ft-map"></i>
+                    <span class="menu-title">
+                        @lang('admin.technical_management')
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('admin.settings') }}">
                     <i class="ft-settings"></i>
                     <span class="menu-title">
