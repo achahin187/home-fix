@@ -14,7 +14,7 @@ class Feature extends Model
     public function getImageAttribute($val)
     {
     
-        return ($val !== null) ? url('/storage/features/' . $this->id .'/'. $val) : "";
+        return ($val !== null) ? url('public/storage/features/' . $this->id .'/'. $val) : "";
 
     }
 
