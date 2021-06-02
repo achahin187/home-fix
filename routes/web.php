@@ -187,6 +187,9 @@ Route::get('samples','sampleController@index')->name('index_sample');
 //features
 Route::resource('features', 'FeaturesController');
 
+//technicals
+Route::resource('technicals', 'TechnicalsController');
+
 
 
 

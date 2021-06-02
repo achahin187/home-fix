@@ -516,6 +516,12 @@ return [
     'features'               =>'Features',
     'edit_feature'           =>'edit feature',
     'view_feature'           =>'view feature',
+    'technical'              =>'technical',
+    'technical_management'   =>'technical management',
+    'add'                    =>'Add',
+    'technicals_info'        =>'technicals info',
+    'edit_technical'         =>'edit technical',
+    'view_technical'         =>'view technical',
     /**
      * Footer
      */

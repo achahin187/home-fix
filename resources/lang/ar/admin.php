@@ -517,8 +517,8 @@ return [
 
 
     'text_ar'            => 'تكست  بالعربيه ' , 
-    'text_en'            => 'تكست  بالعربيه  ' ,
-    'text_tr'            => 'تكست  بالعربيه  ' ,
+    'text_en'            => 'تكست  بالانجليزيه  ' ,
+    'text_tr'            => 'تكست  بالتركيه  ' ,
 
     'Slider_added'     => 'تم الاضافه بنجاح' ,
     'image must be 720 * 73' => '720 * 73 لا بد ان تكون الصوره',
@@ -551,6 +551,12 @@ return [
     'features'               =>'الميزات',
     'edit_feature'           =>'تعديل الميزات',
     'view_feature'           =>'عرض الميزات',
+    'technical'              =>'التقنية',
+    'technical_management'   =>'إدارة التقنية',
+    'add'                    =>'أضف',
+    'technicals_info'        =>'معلومات التقنية',
+    'edit_technical'         =>'تعديل التقنية ',
+    'view_technical'         =>'عرض التقنية ',
     /**
      * Footer
      */
