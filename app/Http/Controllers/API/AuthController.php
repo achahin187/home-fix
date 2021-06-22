@@ -397,6 +397,7 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
 
     public function check_User(Request $request, $user = null)
     {
+        dd($request->all());
         try{
 
             $validator = Validator::make($request->all(), [
