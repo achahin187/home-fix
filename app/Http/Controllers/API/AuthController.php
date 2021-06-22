@@ -414,10 +414,10 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                 'role'     => $request->role,
             ];
 
+            dd($credentials);
 
             if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
                 $user = $request->user();
-                dd('user');
 
                 $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
                 $user->notifications_key = $request->notifications_key;
