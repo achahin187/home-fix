@@ -413,6 +413,7 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                 'email'      => $request->email,
                 'role'     => $request->role,
             ];
+            dd($credentials);
 
 
             if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
