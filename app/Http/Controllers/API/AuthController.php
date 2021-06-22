@@ -327,7 +327,6 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
 
     public function login(Request $request, Authenticatable $user = null)
     {
-        dd($request->all());
 
 
         try{
