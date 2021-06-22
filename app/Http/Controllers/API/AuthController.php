@@ -409,10 +409,10 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                 return __error($validator->errors()->all()[0], 200);
             }
 
-            $type = filter_var($request->email,FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
-
+/*             $type = filter_var($request->email,FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+ */
             $credentials = [
-                $type      => $request->email,
+                $request->email      => $request->email,
                 'role'     => $request->role,
             ];
 
