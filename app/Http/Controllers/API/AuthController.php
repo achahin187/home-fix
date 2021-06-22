@@ -412,7 +412,7 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                $user=User::where('email',$request->email)->first();
 
 
-            if ( ($user) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
+            if ( ($user) && ($user->ban == 0) &&($user->verified == 1)) {
 
                 $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
                 $user->notifications_key = $request->notifications_key;
