@@ -16,7 +16,7 @@ Route::group([
         Route::post('login', 'AuthController@login');
         Route::post('social', 'AuthController@socialLogin');
         Route::post('setnotifications_key','AuthController@setnotifications_key');
-        Route::post('checkUser', 'AuthController@checkUser');
+        Route::post('checkUser', 'AuthController@check_User');
 
     });
 

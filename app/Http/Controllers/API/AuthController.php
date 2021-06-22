@@ -395,7 +395,7 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
     }
 
 
-    public function checkUser(Request $request,Authenticatable $user = null)
+    public function check_User(Request $request,Authenticatable $user = null)
     {
         try{
 
