@@ -413,7 +413,6 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                 'email'      => $request->email,
                 'role'     => $request->role,
             ];
-            dd($credentials);
 
 
             if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
@@ -423,6 +422,8 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                 $user->notifications_key = $request->notifications_key;
                 $user->language=$request->language ?? $user->language;
                 $user->save();
+
+                dd($user);
 
 
                 return __success($user, 200);
