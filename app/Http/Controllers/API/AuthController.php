@@ -411,7 +411,6 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
 
                $user=User::where('email',$request->email)->first();
 
-                dd($user);
 
             if ( ($user) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
 
