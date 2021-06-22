@@ -408,13 +408,17 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                 return __error($validator->errors()->all()[0], 200);
             }
 
+            $type = filter_var($request->username,
+            FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-            $credentials = [
-                'email'      => $request->email,
-                'role'     => $request->role,
-            ];
+        $credentials = [
+            $type      => $request->email,
+            'role'     => $request->role,
+        ];
 
-            dd(Auth::attempt($credentials));
+
+
+           dd(Auth::attempt($credentials));
 
             if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
                 $user = $request->user();
