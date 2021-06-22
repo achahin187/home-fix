@@ -329,10 +329,6 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
     {
 
 
-
-
-
-
         try{
 
             $validator = Validator::make($request->all(), [
@@ -396,6 +392,62 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
         }
 
 
+    }
+
+
+    public function checkUser(Request $request,Authenticatable $user = null)
+    {
+        try{
+
+            $validator = Validator::make($request->all(), [
+                'email' => 'required',
+                'role'     => 'in:worker,client',
+            ]);
+
+            if ($validator->fails()) {
+                return __error($validator->errors()->all()[0], 200);
+            }
+
+            $type = filter_var($request->email,FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
+            $credentials = [
+                $type      => $request->email,
+                'role'     => $request->role,
+            ];
+
+
+            if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
+                $user = $request->user();
+
+                $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
+                $user->notifications_key = $request->notifications_key;
+                $user->language=$request->language ?? $user->language;
+                $user->save();
+
+
+                return __success($user, 200);
+            }
+
+                return __success([
+                    'api_token'      => Auth::user()->api_token,
+                    'activation_key' => Auth::user()->activation_key,
+                    'role'  =>Auth::user()->role,
+                    'verified'=> Auth::user()->verified,
+                    'status_image' => Auth::user()->status_image,
+                    'status' =>'not Active',
+
+                 ], 200);
+
+
+
+
+
+
+        }catch(Exception $e){
+         return __error('unauthorized', 200);
+
+
+        }
     }
 
 
