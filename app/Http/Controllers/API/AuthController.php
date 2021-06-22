@@ -408,20 +408,12 @@ $country=Country::select(['id','name_'.app()->getLocale(). ' as CountryName','cu
                 return __error($validator->errors()->all()[0], 200);
             }
 
-            $type = filter_var($request->username,
-            FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-        $credentials = [
-            $type      => $request->email,
-            'role'     => $request->role,
-        ];
+               $user=User::where('email',$request->email)->first();
 
+                dd($user);
 
-
-           dd(Auth::attempt($credentials));
-
-            if (Auth::attempt($credentials) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
-                $user = $request->user();
+            if ( ($user) && (Auth::user()->ban == 0) &&(Auth::user()->verified == 1)) {
 
                 $user->api_token         = uniqid(base64_encode(Str::random(60)), false);
                 $user->notifications_key = $request->notifications_key;
